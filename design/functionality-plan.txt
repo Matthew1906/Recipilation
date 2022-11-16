@@ -1,0 +1,37 @@
+- Header:
+  => Dashboard: Clicking the logo
+  => Authentication: Login or Logout
+  => My Cookbook: Saved recipes (logged in)
+  => My Recipes: Created recipes (logged in)
+  => Profile: Edit profile
+
+- Dashboard:
+  => Top rated/trending recipes
+  => Top rated categories
+  => Recipes recommended for the user (only for logged in users)
+  => Recipes based on recently viewed recipes
+
+- Search Recipes
+  => shows recipes based on the search query (recipe name, author)
+
+- My Cookbook:
+  => User can save food into collections/cookbooks
+  => When the user clicks the cookbook in header, they will be redirected to a page that shows all the user's cookbooks.
+  => In this page, the cookbook is displayed in a gallery card fashion 
+  => These cookbooks can be edited, shared, or deleted
+  => When the user opens a cookbook, it will show the recipes sorted by alphabet.
+
+- My Recipes:
+  => display user's created recipes in card list format
+  => user can edit their own recipes
+
+- Profile:
+  => display user's profile page, along with cumulative rating and statistics
+  => user can edit their profile
+  => other user can follow other users and receive a notification when that user makes a new recipe
+
+- Individual recipe page
+  => This page will display all information about the recipe.
+  => User can rate and review the recipe
+  => They can also rate the simplicity (easy, medium, or hard) for the recipe.
+  => They can rate/review only once, but can change their reviews anytime
