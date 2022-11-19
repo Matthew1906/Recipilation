@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .link-expand {
+    @apply transition transform hover:scale-110 motion-reduce:transition-none motion-reduce:hover:transform-none
+  }
+}
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
