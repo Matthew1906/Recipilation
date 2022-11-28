@@ -22,5 +22,5 @@ module.exports = {
       'nunito':['Nunito', 'sans-serif'],
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 }

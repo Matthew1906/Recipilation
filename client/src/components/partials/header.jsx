@@ -1,13 +1,15 @@
+import { Link, NavLink } from "react-router-dom";
 import Button from "../utils/Button";
 import themeConfig from "../theme";
 
 const Header = ({ auth }) => {
   return (
     <header
-      className={`px-8 flex justify-between items-center w-full p-3 ${themeConfig["red"]}`}
+      className={`px-8 flex justify-between items-center w-full p-4 ${themeConfig["red"]}`}
     >
-      <div class="flex-grow-1 flex justify-between items-center gap-12">
-        <h1 className="font-fjalla-one text-3xl">RECIPILATION</h1>
+      <div className="flex-grow-1 flex justify-between items-center gap-12">
+        <Link to='/'><h1 className="font-fjalla-one text-3xl">RECIPILATION</h1></Link>
+        {auth != null &&       
         <ul className="flex gap-5 text font-nunito text-light">
           <a href="/">
             <li className="link-expand">Home</li>
@@ -29,15 +31,18 @@ const Header = ({ auth }) => {
             </>
           )}
         </ul>
+        }
       </div>
       {auth === "user" ? (
-        <Button link="#" theme="orange">
+        <Button theme="orange">
           LOGOUT
         </Button>
-      ) : (
-        <Button link="#" theme="orange">
+      ) : auth != null && (
+        <Link to='login'>
+        <Button theme="orange">
           LOGIN
         </Button>
+        </Link>
       )}
     </header>
   );
