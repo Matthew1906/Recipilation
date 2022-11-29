@@ -7,7 +7,7 @@ const Header = ({ auth }) => {
     <header
       className={`px-8 flex justify-between items-center w-full p-4 ${themeConfig["red"]}`}
     >
-      <div className="flex-grow-1 flex justify-between items-center gap-12">
+      <div className="flex justify-between items-center gap-12">
         <Link to='/'><h1 className="font-fjalla-one text-3xl">RECIPILATION</h1></Link>
         {auth != null &&       
         <ul className="flex gap-5 text font-nunito text-light">

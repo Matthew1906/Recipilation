@@ -5,6 +5,7 @@ import RecipeCarousel from "../components/containers/RecipeCarousel";
 import CombinationCard from "../components/cards/CombinationCard";
 import RecipeCard from "../components/cards/RecipeCard";
 import Button from "../components/utils/Button";
+import Pagination from "../components/containers/Pagination";
 
 const Dashboard = () => {
   const recipes = [
@@ -75,12 +76,12 @@ const Dashboard = () => {
   return (
     <div className="w-full min-h-screen h-auto flex flex-col justify-between">
       <Header auth="guest" />
-      <main className="min-h-screen h-auto overflow-x-hidden">
+      <main className="grow overflow-x-hidden">
         {/* Carousel (Top rated/Trending Recipes) */}
         <RecipeCarousel recipes={recipes} />
         {/* Top Categories */}
         <section className="px-10 py-8" id="top-categories">
-          <h5 class="font-nunito font-bold text-2xl mb-3 md:mb-0">
+          <h5 className="font-nunito font-bold text-2xl mb-3 md:mb-0">
             Top Categories
           </h5>
           <div className="flex justify-center lg:justify-between flex-wrap items-center px-8 mt-4">
@@ -102,7 +103,7 @@ const Dashboard = () => {
         </section>
         {/* Recipes - Recommended for you (User) */}
         <section className="px-10 py-8 bg-light-yellow" id="recommended">
-          <h5 class="font-nunito font-bold text-2xl mb-4 md:mb-0">
+          <h5 className="font-nunito font-bold text-2xl mb-4 md:mb-0">
             Recommended for you
           </h5>
           <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -121,21 +122,10 @@ const Dashboard = () => {
         {/* Top-rated recipes in (most famous category) */}
         {/* Recently viewed recipes (both) */}
         <section className="px-10 py-8 bg-white-secondary" id="recommended">
-          <h5 class="font-nunito font-bold text-2xl mb-4 md:mb-0">
+          <h5 className="font-nunito font-bold text-2xl mb-4 md:mb-0">
             Recently viewed
           </h5>
-          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {recipes.map((recipe, key) => (
-              <RecipeCard recipe={recipe} key={key} />
-            ))}
-          </div>
-          <Link>
-            <div className="text-center">
-              <Button theme="orange" className="mt-4 text-xl">
-                Load More
-              </Button>
-            </div>
-          </Link>
+          <Pagination items={recipes}/>
         </section>
         {/* Top-rated recipes in (recently viewed category if exists) */}
       </main>
