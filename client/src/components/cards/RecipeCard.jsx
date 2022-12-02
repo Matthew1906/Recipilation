@@ -4,11 +4,14 @@ import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
 import { limitString } from "../utils";
 
-
 const RecipeCard = ({ recipe }) => {
-    const editRecipe = ()=>console.log("Edit");
-    const deleteRecipe = ()=>console.log("Delete");
-    const difficultyConfig = {easy:'text-yellow', medium:'text-orange', hard:'text-red'};
+  const editRecipe = () => console.log("Edit");
+  const deleteRecipe = () => console.log("Delete");
+  const difficultyConfig = {
+    easy: "text-yellow",
+    medium: "text-orange",
+    hard: "text-red",
+  };
   return (
     <div className="grid grid-rows-2 lg:grid-rows-none lg:grid-cols-2 bg-white-primary h-full rounded-2xl drop-shadow-md">
       <Link to="/">
@@ -46,11 +49,24 @@ const RecipeCard = ({ recipe }) => {
         </div>
         <div className="flex justify-center items-center gap-3 mt-3">
           <p>
-            Level: <span className={`font-bold ${difficultyConfig[recipe.difficulty.toLowerCase()]}`}>{recipe.difficulty}</span>
+            Level:{" "}
+            <span
+              className={`font-bold ${
+                difficultyConfig[recipe.difficulty.toLowerCase()]
+              }`}
+            >
+              {recipe.difficulty}
+            </span>
           </p>
           <div className="flex gap-1 font-bold">
-            <FaTrashAlt className="text-red cursor-pointer link-expand" onClick={deleteRecipe} />{" "}
-            <FaEdit className="cursor-pointer link-expand" onClick={editRecipe}/>
+            <FaTrashAlt
+              className="text-red cursor-pointer link-expand"
+              onClick={deleteRecipe}
+            />{" "}
+            <FaEdit
+              className="cursor-pointer link-expand"
+              onClick={editRecipe}
+            />
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ const RecipeCarouselCard = ({ title, description }) => {
       <h3 className="font-fjalla-one font-medium text-xl md:text-3xl lg:text-5xl">{title}</h3>
       <p className="font-nunito md:text-xl lg:text-2xl">{description}</p>
       <Link to="/">
-        <Button theme="orange" className='text-xs'>Learn More</Button>
+        <Button theme="orange" className='text-xs' expand={true}>Learn More</Button>
       </Link>
     </div>
   );

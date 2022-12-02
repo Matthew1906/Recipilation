@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AuthIcons from "./AuthIcons";
+import AuthIcons from "../icons/AuthIcons";
 import Button from "../utils/Button";
 import Checkbox from "./Checkbox";
 import TextInput from "./TextInput";
@@ -51,7 +51,7 @@ const RegisterForm = ({ onSubmit }) => {
           checked={termsAndConditions}
           onChange={changeTermsAndConditions}
         />
-        <Button theme="orange" className="px-7 rounded-lg text-xs md:text-sm">
+        <Button theme="orange" className="px-7 rounded-lg text-xs md:text-sm" expand={true}>
           Sign Up
         </Button>
       </div>

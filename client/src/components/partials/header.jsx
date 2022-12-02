@@ -14,18 +14,18 @@ const Header = ({ auth }) => {
           <a href="/">
             <li className="link-expand">Home</li>
           </a>
-          <a href="/">
+          <a href="/search">
             <li className="link-expand">Search</li>
           </a>
           {auth === "user" && (
             <>
-              <a href="/">
+              <a href="/cookbooks">
                 <li className="link-expand">My Cookbooks</li>
               </a>
-              <a href="/">
+              <a href="/profile">
                 <li className="link-expand">Profile</li>
               </a>
-              <a href="/">
+              <a href="/my-recipes">
                 <li className="link-expand">My Recipes</li>
               </a>
             </>
@@ -34,12 +34,12 @@ const Header = ({ auth }) => {
         }
       </div>
       {auth === "user" ? (
-        <Button theme="orange">
+        <Button theme="orange" expand={true}>
           LOGOUT
         </Button>
       ) : auth != null && (
-        <Link to='login'>
-        <Button theme="orange">
+        <Link to='/login'>
+        <Button theme="orange" expand={true}>
           LOGIN
         </Button>
         </Link>

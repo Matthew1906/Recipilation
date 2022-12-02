@@ -1,0 +1,12 @@
+components
+    - cards: display card-type components
+    - containers: display collection-type components
+    - forms: forms and form inputs
+    - icons: icon type components
+    - partials: partial elements (header and footer)
+    - utils: utility components (buttons, images, etc.)
+
+pages:
+    - constants: pages that always exist in a webpage (authentication pages, dashboard)
+    - contents: individual object pages (profile, recipe, category (recipes of that category), cookbook (recipes in that cookbook))
+    - core: main features of the website (search, categories, cookbooks, my-recipes, make-recipe)

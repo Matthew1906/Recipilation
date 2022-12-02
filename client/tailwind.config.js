@@ -4,8 +4,9 @@ module.exports = {
   safelist: [
     { pattern:/grid-rows-./ },
     { pattern:/grid-cols-./ },
-    { pattern:/text-.xl/},
-    
+    { pattern:/text-.xl/ },
+    { pattern:/p./},
+    { pattern:/grid-cols-./, variants:['md', 'lg']}
   ],
   theme: {
     colors:{

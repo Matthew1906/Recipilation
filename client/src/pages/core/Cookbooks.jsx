@@ -1,0 +1,15 @@
+import CollectionsLayout from "../../layouts/CollectionsLayout";
+import { categories } from "../data";
+
+const Cookbooks = ()=>{
+    return (
+        <CollectionsLayout 
+            auth="user"
+            heading="Cookbooks"
+            subheading="Check out your collection of saved recipes!"
+            items={[...categories, ...categories.slice(2,4)]}
+        />
+    )
+};
+
+export default Cookbooks;
