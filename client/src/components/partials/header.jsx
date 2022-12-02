@@ -11,23 +11,23 @@ const Header = ({ auth }) => {
         <Link to='/'><h1 className="font-fjalla-one text-3xl">RECIPILATION</h1></Link>
         {auth != null &&       
         <ul className="flex gap-5 text font-nunito text-light">
-          <a href="/">
+          <NavLink to="/">
             <li className="link-expand">Home</li>
-          </a>
-          <a href="/search">
+          </NavLink>
+          <NavLink to="/search">
             <li className="link-expand">Search</li>
-          </a>
+          </NavLink>
           {auth === "user" && (
             <>
-              <a href="/cookbooks">
+              <NavLink to="/cookbooks">
                 <li className="link-expand">My Cookbooks</li>
-              </a>
-              <a href="/profile">
+              </NavLink>
+              <NavLink to="/profile">
                 <li className="link-expand">Profile</li>
-              </a>
-              <a href="/my-recipes">
+              </NavLink>
+              <NavLink to="/my-recipes">
                 <li className="link-expand">My Recipes</li>
-              </a>
+              </NavLink>
             </>
           )}
         </ul>

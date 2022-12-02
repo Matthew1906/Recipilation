@@ -26,7 +26,7 @@ const Dashboard = () => {
                 key={key}
                 images={category.images.slice(0, 4)} // can only show 4 first images
                 name={category.name}
-                to="/"
+                to="/categories/italian"
               />
             ))}
             <Link to="/categories">

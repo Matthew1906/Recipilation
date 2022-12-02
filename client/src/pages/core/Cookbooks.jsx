@@ -8,6 +8,7 @@ const Cookbooks = ()=>{
             heading="Cookbooks"
             subheading="Check out your collection of saved recipes!"
             items={[...categories, ...categories.slice(2,4)]}
+            cookbook={true}
         />
     )
 };
