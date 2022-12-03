@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
 import CombinationImages from "../utils/CombinationImages";
 
-const CombinationCard = ({ cookbook, to, name, images, recipes }) => {
+const CombinationCard = ({ cookbook, name, images, recipes }) => {
     return (
         <div className="flex bg-white-primary rounded-2xl drop-shadow-md">
             <div className="w-1/2 h-full">
@@ -18,7 +18,7 @@ const CombinationCard = ({ cookbook, to, name, images, recipes }) => {
             <p className="mt-2 font-nunito font-light text-xl">
                 {recipes} recipes
             </p>
-            <Link to={cookbook?`/cookbooks/${name.tolowerCase()}`:`/categories/${name.toLowerCase()}`}>
+            <Link to={cookbook?`/cookbooks/${name.toLowerCase()}`:`/categories/${name.toLowerCase()}`}>
             <p className="mt-1 font-nunito font-light text-xl text-red underline">
                 Check it out
             </p>

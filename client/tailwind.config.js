@@ -2,11 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   safelist: [
+    'auto-cols-auto', 
     { pattern:/grid-rows-./ },
-    { pattern:/grid-cols-./ },
+    { pattern:/grid-cols-./, variants:['md', 'lg']},
     { pattern:/text-.xl/ },
     { pattern:/p./},
-    { pattern:/grid-cols-./, variants:['md', 'lg']}
   ],
   theme: {
     colors:{

@@ -30,7 +30,7 @@ const PageIndicator = ({ pages, current, prev, next }) => {
 };
 
 
-const Pagination = ({items, perPage})=>{
+const Pagination = ({auto, items, perPage})=>{
     const [pageItems, setPageItems] = useState([]);
     const [pages, setPages] = useState(1);
     const [current, setCurrent] = useState(1);
@@ -54,7 +54,7 @@ const Pagination = ({items, perPage})=>{
     }, [current, items, perPage])
     return (
         <div className='text-center'>
-          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className={`mt-4 grid ${auto?"auto-cols-auto":"grid-cols-1 md:grid-cols-2"}  gap-8`}>
             {pageItems.slice((current-1)*perPage, current*perPage).map((recipe, key) => (
               <RecipeCard recipe={recipe} key={key} />
             ))}

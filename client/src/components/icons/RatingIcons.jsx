@@ -5,8 +5,8 @@ const RatingIcons = ({ rating }) => {
     <div className="flex items-center text-yellow gap-1">
       {Array(rating)
         .fill("star")
-        .map((key) => (
-          <FaStar key={key} />
+        .map((val, key) => (
+          <FaStar key={val+key} />
         ))}
     </div>
   );
