@@ -14,7 +14,7 @@ const RecipeCard = ({ recipe }) => {
   };
   return (
     <div className="grid grid-rows-2 lg:grid-rows-none lg:grid-cols-2 bg-white-primary h-full rounded-2xl drop-shadow-md">
-      <Link to="/">
+      <Link to="/recipes/classic-lasagna">
         <img
           src={recipe.image}
           alt={recipe.title}
@@ -22,14 +22,14 @@ const RecipeCard = ({ recipe }) => {
         />
       </Link>
       <div className="p-5 rounded-b-2xl lg:rounded-bl-none lg:rounded-r-2xl flex flex-col">
-        <Link to="/">
+        <Link to="/recipes/classic-lasagna">
           <h6 className="text-2xl font-fjalla-one">{recipe.title}</h6>
         </Link>
         <p className="my-2 font-nunito font-light">
           {limitString(recipe.description, 100)}
         </p>
         <div className="flex justify-between">
-          <div className="flex justify-center items-center">
+          <div className="flex place-items-center">
             <MdTimer className="w-10 h-10 mr-1" />
             <div className="text-sm">
               <p>

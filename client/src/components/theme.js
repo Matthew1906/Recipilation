@@ -9,7 +9,6 @@ const themeConfig = {
     'hard':'bg-light-red, text-red',
     'medium':'bg-light-yellow text-orange',
     'easy':'bg-light-yellow text-yellow',
-    'white':'bg-white'
 };
 
 export default themeConfig;

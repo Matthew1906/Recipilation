@@ -23,9 +23,9 @@ const Profile = () => {
             <p className="font-light">******************</p>
             <FaEdit onClick={editPassword} className="cursor-pointer" />
           </div>
-          <button onClick={followUser}>
+          <div onClick={followUser}>
             <Button theme="blue">FOLLOW</Button>
-          </button>
+          </div>
           <div className="mt-2 grid grid-cols-3 gap-4 text-center">
             <div className="border-r-2 border-black px-2">
               <h6 className="font-semibold">followers</h6>
@@ -40,7 +40,7 @@ const Profile = () => {
               <p className="font-light">4 recipes</p>
             </div>
           </div>
-          <div className="flex justify-center items-center gap-1">
+          <div className="flex place-items-center gap-1">
             <RatingIcons rating={4} />
             <p className="font-light">(5)</p>
           </div>
