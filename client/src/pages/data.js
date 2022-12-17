@@ -96,3 +96,31 @@ export const profiles = [
     reviews: 0
   }
 ];
+
+export const equipments = [
+  {name:'Stainless steel mixing bowl', image:'/images/equipment-card.png'},
+  {name:'Stainless steel mixing bowl', image:'/images/equipment-card.png'},
+  {name:'Stainless steel mixing bowl', image:'/images/equipment-card.png'},
+  {name:'Stainless steel mixing bowl', image:'/images/equipment-card.png'},
+  {name:'Stainless steel mixing bowl', image:'/images/equipment-card.png'},
+  {name:'Stainless steel mixing bowl', image:'/images/equipment-card.png'},
+];
+
+export const ingredients = [
+  {amount:3, measurement:'cups', name:'hoisin sauce', details:"(60 ml/cc)"},
+  {amount:3, measurement:'cups', name:'hoisin sauce', details:"(60 ml/cc)"},
+  {amount:3, measurement:'cups', name:'hoisin sauce', details:"(60 ml/cc)"},
+  {amount:3, measurement:'cups', name:'hoisin sauce', details:"(60 ml/cc)"},
+  {amount:3, measurement:'cups', name:'hoisin sauce', details:"(60 ml/cc)"},
+];
+
+export const steps = [
+  {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+  {title:'Brown the ground beefss', image:'/images/equipment-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+  {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+  {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+  {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+  {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+  {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+  {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+]

@@ -9,6 +9,9 @@ import { titleString } from "../../components/utils";
 import themeConfig from "../../components/theme";
 import { useEffect, useState } from "react";
 import Button from "../../components/utils/Button";
+import Pagination from "../../components/containers/Pagination";
+import { equipments, ingredients, steps } from "../data";
+import StepCarousel from "../../components/containers/StepCarousel";
 
 const categoryConfig = {
     'red':'bg-red text-white-primary',
@@ -88,6 +91,28 @@ const Recipe = ()=>{
                     <Button theme='green'>Add to Collection</Button>
                 </div>
             </div>
+        </section>
+        <section id='ingredients-equipments' className="p-8 grid grid-cols-2 gap-6 min-h-screen bg-light-yellow">
+            <div>
+                <h6 className='text-nunito text-3xl font-semibold'>Equipments:</h6>
+                <Pagination items={equipments} type='equipment' perPage={6} cols={3}/>
+            </div>
+            <div>
+                <h6 className='text-nunito text-3xl font-semibold'>Ingredients:</h6>
+                <ul className="mt-2 px-10">
+                    {ingredients.map((ingredient, key)=>(
+                        <li key={key} className='my-1 list-disc text-3xl'>
+                            <span>{ingredient.amount} {ingredient.measurement} of</span>
+                            <span className="mx-2 font-semibold">{ingredient.name}</span>
+                            <span>{ingredient.details}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </section>
+        <section id="tutorial" className="bg-white-primary text-center py-8">
+            <h6 className='text-nunito text-3xl mb-4'>How to make <span className="font-semibold">{titleString(recipe)}</span></h6>
+            <StepCarousel items={steps}/>
         </section>
         </>
     )

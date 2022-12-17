@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import EquipmentCard from "../cards/EquipmentCard";
 import RecipeCard from "../cards/RecipeCard";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 
@@ -30,7 +31,7 @@ const PageIndicator = ({ pages, current, prev, next }) => {
 };
 
 
-const Pagination = ({auto, items, perPage})=>{
+const Pagination = ({auto, items, cols, perPage, type='recipe'})=>{
     const [pageItems, setPageItems] = useState([]);
     const [pages, setPages] = useState(1);
     const [current, setCurrent] = useState(1);
@@ -54,12 +55,19 @@ const Pagination = ({auto, items, perPage})=>{
     }, [current, items, perPage])
     return (
         <div className='text-center'>
-          <div className={`mt-4 grid ${auto?"auto-cols-auto":"grid-cols-1 md:grid-cols-2"}  gap-8`}>
-            {pageItems.slice((current-1)*perPage, current*perPage).map((recipe, key) => (
-              <RecipeCard recipe={recipe} key={key} />
-            ))}
+          <div className={`mt-4 grid ${auto?"auto-cols-auto":`grid-cols-1 md:grid-cols-${cols?cols:2}`} gap-8`}>
+            {pageItems.slice((current-1)*perPage, current*perPage).map((item, key) => {
+              if(type==='recipe'){
+                return <RecipeCard recipe={item} key={key} />
+              }
+              else{
+                return <EquipmentCard equipment={item} key={key} />
+              }
+            })}
           </div>
-          <PageIndicator pages={pages} current={current} prev={prevPage} next={nextPage}/>
+          {items.length>perPage
+          ? <PageIndicator pages={pages} current={current} prev={prevPage} next={nextPage}/>
+          :""}
         </div>
     );
 }
