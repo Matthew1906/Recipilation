@@ -58,4 +58,5 @@ const RecipeCarousel = ({ recipes }) => {
     </div>
   );
 };
+
 export default RecipeCarousel;

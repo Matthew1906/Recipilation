@@ -127,7 +127,7 @@ const Recipe = () => {
         className="p-8 grid grid-cols-2 gap-6 min-h-screen bg-light-yellow"
       >
         <div>
-          <h6 className="text-nunito text-3xl font-semibold">Equipments:</h6>
+          <h6 className="text-nunito text-4xl font-semibold">Equipments:</h6>
           <Pagination
             items={equipments}
             type="equipment"
@@ -136,7 +136,7 @@ const Recipe = () => {
           />
         </div>
         <div>
-          <h6 className="text-nunito text-3xl font-semibold">Ingredients:</h6>
+          <h6 className="text-nunito text-4xl font-semibold">Ingredients:</h6>
           <ul className="mt-2 px-10">
             {ingredients.map((ingredient, key) => (
               <li key={key} className="my-1 list-disc text-3xl">
@@ -151,7 +151,7 @@ const Recipe = () => {
         </div>
       </section>
       <section id="tutorial" className="bg-white-primary text-center py-8">
-        <h6 className="text-nunito text-3xl mb-4">
+        <h6 className="text-nunito text-4xl mb-4">
           How to make{" "}
           <span className="font-semibold">{titleString(recipe)}</span>
         </h6>
