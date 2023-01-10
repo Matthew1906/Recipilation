@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import EquipmentCard from "../cards/EquipmentCard";
-import RecipeCard from "../cards/RecipeCard";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
+import { EquipmentCard, RecipeCard } from "../cards";
 
 const PageIndicator = ({ pages, current, prev, next }) => {
   const prevPage = current <= 1 ? false : current - 1;

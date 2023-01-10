@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
-import Button from "../utils/Button";
-import themeConfig from "../theme";
+import { Button } from "../utils";
+import { themeConfig } from "../../utils/theme";
 
 const Header = ({ auth }) => {
   return (

@@ -1,10 +1,4 @@
-const TextInput = ({
-  placeholder,
-  type,
-  changeInput,
-  inputValue,
-  className,
-}) => {
+const TextInput = ({ placeholder, type, changeInput, inputValue, className,}) => {
   return (
     <input
       type={type}

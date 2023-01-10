@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
-import CombinationIcon from "../../components/icons/CombinationIcon";
-import RecipeCarousel from "../../components/containers/RecipeCarousel";
-import RecipeCard from "../../components/cards/RecipeCard";
-import Pagination from "../../components/containers/Pagination";
-import { categories, recipes } from "../data";
-import LoadMore from "../../components/containers/LoadMore";
+import { RecipeCard } from "../../components/cards";
+import { LoadMore, Pagination, RecipeCarousel } from "../../components/containers";
+import { CombinationIcon } from "../../components/icons";
+import { categories, recipes } from "../../utils/data";
 
 const Dashboard = () => {
   return (
@@ -13,9 +11,7 @@ const Dashboard = () => {
       <RecipeCarousel recipes={recipes} />
       {/* Top Categories */}
       <section className="px-10 py-8" id="top-categories">
-        <h5 className="font-nunito font-bold text-2xl mb-3 md:mb-0">
-          Top Categories
-        </h5>
+        <h5 className="font-nunito font-bold text-2xl mb-3 md:mb-0">Top Categories</h5>
         <div className="flex justify-center lg:justify-between flex-wrap items-center px-8 mt-4">
           {categories.map((category, key) => (
             <CombinationIcon
@@ -33,12 +29,7 @@ const Dashboard = () => {
         </div>
       </section>
       {/* Recipes - Recommended for you (User) */}
-      <LoadMore
-        title="Recommended for you"
-        to={"/"}
-        id="recommended"
-        className="px-10 py-8 bg-light-yellow"
-      >
+      <LoadMore title="Recommended for you" id="recommended" className="px-10 py-8 bg-light-yellow">
         {recipes.map((recipe, key) => (
           <RecipeCard recipe={recipe} key={key} />
         ))}
@@ -46,13 +37,8 @@ const Dashboard = () => {
       {/* Top-rated recipes in (most famous category) */}
       {/* Recently viewed recipes (both) */}
       <section className="px-10 py-8 bg-white-secondary" id="recommended">
-        <h5 className="font-nunito font-bold text-2xl mb-4 md:mb-0">
-          Recently viewed
-        </h5>
-        <Pagination
-          items={[...recipes, ...recipes.reverse(), ...recipes.slice(0, 2)]}
-          perPage={4}
-        />
+        <h5 className="font-nunito font-bold text-2xl mb-4 md:mb-0">Recently viewed</h5>
+        <Pagination items={[...recipes, ...recipes.reverse(), ...recipes.slice(0, 2)]} perPage={4}/>
       </section>
       {/* Top-rated recipes in (recently viewed category if exists) */}
     </>

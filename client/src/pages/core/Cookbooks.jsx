@@ -1,5 +1,5 @@
 import CollectionsLayout from "../../layouts/CollectionsLayout";
-import { categories } from "../data";
+import { categories } from "../../utils/data";
 
 const Cookbooks = ()=>{
     return (

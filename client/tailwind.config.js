@@ -6,7 +6,7 @@ module.exports = {
     { pattern:/grid-rows-./ },
     { pattern:/grid-cols-./, variants:['md', 'lg']},
     { pattern:/text-.xl/ },
-    { pattern:/p./},
+    { pattern:/p-./},
   ],
   theme: {
     colors:{

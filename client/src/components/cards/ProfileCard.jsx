@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import RatingIcons from "../icons/RatingIcons";
+import { RatingIcons } from "../icons";
 
-const ProfileCard = ({ name, image, recipes, rating, reviews }) => {
+const ProfileCard = ({profile}) => {
+  const {name, image, recipes, rating, reviews} = profile;
   return (
     <Link to={"/"}>
       <div className="rounded-l-full flex justify-between gap-5 bg-white-primary drop-shadow-lg">

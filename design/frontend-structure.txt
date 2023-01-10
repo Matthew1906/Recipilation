@@ -10,3 +10,8 @@ pages:
     - constants: pages that always exist in a webpage (authentication pages, dashboard)
     - contents: individual object pages (profile, recipe, category (recipes of that category), cookbook (recipes in that cookbook))
     - core: main features of the website (search, categories, cookbooks, my-recipes, make-recipe)
+
+utils:
+    - data: fake data
+    - string: string format
+    - theme: theme configuration

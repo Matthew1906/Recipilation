@@ -123,4 +123,14 @@ export const steps = [
   {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
   {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
   {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
-]
+];
+
+export const comments = [
+  {name: "Joko Jokoko", datetime:new Date(), rating:5, body:"The best lasagna recipe i've ever seen"},
+  {name: "Jeko Jokako", datetime:new Date(), rating:3, body:"The best lasagna recipe i've ever seen ever ever ever and forever"},
+  {name: "Juko Jokake", datetime:new Date(), rating:5, body:"The best lasagna recipe i've ever seen wadawwwwwwwwwwww"},
+  {name: "Jaka Jokako", datetime:new Date(), rating:4, body:"The best lasagna recipe i've ever"},
+  {name: "Jeki Jokoka", datetime:new Date(), rating:5, body:"The best lasagna recipe i've ever seen in my life, and probably the next life."},
+  {name: "Joki Jokeko", datetime:new Date(), rating:5, body:"The best lasagna recipe i've ever seen in my life, the next life, and probably my previous life too."},
+  {name: "Juki Jekoke", datetime:new Date(), rating:4, body:"The best lasagna recipe i've ever seen in my life"},
+];

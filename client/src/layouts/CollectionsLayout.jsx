@@ -1,5 +1,5 @@
-import LoadMore from "../components/containers/LoadMore";
-import CombinationCard from "../components/cards/CombinationCard";
+import { LoadMore } from "../components/containers";
+import { CombinationCard } from "../components/cards";
 
 const CollectionsLayout = ({ cookbook, heading, subheading, items }) => {
   return (

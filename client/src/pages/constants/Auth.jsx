@@ -1,7 +1,5 @@
-import Header from "../../components/partials/Header";
-import Footer from "../../components/partials/Footer";
-import LoginForm from "../../components/forms/LoginForm";
-import RegisterForm from "../../components/forms/RegisterForm";
+import { LoginForm, RegisterForm } from "../../components/forms";
+import { Header, Footer } from "../../components/partials";
 
 const Auth = ({ purpose }) => {
   const handleSubmit = (input) => console.log(input);

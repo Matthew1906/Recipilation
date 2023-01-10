@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
-import { limitString } from "../utils";
+import { limitString } from "../../utils/string";
 
 const RecipeCard = ({ recipe }) => {
   const editRecipe = () => console.log("Edit");

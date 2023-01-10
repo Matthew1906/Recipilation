@@ -1,9 +1,9 @@
 import { useParams, useNavigate } from "react-router";
 import { FaEdit, FaShareAlt, FaTrashAlt } from "react-icons/fa";
 import { TiArrowBack } from "react-icons/ti";
-import { recipes } from "../data";
-import Pagination from "../../components/containers/Pagination";
-import { titleString } from "../../components/utils";
+import { recipes } from "../../utils/data";
+import { Pagination } from "../../components/containers";
+import { titleString } from "../../utils/string";
 
 const Cookbook = () => {
   const { cookbook } = useParams();

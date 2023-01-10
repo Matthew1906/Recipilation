@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
-import CombinationImages from "../utils/CombinationImages";
+import { CombinationImages } from "../utils";
 
 const CombinationCard = ({ cookbook, name, images, recipes }) => {
     return (

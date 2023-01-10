@@ -1,5 +1,5 @@
 import { BsGoogle, BsMicrosoft, BsFacebook } from "react-icons/bs";
-import Button from "../utils/Button";
+import { Button } from "../utils";
 
 const AuthIcons = ()=>{
     return <div className="flex justify-center gap-5">

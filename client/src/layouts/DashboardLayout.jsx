@@ -1,6 +1,5 @@
 import { Outlet } from "react-router";
-import Header from "../components/partials/Header";
-import Footer from "../components/partials/Footer";
+import { Header, Footer } from "../components/partials";
 
 const DashboardLayout = () => {
   return (

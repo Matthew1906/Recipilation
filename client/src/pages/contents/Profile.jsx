@@ -1,8 +1,8 @@
 import { FaEdit } from "react-icons/fa";
-import { recipes } from "../data";
-import Pagination from "../../components/containers/Pagination";
-import Button from "../../components/utils/Button";
-import RatingIcons from "../../components/icons/RatingIcons";
+import { Pagination } from "../../components/containers";
+import { RatingIcons } from "../../components/icons";
+import { Button } from "../../components/utils";
+import { recipes } from "../../utils/data";
 
 const Profile = () => {
   const editPassword = () => console.log("Edit Password");

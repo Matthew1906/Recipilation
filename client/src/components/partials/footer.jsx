@@ -1,4 +1,4 @@
-import themeConfig from "../theme";
+import { themeConfig } from "../../utils/theme";
 
 const Footer = () => {
   return <footer className={`p-5 w-full flex justify-center items-center ${themeConfig['red']}`}>

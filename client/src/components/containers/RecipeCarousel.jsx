@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  BsFillArrowRightCircleFill,
-  BsFillArrowLeftCircleFill,
-} from "react-icons/bs";
-import Button from "../utils/Button";
-import { limitString } from "../utils";
+import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { Button } from "../utils";
+import { limitString } from "../../utils/string";
 
 const RecipeCarouselCard = ({ title, description }) => {
   return (

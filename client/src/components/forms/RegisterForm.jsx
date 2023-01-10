@@ -1,9 +1,9 @@
 import { useState } from "react";
-import AuthIcons from "../icons/AuthIcons";
-import Button from "../utils/Button";
+import { Link } from "react-router-dom";
 import Checkbox from "./Checkbox";
 import TextInput from "./TextInput";
-import { Link } from "react-router-dom";
+import { Button } from "../utils";
+import { AuthIcons } from "../icons";
 
 const RegisterForm = ({ onSubmit }) => {
   const [username, setUsername] = useState("");

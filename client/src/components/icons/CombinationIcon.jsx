@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import CombinationImages from "../utils/CombinationImages";
+import { CombinationImages } from "../utils";
 
 const CombinationIcon = ({to, images, name})=>{
     return (

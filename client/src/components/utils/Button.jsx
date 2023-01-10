@@ -1,4 +1,4 @@
-import themeConfig from "../theme";
+import { themeConfig } from "../../utils/theme";
 
 const Button = ({ children, theme, className, expand }) => {
   return (
