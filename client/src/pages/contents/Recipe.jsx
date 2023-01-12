@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { BsFillBarChartFill } from "react-icons/bs";
 import { FaEdit, FaShareAlt, FaTrashAlt } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
-import { TiArrowBack } from "react-icons/ti";
 import { CommentCard, RecipeCard } from "../../components/cards";
 import { LoadMore, Pagination, StepCarousel } from "../../components/containers";
-import { RatingIcons } from "../../components/icons";
+import { BackIcon, RatingIcons } from "../../components/icons";
 import { CommentForm } from "../../components/forms";
 import { Button } from "../../components/utils";
 import { comments, equipments, ingredients, steps, recipes } from "../../utils/data";
@@ -26,8 +25,6 @@ const AttributeIcon = ({ theme, children }) => {
 
 const Recipe = () => {
   const { recipe } = useParams();
-  const navigate = useNavigate();
-  const goBack = () => navigate(-1);
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     setCategories(
@@ -43,7 +40,7 @@ const Recipe = () => {
         <img src="/images/lasagna-card.jpg" alt="classic-lasagna" className="w-full h-full"/>
         <div className="bg-white-primary flex flex-col justify-center items-center gap-1">
           <div className="flex justify-center items-center">
-            <TiArrowBack onClick={goBack} className="text-2xl cursor-pointer" />
+            <BackIcon className="text-2xl cursor-pointer" />
             <span className="font-fjalla-one text-4xl">{titleString(recipe)}</span>
             <FaTrashAlt className="ml-2 text-red cursor-pointer link-expand text-lg" />
             <FaEdit className="ml-1 cursor-pointer link-expand text-lg" />

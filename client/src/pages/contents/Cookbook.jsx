@@ -1,18 +1,16 @@
-import { useParams, useNavigate } from "react-router";
+import { useParams } from "react-router";
 import { FaEdit, FaShareAlt, FaTrashAlt } from "react-icons/fa";
-import { TiArrowBack } from "react-icons/ti";
 import { recipes } from "../../utils/data";
 import { Pagination } from "../../components/containers";
+import { BackIcon } from "../../components/icons";
 import { titleString } from "../../utils/string";
 
 const Cookbook = () => {
   const { cookbook } = useParams();
-  const navigate = useNavigate();
-  const goBack = () => navigate(-1);
   return (
     <>
       <h2 className="px-10 pt-5 font-fjalla-one text-3xl mb-3 md:mb-0 flex items-center">
-        <TiArrowBack onClick={goBack} />
+        <BackIcon className="cursor-pointer"/>
         <span>{titleString(cookbook)}</span>
         <FaTrashAlt className="ml-2 text-red cursor-pointer link-expand text-lg" />
         <FaEdit className="ml-1 cursor-pointer link-expand text-lg" />

@@ -1,17 +1,15 @@
-import { useParams, useNavigate } from "react-router";
-import { TiArrowBack } from "react-icons/ti";
+import { useParams } from "react-router";
 import { Pagination } from "../../components/containers";
+import { BackIcon } from "../../components/icons";
 import { titleString } from "../../utils/string";
 import { recipes } from "../../utils/data";
 
 const Category = () => {
   const { category } = useParams();
-  const navigate = useNavigate();
-  const goBack = () => navigate(-1);
   return (
     <>
       <h2 className="px-10 pt-5 font-fjalla-one text-3xl mb-3 md:mb-0 flex">
-        <TiArrowBack onClick={goBack} />
+        <BackIcon className="cursor-pointer" />
         <span>{titleString(category)} Food</span>
       </h2>
       <h4 className="px-10 py-2 font-nunito font-extralight text-2xl">

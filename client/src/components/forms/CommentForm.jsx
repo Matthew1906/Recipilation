@@ -42,21 +42,21 @@ const CommentForm = () => {
           <div className="flex justify-center">
             <button
               type="button"
-              className={`${categoryConfig["yellow"]} p-4 rounded-l-lg link-expand ${difficulty==="easy"?"font-bold":""}`}
+              className={`${categoryConfig["yellow"]} p-4 rounded-l-lg z-0 hover:z-10 link-expand ${difficulty==="easy"?"font-bold":""}`}
               onClick={()=>changeDifficulty('easy')}
             >
               Easy
             </button>
             <button
               type="button"
-              className={`${categoryConfig["orange"]} p-4 link-expand ${difficulty==="medium"?"font-bold":""}`}
+              className={`${categoryConfig["orange"]} p-4 z-0 hover:z-10 link-expand ${difficulty==="medium"?"font-bold":""}`}
               onClick={()=>changeDifficulty('medium')}
             >
               Medium
             </button>
             <button
               type="button"
-              className={`${categoryConfig["red"]} p-4 rounded-r-lg link-expand ${difficulty==="hard"?"font-bold":""}`}
+              className={`${categoryConfig["red"]} p-4 rounded-r-lg z-0 hover:z-10 link-expand ${difficulty==="hard"?"font-bold":""}`}
               onClick={()=>changeDifficulty('hard')}
             >
               Hard

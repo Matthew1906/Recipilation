@@ -11,7 +11,7 @@ const MyRecipes = () => {
           <h2 className="pt-5 font-fjalla-one text-3xl mb-3 md:mb-0">My Recipes</h2>
           <h4 className="py-2 font-nunito font-extralight text-2xl">Check out my recipes!</h4>
         </div>
-        <Link to="/">
+        <Link to="/recipes/new">
           <Button theme="yellow">New Recipe</Button>
         </Link>
       </div>
