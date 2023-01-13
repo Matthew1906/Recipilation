@@ -6,18 +6,14 @@ import { Button } from "../utils";
 import { AuthIcons } from "../icons";
 
 const RegisterForm = ({ onSubmit }) => {
-  const [username, setUsername] = useState("");
-  const changeUsername = (e) => setUsername(e.target.value);
-  const [email, setEmail] = useState("");
-  const changeEmail = (e) => setEmail(e.target.value);
-  const [password, setPassword] = useState("");
-  const changePassword = (e) => setPassword(e.target.value);
-  const [termsAndConditions, setTermsAndConditions] = useState(false);
-  const changeTermsAndConditions = () =>
-    setTermsAndConditions(!termsAndConditions);
+  const [credential, setCredential] = useState({termsAndConditions:false});
+  const changeUsername = (e) => setCredential(prevInput=>({...prevInput, username:e.target.value}));
+  const changeEmail = (e) => setCredential(prevInput=>({...prevInput, email:e.target.value}));
+  const changePassword = (e) => setCredential(prevInput=>({...prevInput, password:e.target.value}));
+  const changeTermsAndConditions = () => setCredential(prevInput=>({...prevInput, termsAndConditions:!prevInput.termsAndConditions}));
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ username, email, password, termsAndConditions });
+    onSubmit(credential);
   };
   return (
     <form
@@ -30,25 +26,25 @@ const RegisterForm = ({ onSubmit }) => {
       <TextInput
         type="text"
         changeInput={changeUsername}
-        inputValue={username}
+        inputValue={credential.username || ""}
         placeholder="Username"
       />
       <TextInput
         type="text"
         changeInput={changeEmail}
-        inputValue={email}
+        inputValue={credential.email || ""}
         placeholder="Email"
       />
       <TextInput
         type="password"
         changeInput={changePassword}
-        inputValue={password}
+        inputValue={credential.password || ""}
         placeholder="Password"
       />
       <div className="flex justify-between">
         <Checkbox
           name="Terms and Conditions"
-          checked={termsAndConditions}
+          checked={credential.termsAndConditions}
           onChange={changeTermsAndConditions}
         />
         <Button theme="orange" className="px-7 rounded-lg text-xs md:text-sm" expand={true}>

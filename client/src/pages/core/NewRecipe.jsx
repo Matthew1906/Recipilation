@@ -1,4 +1,4 @@
-import { RecipeInformationForm } from "../../components/forms";
+import { RecipeInformationForm, RecipeMaterialForm, RecipeTutorialForm } from "../../components/forms";
 
 const NewRecipe = ()=>{
     return <RecipeInformationForm />

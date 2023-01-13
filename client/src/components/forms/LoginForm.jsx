@@ -6,15 +6,13 @@ import { Button}  from "../utils";
 import { AuthIcons } from "../icons";
 
 const LoginForm = ({ onSubmit }) => {
-  const [email, setEmail] = useState("");
-  const changeEmail = (e) => setEmail(e.target.value);
-  const [password, setPassword] = useState("");
-  const changePassword = (e) => setPassword(e.target.value);
-  const [rememberMe, setRememberMe] = useState(false);
-  const changeRememberMe = () => setRememberMe(!rememberMe);
+  const [credential, setCredential] = useState({rememberMe:false});
+  const changeEmail = (e) => setCredential(prevInput=>({...prevInput, email:e.target.value}));
+  const changePassword = (e) => setCredential(prevInput=>({...prevInput, password:e.target.value}));
+  const changeRememberMe = () => setCredential(prevInput=>({...prevInput, rememberMe:!prevInput.rememberMe}));
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ email, password, rememberMe });
+    onSubmit(credential);
   };
   return (
     <form
@@ -27,19 +25,19 @@ const LoginForm = ({ onSubmit }) => {
       <TextInput
         type="text"
         changeInput={changeEmail}
-        inputValue={email}
+        inputValue={credential.email || ""}
         placeholder="Email"
       />
       <TextInput
         type="password"
         changeInput={changePassword}
-        inputValue={password}
+        inputValue={credential.password || ""}
         placeholder="Password"
       />
       <div className="flex justify-between">
         <Checkbox
           name="Remember Me"
-          checked={rememberMe}
+          checked={credential.rememberMe}
           onChange={changeRememberMe}
         />
         <Button theme="orange" className="px-7 rounded-lg text-xs md:text-sm" expand={true}>
