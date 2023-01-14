@@ -113,7 +113,7 @@ const RecipeMaterialForm = ()=>{
                         <IngredientListForm/>
                     </ul>
                     <div className="flex items-center justify-center">
-                        <Button theme="neutral" className="border border-red !rounded-full w-12 h-12" onClick={setEquipments}>+</Button>
+                        <Button theme="neutral" className="border border-red !rounded-full w-12 h-12" onClick={addIngredients}>+</Button>
                     </div>
                 </div>
                 <div className="py-5 text-black">
