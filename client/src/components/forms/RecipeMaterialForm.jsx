@@ -16,12 +16,12 @@ const IngredientListItem = ({ingredient})=>{
                 {ingredient.details}
                 <div className="ml-2 flex gap-1 font-bold">
                     <FaTrashAlt
-                    className="text-red cursor-pointer link-expand"
-                    onClick={deleteIngredient}
+                        className="text-red cursor-pointer link-expand"
+                        onClick={deleteIngredient}
                     />
                     <FaEdit
-                    className="cursor-pointer link-expand"
-                    onClick={editIngredient}
+                        className="cursor-pointer link-expand"
+                        onClick={editIngredient}
                     />
                 </div>
             </div>

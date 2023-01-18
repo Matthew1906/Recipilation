@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TextInput from "./TextInput";
+import { TextInput } from "./helpers";
 import { Button } from "../utils";
 
 const SearchForm = ({onSubmit})=>{
@@ -11,12 +11,11 @@ const SearchForm = ({onSubmit})=>{
     }
     return (
         <form onSubmit={submitQuery} className="flex p-5">
-            <TextInput
-                placeholder="Search recipes, categories, or users"
-                type="text"
-                changeInput={changeQuery}
-                inputValue={query}
-                className="rounded-r-none"
+            <TextInput 
+                onChange={changeQuery} 
+                value={query || ""} 
+                placeholder="Search recipes, categories, or users" 
+                className="grow text-red placeholder:text-red rounded-r-none"
             />
             <Button className="rounded-l-none" theme="red" expand={false}>
                 Search

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Checkbox from "./Checkbox";
-import TextInput from "./TextInput";
+import { Checkbox, TextInput } from "./helpers";
 import { Button}  from "../utils";
 import { AuthIcons } from "../icons";
 
@@ -22,17 +21,19 @@ const LoginForm = ({ onSubmit }) => {
       <h3 className="font-fjalla-one text-center text-3xl lg:text-5xl text-red font-medium md:mb-5">
         LOGIN NOW
       </h3>
-      <TextInput
-        type="text"
-        changeInput={changeEmail}
-        inputValue={credential.email || ""}
-        placeholder="Email"
+      <TextInput 
+        type="email" 
+        onChange={changeEmail} 
+        value={credential.email || ""} 
+        placeholder="Email" 
+        className="grow text-red placeholder:text-red"
       />
-      <TextInput
+      <TextInput 
         type="password"
-        changeInput={changePassword}
-        inputValue={credential.password || ""}
+        onChange={changePassword}
+        value={credential.password || ""}
         placeholder="Password"
+        className="grow text-red placeholder:text-red"
       />
       <div className="flex justify-between">
         <Checkbox
