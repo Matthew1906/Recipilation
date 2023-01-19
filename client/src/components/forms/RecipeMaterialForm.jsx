@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { InputLabel } from "./helpers";
 import { EquipmentCard } from "../cards";
 import { BackIcon } from "../icons";
 import { Button } from "../utils";
@@ -29,6 +30,17 @@ const IngredientListItem = ({ingredient})=>{
     );
 }
 
+const IngredientListInput = ({type, value, onChange, className})=>{
+    return (
+        <input 
+            type={type} 
+            value={value} 
+            onChange={onChange} 
+            className={`mt-1 bg-white-primary border-red border rounded-md p-1 text-xs md:text-sm text-black ${className}`}
+        />
+    )
+}
+
 const IngredientListForm = ()=>{
     const [ingredient, setIngredient] = useState({});
     const setAmount = (e)=>setIngredient(prevInput=>({...prevInput, amount:e.target.value}));
@@ -41,42 +53,25 @@ const IngredientListForm = ()=>{
     }
     return(
     <li className="mb-2 text-sm">
-        <form className="flex justify-start items-start gap-2" onSubmit={submitForm}>
+        <form className="flex justify-start items-start gap-2 font-nunito" onSubmit={submitForm}>
             <div>
                 <label className="font-semibold">Amount</label>
-                <input 
-                    type='number' 
-                    value={ingredient.amount || "1"} 
-                    onChange={setAmount} 
-                    className="mt-1 bg-white-primary border-red border rounded-md p-1 text-xs md:text-sm w-10 text-black"
+                <IngredientListInput 
+                    type='number' value={ingredient.amount || "1"} 
+                    onChange={setAmount} className="w-10"
                 />
             </div>
             <div>
                 <label className="font-semibold">Measurement Unit</label>
-                <input 
-                    type='text' 
-                    value={ingredient.measurement || ""} 
-                    onChange={setMeasurement} 
-                    className="mt-1 bg-white-primary border-red border rounded-md p-1 text-xs md:text-sm text-black"
-                />
+                <IngredientListInput type='text' value={ingredient.measurement || ""} onChange={setMeasurement}/>
             </div>
             <div>
                 <label className="font-semibold">Ingredient Name</label>
-                <input 
-                    type='text' 
-                    value={ingredient.name || ""} 
-                    onChange={setName} 
-                    className="mt-1 w-auto bg-white-primary border-red border rounded-md p-1 text-xs md:text-sm text-black"
-                />
+                <IngredientListInput type='text' value={ingredient.name || ""} onChange={setName}/>
             </div>
             <div>
                 <label className="font-semibold">Extra Details</label>
-                <input 
-                    type='text' 
-                    value={ingredient.details || ""} 
-                    onChange={setDetails} 
-                    className="mt-1 bg-white-primary border-red border rounded-md p-1 text-xs md:text-sm text-black"
-                />
+                <IngredientListInput type='text' value={ingredient.details || ""} onChange={setDetails}/>
                 <div className="mt-2 flex justify-between items-center gap-3">
                     <Button theme="yellow" className="grow">Save</Button>
                     <Button theme="red"className="grow">Cancel</Button>
@@ -104,7 +99,7 @@ const RecipeMaterialForm = ()=>{
             </h4>
             <div className="lg:grid lg:grid-cols-2 lg:gap-10">
                 <div className="py-5 text-black">
-                    <h6 className="text-xl font-semibold mb-3">Recipe Ingredients<span className="text-red">*</span></h6>
+                    <InputLabel className="mb-3" required>Recipe Ingredients</InputLabel>
                     <ul className="list-disc list-outside px-5">
                         {ingredients.map((ingredient, key)=>(
                             <IngredientListItem ingredient={ingredient} key={key}/>
@@ -117,7 +112,7 @@ const RecipeMaterialForm = ()=>{
                     </div>
                 </div>
                 <div className="py-5 text-black">
-                    <h6 className="text-xl font-semibold mb-3">Recipe Equipments<span className="text-red">*</span></h6>
+                    <InputLabel className="mb-3" required>Recipe Equipments</InputLabel>
                     <div className="grid grid-cols-3 gap-y-4 justify-items-center">
                         {equipments.slice(0, 5).map((equipment, key)=>(
                             <EquipmentCard equipment={equipment} key={key}/>

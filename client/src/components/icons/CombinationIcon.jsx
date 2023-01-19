@@ -8,7 +8,7 @@ const CombinationIcon = ({to, images, name})=>{
             <CombinationImages
               images={images}
               name={name}
-              round={true}
+              round
               className="w-20 h-20"
             />
             <h6 className="ml-1 font-fjalla-one font-semibold text-xl md:text-3xl">

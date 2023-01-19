@@ -5,6 +5,7 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { EffectCoverflow, Navigation, Pagination} from 'swiper';
+import "./styles.css";
 
 const StepCarousel = ({items})=>{
     const [current, setCurrent] = useState(0);
@@ -12,8 +13,8 @@ const StepCarousel = ({items})=>{
         <div className='p-5'>
           <Swiper
             effect={"coverflow"}
-            grabCursor={true}
-            centeredSlides={true}
+            grabCursor
+            centeredSlides
             slidesPerView={3}
             coverflowEffect={{
               rotate: 40,
@@ -22,10 +23,12 @@ const StepCarousel = ({items})=>{
               modifier: 1,
               slideShadows: true,
             }}
-            pagination={true}
-            navigation={true}
+            loop
+            slidesPerGroupSkip={3}
+            pagination
+            navigation
             modules={[EffectCoverflow, Pagination, Navigation]}
-            className="w-full text-black"
+            className="step w-full text-black"
             onSlideChange={(swiper)=>setCurrent(swiper.realIndex)}
           >
             {items.map((item, key)=>(

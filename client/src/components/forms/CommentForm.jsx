@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Rating from "react-rating";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import { TextArea } from "./helpers";
 import { Button } from "../utils";
 import { categoryConfig } from "../../utils/theme";
 
@@ -21,12 +22,10 @@ const CommentForm = () => {
       <h4 className="pt-2 font-nunito font-extralight text-2xl">
         Only your name will be published
       </h4>
-      <textarea
-        rows="10"
+      <TextArea
+        rows={10} className="mt-4"
         placeholder="Write down your thoughts..."
-        onChange={changeComment}
-        className="mt-4 p-4 w-full border-red rounded-lg caret-light-red"
-        value={review.body || ""}
+        onChange={changeComment} value={review.body || ""}
       />
       <div className="flex justify-between py-2">
         <div className="flex justify-between items-center gap-4">
@@ -61,7 +60,7 @@ const CommentForm = () => {
             </button>
           </div>
         </div>
-        <Button theme="green" expand={true}>Submit</Button>
+        <Button theme="green" expand>Submit</Button>
       </div>
     </form>
   );

@@ -48,7 +48,7 @@ const RegisterForm = ({ onSubmit }) => {
           checked={credential.termsAndConditions}
           onChange={changeTermsAndConditions}
         />
-        <Button theme="orange" className="px-2 rounded-lg text-xs md:text-sm" expand={true}>
+        <Button theme="orange" className="px-2 rounded-lg text-xs md:text-sm" expand>
           Sign Up
         </Button>
       </div>

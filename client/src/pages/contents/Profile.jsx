@@ -52,7 +52,7 @@ const Profile = () => {
           <h5 className="mb-3 text-center text-3xl font-fjalla-one">
             Recipes by John Doe
           </h5>
-          <Pagination auto={true} items={recipes} perPage={2} />
+          <Pagination auto items={recipes} perPage={2}/>
         </div>
       </div>
     </>

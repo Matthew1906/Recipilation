@@ -8,7 +8,7 @@ const LoadMore = ({ id, title, children, className, cols }) => {
         {children}
       </div>
       <div className="text-center">
-        <Button theme="orange" className="mt-4 text-xl" expand={true}>
+        <Button theme="orange" className="mt-4 text-xl" expand>
           Load More
         </Button>
       </div>

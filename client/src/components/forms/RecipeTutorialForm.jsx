@@ -15,7 +15,7 @@ const RecipeTutorialForm = ()=>{
             <h4 className="pt-2 font-nunito font-extralight text-2xl">
                 Enter the steps on how to make your dish!
             </h4>
-            <div className="md:grid md:grid-cols-5 gap-10">
+            <div className="md:grid md:grid-cols-5 gap-10 font-nunito">
                 <div className="h-screen overflow-y-scroll py-5 col-span-3 text-black">
                     {steps.slice(0,3).map((step, key)=>(
                         <StepCard key={key} index={key} step={step} />

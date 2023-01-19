@@ -8,6 +8,7 @@ module.exports = {
     { pattern:/grid-cols-./, variants:['md', 'lg']},
     { pattern:/text-.xl/ },
     { pattern:/p-./},
+    { pattern:/w-./},
   ],
   theme: {
     colors:{

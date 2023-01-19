@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { RecipeCard } from "../../components/cards";
-import { LoadMore, Pagination, RecipeCarousel } from "../../components/containers";
+import { RecipeCarousel } from "../../components/carousels";
+import { LoadMore, Pagination } from "../../components/containers";
 import { CombinationIcon } from "../../components/icons";
 import { categories, recipes } from "../../utils/data";
 
@@ -37,7 +38,7 @@ const Dashboard = () => {
       {/* Top-rated recipes in (most famous category) */}
       {/* Recently viewed recipes (both) */}
       <section className="px-10 py-8 bg-white-secondary" id="recommended">
-        <h5 className="font-nunito font-bold text-2xl mb-4 md:mb-0">Recently viewed</h5>
+        <h5 className="font-nunito font-bold text-xl md:text-3xl mb-4 md:mb-0">Recently viewed</h5>
         <Pagination items={[...recipes, ...recipes.reverse(), ...recipes.slice(0, 2)]} perPage={4}/>
       </section>
       {/* Top-rated recipes in (recently viewed category if exists) */}

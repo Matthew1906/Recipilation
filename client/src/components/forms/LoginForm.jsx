@@ -41,7 +41,7 @@ const LoginForm = ({ onSubmit }) => {
           checked={credential.rememberMe}
           onChange={changeRememberMe}
         />
-        <Button theme="orange" className="px-7 rounded-lg text-xs md:text-sm" expand={true}>
+        <Button theme="orange" className="px-7 rounded-lg text-xs md:text-sm" expand>
           Login
         </Button>
       </div>

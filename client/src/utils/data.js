@@ -134,3 +134,15 @@ export const comments = [
   {name: "Joki Jokeko", datetime:new Date(), rating:5, body:"The best lasagna recipe i've ever seen in my life, the next life, and probably my previous life too."},
   {name: "Juki Jekoke", datetime:new Date(), rating:4, body:"The best lasagna recipe i've ever seen in my life"},
 ];
+
+export const difficulties = [
+  {value:'easy', name:'Easy'},
+  {value:'medium', name:'Medium'},
+  {value:'hard', name:'Hard'}
+];
+
+export const timeLengths = [
+  {value:'second', name:'second(s)'},
+  {value:'minute', name:'minute(s)'},
+  {value:'hour', name:'hour(s)'}
+];

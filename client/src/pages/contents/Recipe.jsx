@@ -5,7 +5,8 @@ import { FaEdit, FaShareAlt, FaTrashAlt } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
 import { CommentCard, RecipeCard } from "../../components/cards";
-import { LoadMore, Pagination, StepCarousel } from "../../components/containers";
+import { StepCarousel } from "../../components/carousels";
+import { LoadMore, Pagination } from "../../components/containers";
 import { BackIcon, RatingIcons } from "../../components/icons";
 import { CommentForm } from "../../components/forms";
 import { Button } from "../../components/utils";
@@ -82,7 +83,7 @@ const Recipe = () => {
             })}
           </div>
           <div>
-            <Button theme="green" expand={true}>Add to Collection</Button>
+            <Button theme="green" expand>Add to Collection</Button>
           </div>
         </div>
       </section>

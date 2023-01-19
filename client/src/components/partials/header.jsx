@@ -34,12 +34,12 @@ const Header = ({ auth }) => {
         }
       </div>
       {auth === "user" ? (
-        <Button theme="orange" expand={true}>
+        <Button theme="orange" expand>
           LOGOUT
         </Button>
       ) : auth != null && (
         <Link to='/login'>
-        <Button theme="orange" expand={true}>
+        <Button theme="orange" expand>
           LOGIN
         </Button>
         </Link>
