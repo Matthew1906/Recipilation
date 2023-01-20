@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { BsFillBarChartFill } from "react-icons/bs";
 import { FaEdit, FaShareAlt, FaTrashAlt } from "react-icons/fa";
@@ -10,11 +9,11 @@ import { LoadMore, Pagination } from "../../components/containers";
 import { BackIcon, RatingIcons } from "../../components/icons";
 import { CommentForm } from "../../components/forms";
 import { Button } from "../../components/utils";
+import { useMockCategories } from "../../hooks";
 import { comments, equipments, ingredients, steps, recipes } from "../../utils/data";
 import { titleString } from "../../utils/string";
-import { categoryConfig, themeConfig } from "../../utils/theme";
+import { themeConfig } from "../../utils/theme";
 
-const randomizeTheme = () => categoryConfig[Object.keys(categoryConfig)[Math.floor(Math.random() * Object.keys(categoryConfig).length)]];
 
 const AttributeIcon = ({ theme, children }) => {
   return (
@@ -26,15 +25,7 @@ const AttributeIcon = ({ theme, children }) => {
 
 const Recipe = () => {
   const { recipe } = useParams();
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    setCategories(
-      ["Lunch", "Dinner", "Western", "Pasta", "Meat"].map((category) => ({
-        name: category,
-        theme: randomizeTheme(),
-      }))
-    );
-  }, []);
+  const categories = useMockCategories();
   return (
     <>
       <section id='basic-info' className="grid grid-cols-2 h-screen">

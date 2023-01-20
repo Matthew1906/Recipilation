@@ -1,4 +1,4 @@
 import useImage from "./useImage";
-import useRecipeTime from "./useRecipeTime";
+import useMockCategories from "./useMockCategories";
 
-export { useImage, useRecipeTime };
+export { useImage, useMockCategories };

@@ -1,4 +1,4 @@
-import CollectionsLayout from "../../layouts/CollectionsLayout";
+import { CollectionsLayout } from "../../layouts";
 import { categories } from "../../utils/data";
 
 const Categories = ()=> (

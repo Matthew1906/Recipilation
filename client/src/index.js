@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
-import DashboardLayout from "./layouts/DashboardLayout";
+import { DashboardLayout } from "./layouts";
 import { Auth, Dashboard } from "./pages/constants";
 import { Categories, Cookbooks, MyRecipes, NewRecipe, Search} from "./pages/core";
 import { Category, Cookbook, Profile, Recipe } from "./pages/contents";

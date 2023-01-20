@@ -1,21 +1,20 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { Checkbox, TextInput } from "./helpers";
 import { Button}  from "../utils";
 import { AuthIcons } from "../icons";
 
 const LoginForm = ({ onSubmit }) => {
-  const [credential, setCredential] = useState({rememberMe:false});
-  const changeEmail = (e) => setCredential(prevInput=>({...prevInput, email:e.target.value}));
-  const changePassword = (e) => setCredential(prevInput=>({...prevInput, password:e.target.value}));
-  const changeRememberMe = () => setCredential(prevInput=>({...prevInput, rememberMe:!prevInput.rememberMe}));
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(credential);
-  };
+  const { control, handleSubmit } = useForm({
+    defaultValues:{
+      email:'', 
+      password:'', 
+      rememberMe:false
+    }
+  });
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       className="w-64 md:w-96 px-6 py-4 lg:py-8 lg:px-12 bg-white-primary flex flex-col gap-4 rounded-xl shadow-lg"
     >
       <h3 className="font-fjalla-one text-center text-3xl lg:text-5xl text-red font-medium md:mb-5">
@@ -23,24 +22,20 @@ const LoginForm = ({ onSubmit }) => {
       </h3>
       <TextInput 
         type="email" 
-        onChange={changeEmail} 
-        value={credential.email || ""} 
+        control={control}
+        name="email"
         placeholder="Email" 
         className="grow text-red placeholder:text-red"
       />
       <TextInput 
         type="password"
-        onChange={changePassword}
-        value={credential.password || ""}
+        control={control}
+        name="password"
         placeholder="Password"
         className="grow text-red placeholder:text-red"
       />
       <div className="flex justify-between">
-        <Checkbox
-          name="Remember Me"
-          checked={credential.rememberMe}
-          onChange={changeRememberMe}
-        />
+        <Checkbox name="rememberMe" label="Remember Me" control={control}/>
         <Button theme="orange" className="px-7 rounded-lg text-xs md:text-sm" expand>
           Login
         </Button>

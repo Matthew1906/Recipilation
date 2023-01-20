@@ -6,7 +6,7 @@ import { categories, profiles, recipes } from "../../utils/data";
 
 const Search = () => {
   const [query, setQuery] = useState("");
-  const searchQuery = (query) => setQuery(query);
+  const searchQuery = (res) => setQuery(res.query);
   return (
     <>
       <SearchForm onSubmit={searchQuery}/>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useController, useForm } from "react-hook-form";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { InputLabel } from "./helpers";
 import { EquipmentCard } from "../cards";
@@ -30,48 +30,46 @@ const IngredientListItem = ({ingredient})=>{
     );
 }
 
-const IngredientListInput = ({type, value, onChange, className})=>{
+const IngredientListInput = ({type, name, control, className})=>{
+    const { field, fieldState:{error} } = useController({name, control, rules:{required:true}}); 
     return (
         <input 
             type={type} 
-            value={value} 
-            onChange={onChange} 
+            value={field.value} 
+            onChange={field.onChange} 
             className={`mt-1 bg-white-primary border-red border rounded-md p-1 text-xs md:text-sm text-black ${className}`}
         />
     )
 }
 
 const IngredientListForm = ()=>{
-    const [ingredient, setIngredient] = useState({});
-    const setAmount = (e)=>setIngredient(prevInput=>({...prevInput, amount:e.target.value}));
-    const setMeasurement = (e)=>setIngredient(prevInput=>({...prevInput, measurement:e.target.value}));
-    const setName = (e)=>setIngredient(prevInput=>({...prevInput, name:e.target.value}));
-    const setDetails = (e)=>setIngredient(prevInput=>({...prevInput, details:e.target.value}));
-    const submitForm = (e)=>{
-        e.preventDefault();
-        console.log(ingredient);
-    }
+    const { control, handleSubmit } = useForm({
+        defaultValues:{
+            amount:1, 
+            measurement:"",
+            name:"",
+            details:""
+        }
+    });
+    const onSubmit = (data)=>console.log(data);
     return(
     <li className="mb-2 text-sm">
-        <form className="flex justify-start items-start gap-2 font-nunito" onSubmit={submitForm}>
+        <form className="flex justify-start items-start gap-2 font-nunito" onSubmit={handleSubmit(onSubmit)}>
             <div>
                 <label className="font-semibold">Amount</label>
-                <IngredientListInput 
-                    type='number' value={ingredient.amount || "1"} 
-                    onChange={setAmount} className="w-10"
-                />
+                <IngredientListInput type='number' name="amount" control={control} className="w-10"/>
             </div>
             <div>
                 <label className="font-semibold">Measurement Unit</label>
-                <IngredientListInput type='text' value={ingredient.measurement || ""} onChange={setMeasurement}/>
+                <IngredientListInput type='text' name="measurement" control={control}/>
             </div>
             <div>
                 <label className="font-semibold">Ingredient Name</label>
-                <IngredientListInput type='text' value={ingredient.name || ""} onChange={setName}/>
+                <IngredientListInput type='text' name="name" control={control}/>
             </div>
             <div>
                 <label className="font-semibold">Extra Details</label>
-                <IngredientListInput type='text' value={ingredient.details || ""} onChange={setDetails}/>
+                <IngredientListInput type='text' name="details" control={control}/>
                 <div className="mt-2 flex justify-between items-center gap-3">
                     <Button theme="yellow" className="grow">Save</Button>
                     <Button theme="red"className="grow">Cancel</Button>
@@ -85,12 +83,8 @@ const IngredientListForm = ()=>{
 const RecipeMaterialForm = ()=>{
     const addIngredients = ()=>console.log("Add new ingredient");
     const setEquipments = ()=>console.log("Open equipment modal");
-    const submitForm = (e)=>{
-        e.preventDefault();
-        console.log("Submit");
-    }
     return (
-        <form className="px-10 py-8" onSubmit={submitForm}>
+        <div className="px-10 py-8">
             <h2 className="pt-5 flex items-center gap-1 font-fjalla-one text-3xl mb-3 md:mb-0">
                 <BackIcon className="cursor-pointer"/> Add New Recipe
             </h2>
@@ -127,7 +121,7 @@ const RecipeMaterialForm = ()=>{
                 <Button theme="yellow" className="text-xl px-12">Back</Button>
                 <Button theme="orange" className="text-xl px-12">Continue</Button>
             </div>
-        </form>
+        </div>
     );
 };
 
