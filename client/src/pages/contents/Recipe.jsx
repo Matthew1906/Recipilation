@@ -9,7 +9,7 @@ import { LoadMore, Pagination } from "../../components/containers";
 import { BackIcon, RatingIcons } from "../../components/icons";
 import { CommentForm } from "../../components/forms";
 import { Button } from "../../components/utils";
-import { useMockCategories } from "../../hooks";
+import { useThemeCategories } from "../../hooks";
 import { comments, equipments, ingredients, steps, recipes } from "../../utils/data";
 import { titleString } from "../../utils/string";
 import { themeConfig } from "../../utils/theme";
@@ -25,7 +25,7 @@ const AttributeIcon = ({ theme, children }) => {
 
 const Recipe = () => {
   const { recipe } = useParams();
-  const categories = useMockCategories();
+  const categories = useThemeCategories(["Lunch", "Dinner", "Western", "Pasta", "Meat"]);
   return (
     <>
       <section id='basic-info' className="grid grid-cols-2 h-screen">

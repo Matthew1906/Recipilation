@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { ErrorMessage } from "@hookform/error-message";
 import { Checkbox, TextInput } from "./helpers";
 import { Button}  from "../utils";
 import { AuthIcons } from "../icons";
 
 const LoginForm = ({ onSubmit }) => {
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, formState:{errors} } = useForm({
     defaultValues:{
       email:'', 
       password:'', 
@@ -27,6 +28,7 @@ const LoginForm = ({ onSubmit }) => {
         placeholder="Email" 
         className="grow text-red placeholder:text-red"
       />
+      <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="-mt-2 text-sm text-right text-black">{message}</p>}/>
       <TextInput 
         type="password"
         control={control}
@@ -34,6 +36,7 @@ const LoginForm = ({ onSubmit }) => {
         placeholder="Password"
         className="grow text-red placeholder:text-red"
       />
+      <ErrorMessage errors={errors} name="password" render={({ message }) => <p className="-mt-2 text-sm text-right text-black">{message}</p>}/>
       <div className="flex justify-between">
         <Checkbox name="rememberMe" label="Remember Me" control={control}/>
         <Button theme="orange" className="px-7 rounded-lg text-xs md:text-sm" expand>

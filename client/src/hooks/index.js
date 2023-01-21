@@ -1,4 +1,4 @@
 import useImage from "./useImage";
-import useMockCategories from "./useMockCategories";
+import useThemeCategories from "./useThemeCategories";
 
-export { useImage, useMockCategories };
+export { useImage, useThemeCategories };

@@ -1,8 +1,20 @@
 import { useController } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 
-const NumberInput = ({name, control, className})=>{
-    const { field, fieldState:{error} } = useController({name, control, rules:{min:0}}); 
+const NumberInput = ({name, control, max, className})=>{
+    const { field } = useController({ name, control, 
+        rules:{
+            min:{
+                value:1, 
+                message:'Number must be larger than 0'
+            },
+            max:{
+                value: max,
+                message:`Number must be lower than or equal to ${max}`
+            },
+            required:"Must be filled",
+            valueAsNumber:"Must be a number"
+        }
+    }); 
     return (
         <input 
             type='number' 

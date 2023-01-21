@@ -1,10 +1,12 @@
 import { useController, useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message"; 
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { InputLabel } from "./helpers";
 import { EquipmentCard } from "../cards";
 import { BackIcon } from "../icons";
 import { Button } from "../utils";
 import { equipments, ingredients } from "../../utils/data";
+import { titleString } from "../../utils/string";
 
 const IngredientListItem = ({ingredient})=>{
     const editIngredient = ()=>console.log("Edit Ingredient");
@@ -31,7 +33,7 @@ const IngredientListItem = ({ingredient})=>{
 }
 
 const IngredientListInput = ({type, name, control, className})=>{
-    const { field, fieldState:{error} } = useController({name, control, rules:{required:true}}); 
+    const { field } = useController({name, control, rules:{required:`${titleString(name)} must be filled`}}); 
     return (
         <input 
             type={type} 
@@ -43,7 +45,7 @@ const IngredientListInput = ({type, name, control, className})=>{
 }
 
 const IngredientListForm = ()=>{
-    const { control, handleSubmit } = useForm({
+    const { control, handleSubmit, formState:{errors} } = useForm({
         defaultValues:{
             amount:1, 
             measurement:"",
@@ -58,18 +60,22 @@ const IngredientListForm = ()=>{
             <div>
                 <label className="font-semibold">Amount</label>
                 <IngredientListInput type='number' name="amount" control={control} className="w-10"/>
+                <ErrorMessage errors={errors} name="amount" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
             </div>
             <div>
                 <label className="font-semibold">Measurement Unit</label>
                 <IngredientListInput type='text' name="measurement" control={control}/>
+                <ErrorMessage errors={errors} name="measurement" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
             </div>
             <div>
                 <label className="font-semibold">Ingredient Name</label>
                 <IngredientListInput type='text' name="name" control={control}/>
+                <ErrorMessage errors={errors} name="name" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
             </div>
             <div>
                 <label className="font-semibold">Extra Details</label>
                 <IngredientListInput type='text' name="details" control={control}/>
+                <ErrorMessage errors={errors} name="details" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
                 <div className="mt-2 flex justify-between items-center gap-3">
                     <Button theme="yellow" className="grow">Save</Button>
                     <Button theme="red"className="grow">Cancel</Button>

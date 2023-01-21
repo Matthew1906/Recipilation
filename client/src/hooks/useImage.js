@@ -14,7 +14,8 @@ const useImage = ()=>{
             }))[0]);
         }
     });
-    return { image, setImage, getRootProps, getInputProps };
+    const imageError = image === null;
+    return { image, setImage, getRootProps, getInputProps, imageError };
 }
 
 export default useImage;

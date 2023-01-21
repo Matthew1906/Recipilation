@@ -1,13 +1,14 @@
 import { useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 import { ImageInput, InputLabel, NumberInput, SelectInput, TextArea, TextInput } from "./helpers";
 import { BackIcon } from "../icons";
 import { Button } from "../utils";
-import { useImage, useMockCategories } from "../../hooks";
+import { useImage, useThemeCategories } from "../../hooks";
 import { difficulties, timeLengths } from "../../utils/data";
 
 const RecipeInformationForm = ()=>{
-    const mockCategories = useMockCategories();
-    const { control, handleSubmit } = useForm({
+    const categories = useThemeCategories(["Lunch", "Dinner", "Western", "Pasta", "Meat"]);
+    const { control, handleSubmit, formState:{errors, submitCount} } = useForm({
         defaultValues:{
             name:'', description:'',
             servingSize:1, difficulty:'easy',
@@ -15,7 +16,7 @@ const RecipeInformationForm = ()=>{
             preparationTime:{amount:1, type:'minute'}
         }
     })
-    const { image, setImage, getRootProps, getInputProps } = useImage();
+    const { image, setImage, getRootProps, getInputProps, imageError } = useImage();
     const setCategories = ()=>console.log("Open Categories Modal");
     const onSubmit = (data)=>{
         console.log({...data, image });
@@ -33,11 +34,13 @@ const RecipeInformationForm = ()=>{
                 <div className="py-5 text-black">
                     <InputLabel className="mb-3" required>Recipe Name</InputLabel>
                     <TextInput name="name" control={control} className="w-full text-black"/>
+                    <ErrorMessage errors={errors} name="name" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
                     <InputLabel className="my-3" required>Recipe Description</InputLabel>
                     <TextArea rows={10} name="description" control={control}/>
+                    <ErrorMessage errors={errors} name="description" render={({ message }) => <p className="mt-1 text-xs text-left text-red">{message}</p>}/>
                     <InputLabel className="my-3">Categories</InputLabel>
                     <div className="flex flex-wrap gap-2">
-                        {mockCategories.map((category, key)=>(
+                        {categories.map((category, key)=>(
                             <span key={key} className={`${category.theme} px-4 py-2 rounded-md`}>
                                 {category.name}
                             </span>
@@ -48,13 +51,15 @@ const RecipeInformationForm = ()=>{
                 <div className="py-5 text-black">
                     <InputLabel className="mb-3" required>Recipe Image</InputLabel>
                     <ImageInput image={image} rootProps={getRootProps} inputProps={getInputProps} p={20}/>
+                    {submitCount>0 && imageError && <p className="mt-2 text-xs text-left text-red">Must insert image</p>}
                     <div className="mt-4 grid grid-cols-2 gap-6">
                         <div className="mb-3 mr-2">
                             <InputLabel className="mb-3" required>Serving Size</InputLabel>
                             <div className="flex items-center">
-                                <NumberInput name="servingSize" control={control} className="w-20"/>
+                                <NumberInput name="servingSize" control={control} max={20} className="w-20"/>
                                 <span className="ml-2 text-xl grow">people</span>
                             </div>
+                            <ErrorMessage errors={errors} name="servingSize" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
                         </div>
                         <div>
                             <InputLabel className="mb-3" required>Difficulty Level</InputLabel>
@@ -66,22 +71,24 @@ const RecipeInformationForm = ()=>{
                         <div>
                             <InputLabel className="mb-3" required>Preparation Time</InputLabel>
                             <div className="flex items-center gap-2">
-                                <NumberInput name="preparationTime.amount" control={control} className="w-16"/>
+                                <NumberInput name="preparationTime.amount" control={control} max={60} className="w-16"/>
                                 <SelectInput 
                                     name="preparationTime.type" control={control}
                                     options={timeLengths} className="w-28"
                                 />
                             </div>
+                            <ErrorMessage errors={errors} name="preparationTime.amount" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
                         </div>
                         <div>
                             <InputLabel className="mb-3" required>Cooking Time</InputLabel>
                             <div className="flex items-center gap-2">
-                                <NumberInput name="cookingTime.amount" control={control} className="w-16"/>
+                                <NumberInput name="cookingTime.amount" control={control} max={60} className="w-16"/>
                                 <SelectInput 
                                     name="cookingTime.type" control={control}
                                     options={timeLengths} className="w-28"
                                 />
                             </div>
+                            <ErrorMessage errors={errors} name="cookingTime.amount" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
                         </div>
                     </div>
                 </div>

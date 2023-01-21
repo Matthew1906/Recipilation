@@ -4,7 +4,7 @@ import { Header, Footer } from "../../components/partials";
 const Auth = ({ purpose }) => {
   const handleSubmit = (input) => console.log(input);
   return (
-    <div className="w-full h-screen flex flex-col justify-between">
+    <div className="w-full min-h-screen flex flex-col justify-between">
       <Header />
       <main
         style={{ backgroundImage: "url('/images/bg-auth.jpg')" }}

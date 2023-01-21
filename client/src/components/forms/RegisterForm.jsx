@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { ErrorMessage } from "@hookform/error-message";
 import { Checkbox, TextInput } from "./helpers";
 import { Button } from "../utils";
 import { AuthIcons } from "../icons";
 
 const RegisterForm = ({ onSubmit }) => {
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, formState:{errors} } = useForm({
     defaultValues:{
       username:'', 
       email:'', 
@@ -27,6 +28,7 @@ const RegisterForm = ({ onSubmit }) => {
         placeholder="Username"
         className="grow text-red placeholder:text-red"
       />
+      <ErrorMessage errors={errors} name="username" render={({ message }) => <p className="-mt-2 text-sm text-right text-black">{message}</p>}/>
       <TextInput 
         type="email" 
         control={control}
@@ -34,6 +36,7 @@ const RegisterForm = ({ onSubmit }) => {
         placeholder="Email" 
         className="grow text-red placeholder:text-red"
       />
+      <ErrorMessage errors={errors} name="email" render={({ message }) => <p className="-mt-2 text-sm text-right text-black">{message}</p>}/>
       <TextInput 
         type="password"
         control={control}
@@ -41,8 +44,12 @@ const RegisterForm = ({ onSubmit }) => {
         placeholder="Password"
         className="grow text-red placeholder:text-red"
       />
+      <ErrorMessage errors={errors} name="password" render={({ message }) => <p className="-mt-2 text-sm text-right text-black">{message}</p>}/>
       <div className="flex justify-between">
-        <Checkbox name="termsAndConditions" label="Terms and Conditions" control={control}/>
+        <div className="flex flex-col gap-2 items-start">
+          <Checkbox name="termsAndConditions" label="Terms and Conditions" control={control} required/>
+          <ErrorMessage errors={errors} name="termsAndConditions" render={({ message }) => <p className="-mt-2 text-sm text-right text-black">{message}</p>}/>
+        </div>
         <Button theme="orange" className="px-2 rounded-lg text-xs md:text-sm" expand>
           Sign Up
         </Button>
