@@ -3,14 +3,14 @@ import { ErrorMessage } from "@hookform/error-message";
 import { TextInput } from "./helpers";
 import { Button } from "../utils";
 
-const SearchForm = ({onSubmit})=>{
+const SearchForm = ({onSubmit, color})=>{
     const { control, handleSubmit, formState:{errors} } = useForm({defaultValues:{query:''}});
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="p-5">
             <div className="flex">
                 <TextInput name="query" control={control}
                     placeholder="Search recipes, categories, or users" 
-                    className="grow text-red placeholder:text-red rounded-r-none"
+                    className={`grow text-${color??"red"} placeholder:text-${color??"red"} rounded-r-none`}
                 />
                 <Button className="rounded-l-none" theme="red" expand={false}>
                     Search

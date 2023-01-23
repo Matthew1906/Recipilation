@@ -98,12 +98,12 @@ export const profiles = [
 ];
 
 export const equipments = [
+  {name:'Stainful steel mixing bowl', image:'/images/equipment-card.png'},
   {name:'Stainless steel mixing bowl', image:'/images/equipment-card.png'},
-  {name:'Stainless steel mixing bowl', image:'/images/equipment-card.png'},
-  {name:'Stainless steel mixing bowl', image:'/images/equipment-card.png'},
-  {name:'Stainless steel mixing bowl', image:'/images/equipment-card.png'},
-  {name:'Stainless steel mixing bowl', image:'/images/equipment-card.png'},
-  {name:'Stainless steel mixing bowl', image:'/images/equipment-card.png'},
+  {name:'Wooden mixing bowl', image:'/images/equipment-card.png'},
+  {name:'Plastic mixing bowl', image:'/images/equipment-card.png'},
+  {name:'Ceramic bowl', image:'/images/equipment-card.png'},
+  {name:'Cannon bowl', image:'/images/equipment-card.png'},
 ];
 
 export const ingredients = [

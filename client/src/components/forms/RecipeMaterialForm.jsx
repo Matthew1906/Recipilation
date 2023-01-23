@@ -4,6 +4,7 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { InputLabel } from "./helpers";
 import { EquipmentCard } from "../cards";
 import { BackIcon } from "../icons";
+import { EquipmentModal } from "../modals";
 import { Button } from "../utils";
 import { equipments, ingredients } from "../../utils/data";
 import { titleString } from "../../utils/string";
@@ -55,40 +56,40 @@ const IngredientListForm = ()=>{
     });
     const onSubmit = (data)=>console.log(data);
     return(
-    <li className="mb-2 text-sm">
-        <form className="flex justify-start items-start gap-2 font-nunito" onSubmit={handleSubmit(onSubmit)}>
-            <div>
-                <label className="font-semibold">Amount</label>
-                <IngredientListInput type='number' name="amount" control={control} className="w-10"/>
-                <ErrorMessage errors={errors} name="amount" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
-            </div>
-            <div>
-                <label className="font-semibold">Measurement Unit</label>
-                <IngredientListInput type='text' name="measurement" control={control}/>
-                <ErrorMessage errors={errors} name="measurement" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
-            </div>
-            <div>
-                <label className="font-semibold">Ingredient Name</label>
-                <IngredientListInput type='text' name="name" control={control}/>
-                <ErrorMessage errors={errors} name="name" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
-            </div>
-            <div>
-                <label className="font-semibold">Extra Details</label>
-                <IngredientListInput type='text' name="details" control={control}/>
-                <ErrorMessage errors={errors} name="details" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
-                <div className="mt-2 flex justify-between items-center gap-3">
-                    <Button theme="yellow" className="grow">Save</Button>
-                    <Button theme="red"className="grow">Cancel</Button>
+        <li className="mb-2 text-sm">
+            <form className="flex justify-start items-start gap-2 font-nunito" onSubmit={handleSubmit(onSubmit)}>
+                <div>
+                    <label className="font-semibold">Amount</label>
+                    <IngredientListInput type='number' name="amount" control={control} className="w-10"/>
+                    <ErrorMessage errors={errors} name="amount" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
                 </div>
-            </div>
-        </form>
-    </li>
+                <div>
+                    <label className="font-semibold">Measurement Unit</label>
+                    <IngredientListInput type='text' name="measurement" control={control}/>
+                    <ErrorMessage errors={errors} name="measurement" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
+                </div>
+                <div>
+                    <label className="font-semibold">Ingredient Name</label>
+                    <IngredientListInput type='text' name="name" control={control}/>
+                    <ErrorMessage errors={errors} name="name" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
+                </div>
+                <div>
+                    <label className="font-semibold">Extra Details</label>
+                    <IngredientListInput type='text' name="details" control={control}/>
+                    <ErrorMessage errors={errors} name="details" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
+                    <div className="mt-2 flex justify-between items-center gap-3">
+                        <Button theme="yellow" className="grow">Save</Button>
+                        <Button theme="red"className="grow">Cancel</Button>
+                    </div>
+                </div>
+            </form>
+        </li>
     );
 };
 
 const RecipeMaterialForm = ()=>{
+    const saveEquipments = (data)=>console.log(data);
     const addIngredients = ()=>console.log("Add new ingredient");
-    const setEquipments = ()=>console.log("Open equipment modal");
     return (
         <div className="px-10 py-8">
             <h2 className="pt-5 flex items-center gap-1 font-fjalla-one text-3xl mb-3 md:mb-0">
@@ -105,7 +106,6 @@ const RecipeMaterialForm = ()=>{
                             <IngredientListItem ingredient={ingredient} key={key}/>
                         ))}
                         <IngredientListForm/>
-                        <IngredientListForm/>
                     </ul>
                     <div className="flex items-center justify-center">
                         <Button theme="neutral" className="border border-red !rounded-full w-12 h-12" onClick={addIngredients}>+</Button>
@@ -118,7 +118,7 @@ const RecipeMaterialForm = ()=>{
                             <EquipmentCard equipment={equipment} key={key}/>
                         ))}
                         <div className={`flex items-center justify-center ${equipments.slice(0, 5).length%3!==0?"":"col-span-3"}`}>
-                            <Button theme="neutral" className="border border-red !rounded-full w-12 h-12" onClick={setEquipments}>+</Button>
+                            <EquipmentModal onSubmit={saveEquipments}/>
                         </div>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { ImageInput, InputLabel, NumberInput, SelectInput, TextArea, TextInput } from "./helpers";
 import { BackIcon } from "../icons";
 import { Button } from "../utils";
+import { CategoryModal } from "../modals";
 import { useImage, useThemeCategories } from "../../hooks";
 import { difficulties, timeLengths } from "../../utils/data";
 
@@ -45,7 +46,7 @@ const RecipeInformationForm = ()=>{
                                 {category.name}
                             </span>
                         ))}
-                        <Button theme="neutral" className="border border-red !rounded-full" onClick={setCategories}>+</Button>
+                        <CategoryModal />
                     </div>
                 </div>
                 <div className="py-5 text-black">

@@ -1,7 +1,7 @@
 import { RecipeInformationForm, RecipeMaterialForm, RecipeTutorialForm } from "../../components/forms";
 
 const NewRecipe = ()=>{
-    return <RecipeTutorialForm/>;
-};
+    return <RecipeMaterialForm/>;
+}
 
 export default NewRecipe;
