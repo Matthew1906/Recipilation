@@ -117,7 +117,7 @@ const RecipeMaterialForm = ()=>{
                         {equipments.slice(0, 5).map((equipment, key)=>(
                             <EquipmentCard equipment={equipment} key={key}/>
                         ))}
-                        <div className={`flex items-center justify-center ${equipments.slice(0, 5).length%3!==0?"":"col-span-3"}`}>
+                        <div className={`flex items-center justify-center ${equipments.slice(0, 5).length%3===0 && "col-span-3"}`}>
                             <EquipmentModal onSubmit={saveEquipments}/>
                         </div>
                     </div>

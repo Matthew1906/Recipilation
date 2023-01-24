@@ -12,8 +12,8 @@ const TextArea = ({rows, control, name, placeholder, className})=>{
             rows={rows} 
             value={field.value}
             onChange={field.onChange} 
-            placeholder={placeholder || ""}
-            className={`p-4 w-full border-red rounded-lg bg-white-primary ${className || ""}`}
+            placeholder={placeholder ?? ""}
+            className={`p-4 w-full border-red rounded-lg bg-white-primary ${className??""}`}
         />
     )
 };

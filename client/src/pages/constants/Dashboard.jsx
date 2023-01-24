@@ -15,12 +15,13 @@ const Dashboard = () => {
         <h5 className="font-nunito font-bold text-2xl mb-3 md:mb-0">Top Categories</h5>
         <div className="flex justify-center lg:justify-between flex-wrap items-center px-8 mt-4">
           {categories.map((category, key) => (
-            <CombinationIcon
-              key={key}
-              images={category.images.slice(0, 4)} // can only show 4 first images
-              name={category.name}
-              to="/categories/italian"
-            />
+            <Link to="/categories/italian">
+              <CombinationIcon
+                key={key}
+                images={category.images.slice(0, 4)} // can only show 4 first images
+                name={category.name}
+              />
+            </Link>
           ))}
           <Link to="/categories">
             <span className="text-blue text-xl font-nunito underline hover:text-red">

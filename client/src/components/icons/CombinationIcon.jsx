@@ -1,10 +1,8 @@
-import { Link } from "react-router-dom";
 import { CombinationImages } from "../utils";
 
-const CombinationIcon = ({to, images, name})=>{
+const CombinationIcon = ({images, name, onClick, status})=>{
     return (
-        <Link to={to}>
-          <div className="flex gap-2 justify-center items-center mx-4 mb-4">
+          <div className={`flex gap-2 justify-center items-center mx-4 mb-4 ${onClick?"cursor-pointer":""} ${status?"p-2 border-2 border-light-red rounded-md":""}`} onClick={onClick??null}>
             <CombinationImages
               images={images}
               name={name}
@@ -15,7 +13,6 @@ const CombinationIcon = ({to, images, name})=>{
               {name}
             </h6>
           </div>
-        </Link>
       );
 }
 

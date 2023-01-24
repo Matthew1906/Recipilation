@@ -18,7 +18,7 @@ const RecipeInformationForm = ()=>{
         }
     })
     const { image, setImage, getRootProps, getInputProps, imageError } = useImage();
-    const setCategories = ()=>console.log("Open Categories Modal");
+    const setCategories = (data)=>console.log(data);
     const onSubmit = (data)=>{
         console.log({...data, image });
         setImage(null);
@@ -42,11 +42,11 @@ const RecipeInformationForm = ()=>{
                     <InputLabel className="my-3">Categories</InputLabel>
                     <div className="flex flex-wrap gap-2">
                         {categories.map((category, key)=>(
-                            <span key={key} className={`${category.theme} px-4 py-2 rounded-md`}>
+                            <span key={key} className={`${category.theme} px-4 py-2 rounded-md flex items-center justify-center`}>
                                 {category.name}
                             </span>
                         ))}
-                        <CategoryModal />
+                        <CategoryModal onSubmit={setCategories}/>
                     </div>
                 </div>
                 <div className="py-5 text-black">

@@ -12,14 +12,14 @@ const CombinationImages = ({ images, name, round, className }) => {
       ][key],
   ];
   return (
-    <div className={`grid grid-cols-${images.length > 1 ? 2 : 1} object-contain ${className}`}>
+    <div className={`grid grid-cols-${images.length > 1 ? 2 : 1} object-contain ${className??""}`}>
       {images.map((image, key) => (
         <img
           src={`${image}`}
           alt={`${name}-${key}`}
           key={key}
           className={`w-full h-full ${
-            images.length === 3 && key === images.length - 1 ? "col-span-2" : ""
+            images.length === 3 && key === images.length - 1 ? "col-span-2":"" 
           } ${round ? borderRadius[images.length - 1](key) : ""}`}
         />
       ))}

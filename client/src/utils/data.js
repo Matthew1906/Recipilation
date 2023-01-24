@@ -43,11 +43,11 @@ export const recipes = [
 export const categories = [
   { name: "Italian", images: ["/images/lasagna-card.jpg"] },
   {
-    name: "Italian",
+    name: "Meat",
     images: ["/images/lasagna-card.jpg", "/images/pizza-card.png"],
   },
   {
-    name: "Italian",
+    name: "Eastern",
     images: [
       "/images/lasagna-card.jpg",
       "/images/pizza-card.png",
@@ -55,7 +55,7 @@ export const categories = [
     ],
   },
   {
-    name: "Italian",
+    name: "Asian",
     images: [
       "/images/lasagna-card.jpg",
       "/images/pizza-card.png",
