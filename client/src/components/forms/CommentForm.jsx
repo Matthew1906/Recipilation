@@ -3,9 +3,11 @@ import { useForm } from "react-hook-form";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { TextArea } from "./helpers";
 import { Button } from "../utils";
+import { useMobile } from "../../hooks";
 import { categoryConfig } from "../../utils/theme";
 
 const CommentForm = () => {
+  const isMobile = useMobile();
   const { control, handleSubmit, setValue, watch } = useForm({
     defaultValues:{
       body:"", 
@@ -28,7 +30,7 @@ const CommentForm = () => {
         name="body" control={control}
       />
       <div className="flex justify-between py-2">
-        <div className="flex justify-between items-center gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <Rating
             emptySymbol={<FaRegStar className="text-yellow w-10 h-10" />}
             fullSymbol={<FaStar className="text-yellow w-10 h-10" />}
@@ -60,8 +62,9 @@ const CommentForm = () => {
             </button>
           </div>
         </div>
-        <Button theme="green" expand>Submit</Button>
+        {isMobile>0 && <Button theme="green" expand>Submit</Button>}
       </div>
+      {isMobile===0 && <div className="mt-4 grow flex justify-center"><Button theme="green" expand>Submit</Button></div>}
     </form>
   );
 };

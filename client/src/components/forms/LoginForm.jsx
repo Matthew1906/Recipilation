@@ -37,9 +37,9 @@ const LoginForm = ({ onSubmit }) => {
         className="grow text-red placeholder:text-red"
       />
       <ErrorMessage errors={errors} name="password" render={({ message }) => <p className="-mt-2 text-sm text-right text-black">{message}</p>}/>
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center gap-4">
         <Checkbox name="rememberMe" label="Remember Me" control={control}/>
-        <Button theme="orange" className="px-7 rounded-lg text-xs md:text-sm" expand>
+        <Button theme="orange" className="px-7 rounded-lg text-sm" expand>
           Login
         </Button>
       </div>

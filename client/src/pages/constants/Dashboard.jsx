@@ -13,11 +13,10 @@ const Dashboard = () => {
       {/* Top Categories */}
       <section className="px-10 py-8" id="top-categories">
         <h5 className="font-nunito font-bold text-2xl mb-3 md:mb-0">Top Categories</h5>
-        <div className="flex justify-center lg:justify-between flex-wrap items-center px-8 mt-4">
+        <div className="flex justify-center lg:justify-between flex-wrap items-center lg:px-8 mt-4">
           {categories.map((category, key) => (
-            <Link to="/categories/italian">
+            <Link to="/categories/italian" key={key}>
               <CombinationIcon
-                key={key}
                 images={category.images.slice(0, 4)} // can only show 4 first images
                 name={category.name}
               />

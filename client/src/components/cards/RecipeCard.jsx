@@ -13,15 +13,15 @@ const RecipeCard = ({ recipe }) => {
     hard: "text-red",
   };
   return (
-    <div className="grid grid-rows-2 lg:grid-rows-none lg:grid-cols-2 bg-white-primary h-full rounded-2xl drop-shadow-md">
+    <div className="grid grid-rows-2 md:grid-rows-none md:grid-cols-2 bg-white-primary h-full rounded-2xl drop-shadow-md">
       <Link to="/recipes/classic-lasagna">
         <img
           src={recipe.image}
           alt={recipe.title}
-          className="h-full rounded-t-2xl lg:rounded-tr-none lg:rounded-l-2xl"
+          className="h-full rounded-t-2xl md:rounded-tr-none md:rounded-l-2xl"
         />
       </Link>
-      <div className="p-5 rounded-b-2xl lg:rounded-bl-none lg:rounded-r-2xl flex flex-col">
+      <div className="p-5 rounded-b-2xl md:rounded-bl-none md:rounded-r-2xl flex flex-col">
         <Link to="/recipes/classic-lasagna">
           <h6 className="text-2xl font-fjalla-one">{recipe.title}</h6>
         </Link>

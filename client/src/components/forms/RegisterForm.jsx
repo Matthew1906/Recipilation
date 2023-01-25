@@ -45,12 +45,12 @@ const RegisterForm = ({ onSubmit }) => {
         className="grow text-red placeholder:text-red"
       />
       <ErrorMessage errors={errors} name="password" render={({ message }) => <p className="-mt-2 text-sm text-right text-black">{message}</p>}/>
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center gap-4">
         <div className="flex flex-col gap-2 items-start">
           <Checkbox name="termsAndConditions" label="Terms and Conditions" control={control} required/>
           <ErrorMessage errors={errors} name="termsAndConditions" render={({ message }) => <p className="-mt-2 text-sm text-right text-black">{message}</p>}/>
         </div>
-        <Button theme="orange" className="px-2 rounded-lg text-xs md:text-sm" expand>
+        <Button theme="orange" className="grow px-2 rounded-lg text-sm" expand>
           Sign Up
         </Button>
       </div>

@@ -17,7 +17,7 @@ import { themeConfig } from "../../utils/theme";
 
 const AttributeIcon = ({ theme, children }) => {
   return (
-    <div className={`${themeConfig[theme]} p-2 font-nunito grid grid-rows-2 place-items-center rounded-lg drop-shadow-md`}>
+    <div className={`${themeConfig[theme]} p-2 font-nunito flex flex-col justify-center items-center md:grid md:grid-rows-2 md:place-items-center rounded-lg drop-shadow-md`}>
       {children}
     </div>
   );
@@ -28,40 +28,40 @@ const Recipe = () => {
   const categories = useThemeCategories(["Lunch", "Dinner", "Western", "Pasta", "Meat"]);
   return (
     <>
-      <section id='basic-info' className="grid grid-cols-2 h-screen">
+      <section id='basic-info' className="md:grid md:grid-cols-2 md:h-screen">
         <img src="/images/lasagna-card.jpg" alt="classic-lasagna" className="w-full h-full"/>
-        <div className="bg-white-primary flex flex-col justify-center items-center gap-1">
+        <div className="p-8 md:p-0 bg-white-primary flex flex-col justify-center items-center gap-1">
           <div className="flex justify-center items-center">
             <BackIcon className="text-2xl cursor-pointer" />
-            <span className="font-fjalla-one text-4xl">{titleString(recipe)}</span>
+            <span className="font-fjalla-one text-2xl md:text-4xl">{titleString(recipe)}</span>
             <FaTrashAlt className="ml-2 text-red cursor-pointer link-expand text-lg" />
             <FaEdit className="ml-1 cursor-pointer link-expand text-lg" />
             <FaShareAlt className="cursor-pointer link-expand text-lg" />
           </div>
-          <p className="font-nunito text-extralight text-xl">by Ryan Raini</p>
+          <p className="font-nunito text-extralight text-lg md:text-xl">by Ryan Raini</p>
           <div className="flex justify-center items-center gap-1">
             <RatingIcons rating={5} />
             <p className="font-light">(5)</p>
           </div>
-          <p className="mt-2 w-96 text-center text-xl font-extralight">
+          <p className="mt-2 md:w-96 text-center text-base md:text-xl font-extralight">
             A great dish to make for a crowd and easy to adjust for varying
             tastes.
           </p>
-          <div className="my-5 px-10 grid grid-cols-3 gap-5">
+          <div className="my-5 px-5 md:px-10 grid grid-cols-3 gap-5">
             <AttributeIcon theme="time">
               <MdTimer className="w-12 h-12" />
-              <div>
-                <p className="text-sm"><strong className="mr-1">Prep:</strong>12 mins</p>
-                <p className="text-sm"><strong className="mr-1">Cook:</strong>2 hours</p>
+              <div className="text-xs md:text-sm text-center">
+                <p><strong className="mr-1">Prep:</strong>12 mins</p>
+                <p><strong className="mr-1">Cook:</strong>2 hours</p>
               </div>
             </AttributeIcon>
             <AttributeIcon theme="easy">
               <BsFillBarChartFill className="w-12 h-12" />
-              <p className="font-bold">Easy</p>
+              <p className="font-bold text-xs md:text-sm text-center">Easy</p>
             </AttributeIcon>
             <AttributeIcon theme="serving">
               <GiMeal className="w-12 h-12" />
-              <p className="font-bold">2-3 people</p>
+              <p className="font-bold text-xs md:text-sm text-center">2-3 people</p>
             </AttributeIcon>
           </div>
           <div className="mb-3 flex gap-2">
@@ -78,13 +78,13 @@ const Recipe = () => {
           </div>
         </div>
       </section>
-      <section id="ingredients-equipments" className="p-8 grid grid-cols-2 gap-6 min-h-screen bg-light-yellow">
-        <div>
-          <h6 className="text-nunito text-4xl font-semibold">Equipments:</h6>
-          <Pagination items={equipments} type="equipment" perPage={6} cols={3}/>
+      <section id="ingredients-equipments" className="p-8 md:grid md:grid-cols-2 md:gap-6 min-h-screen bg-light-yellow">
+        <div className="mb-4">
+          <h6 className="text-nunito text-2xl md:text-4xl font-semibold">Equipments:</h6>
+          <Pagination items={equipments} type="equipment" perPage={6} smCols={2} cols={3}/>
         </div>
         <div>
-          <h6 className="text-nunito text-4xl font-semibold">Ingredients:</h6>
+          <h6 className="text-nunito text-2xl md:text-4xl font-semibold">Ingredients:</h6>
           <ul className="mt-2 px-10">
             {ingredients.map((ingredient, key) => (
               <li key={key} className="my-1 list-disc text-2xl">
@@ -97,7 +97,7 @@ const Recipe = () => {
         </div>
       </section>
       <section id="tutorial" className="bg-white-primary text-center py-8">
-        <h6 className="text-nunito text-4xl mb-4">
+        <h6 className="text-nunito text-2xl md:text-4xl mb-4">
           How to make{" "}<span className="font-semibold">{titleString(recipe)}</span>
         </h6>
         <StepCarousel items={steps} />

@@ -38,8 +38,8 @@ const StepCarousel = ({items})=>{
             ))}
         </Swiper>
         <div className='my-5 text-center text-nunito'>
-          <strong className='text-3xl font-semibold'>{current+1}. {items[current].title}</strong>
-          <p className="mt-3 px-24 text-2xl font-light text-justify">{items[current].description}</p>
+          <strong className='text-xl md:text-3xl font-semibold'>{current+1}. {items[current].title}</strong>
+          <p className="mt-3 px-24 text-lg md:text-2xl font-light text-justify">{items[current].description}</p>
         </div>
       </div>
     )

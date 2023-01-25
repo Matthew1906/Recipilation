@@ -1,4 +1,5 @@
-import Header from "./Header";
+import DesktopNavigation from "./DesktopNavigation";
+import MobileNavigation from "./MobileNavigation";
 import Footer from "./Footer";
 
-export { Header, Footer };
+export { DesktopNavigation, Footer, MobileNavigation };

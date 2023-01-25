@@ -9,14 +9,14 @@ const Profile = () => {
   const followUser = () => console.log("Follow User");
   return (
     <>
-      <div className="py-5 px-16 grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="py-5 px-8 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="bg-white border-red border rounded-md p-6 flex flex-col justify-between items-center font-nunito">
           <img
             src={"/images/profile-card.png"}
             alt="profile"
             className="w-40 md:w-80 h-40 md:h-80 mb-4"
           />
-          <h5 className="font-semibold text-4xl">John Doe</h5>
+          <h5 className="font-semibold text-2xl md:text-4xl">John Doe</h5>
           <p className="font-extralight">25th January 1992</p>
           <p className="font-extralight">johndoe@joemail.com</p>
           <div className="flex justify-between gap-1">
@@ -24,10 +24,10 @@ const Profile = () => {
             <FaEdit onClick={editPassword} className="cursor-pointer" />
           </div>
           <div onClick={followUser}>
-            <Button theme="blue">FOLLOW</Button>
+            <Button theme="blue" className="text-sm md:text-base">FOLLOW</Button>
           </div>
-          <div className="mt-2 grid grid-cols-3 gap-4 text-center">
-            <div className="border-r-2 border-black px-2">
+          <div className="mt-2 md:grid md:grid-cols-3 gap-4 text-center">
+            <div className="md:border-r-2 md:border-black px-2">
               <h6 className="font-semibold">followers</h6>
               <p className="font-light">100 people</p>
             </div>
@@ -35,7 +35,7 @@ const Profile = () => {
               <h6 className="font-semibold">following</h6>
               <p className="font-light">10 people</p>
             </div>
-            <div className="border-l-2 border-black px-2">
+            <div className="md:border-l-2 md:border-black px-2">
               <h6 className="font-semibold">recipes</h6>
               <p className="font-light">4 recipes</p>
             </div>
@@ -44,7 +44,7 @@ const Profile = () => {
             <RatingIcons rating={4} />
             <p className="font-light">(5)</p>
           </div>
-          <p className="w-60 font-extralight text-sm text-center">
+          <p className="w-60 font-extralight text-sm text-center break-words">
             This is the average rating based on all the chef’s recipe reviews
           </p>
         </div>
