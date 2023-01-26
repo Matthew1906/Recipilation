@@ -28,17 +28,17 @@ const Recipe = () => {
   const categories = useThemeCategories(["Lunch", "Dinner", "Western", "Pasta", "Meat"]);
   return (
     <>
-      <section id='basic-info' className="md:grid md:grid-cols-2 md:h-screen">
+      <section id='basic-info' className="lg:grid lg:grid-cols-2 lg:h-full">
         <img src="/images/lasagna-card.jpg" alt="classic-lasagna" className="w-full h-full"/>
-        <div className="p-8 md:p-0 bg-white-primary flex flex-col justify-center items-center gap-1">
+        <div className="p-8 lg:p-0 bg-white-primary flex flex-col justify-center items-center gap-1">
           <div className="flex justify-center items-center">
             <BackIcon className="text-2xl cursor-pointer" />
-            <span className="font-fjalla-one text-2xl md:text-4xl">{titleString(recipe)}</span>
+            <span className="font-fjalla-one text-2xl lg:text-4xl">{titleString(recipe)}</span>
             <FaTrashAlt className="ml-2 text-red cursor-pointer link-expand text-lg" />
             <FaEdit className="ml-1 cursor-pointer link-expand text-lg" />
             <FaShareAlt className="cursor-pointer link-expand text-lg" />
           </div>
-          <p className="font-nunito text-extralight text-lg md:text-xl">by Ryan Raini</p>
+          <p className="font-nunito text-extralight text-lg lg:text-xl">by Ryan Raini</p>
           <div className="flex justify-center items-center gap-1">
             <RatingIcons rating={5} />
             <p className="font-light">(5)</p>
@@ -78,7 +78,7 @@ const Recipe = () => {
           </div>
         </div>
       </section>
-      <section id="ingredients-equipments" className="p-8 md:grid md:grid-cols-2 md:gap-6 min-h-screen bg-light-yellow">
+      <section id="ingredients-equipments" className="p-8 md:grid md:grid-cols-2 md:gap-6 lg:h-full bg-light-yellow">
         <div className="mb-4">
           <h6 className="text-nunito text-2xl md:text-4xl font-semibold">Equipments:</h6>
           <Pagination items={equipments} type="equipment" perPage={6} smCols={2} cols={3}/>

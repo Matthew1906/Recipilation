@@ -1,8 +1,8 @@
 import { useState } from "react";
-import useMobile from "./useMobile";
+import useScreenSize from "./useScreenSize";
 
 const useModal = () => {
-    const isMobile = useMobile();
+    const screenSize = useScreenSize();
     const [data, setData] = useState([]);
     const toggleData = (input) => data.includes(input)
         ? setData(prev=>prev.filter(value=>value!==input))
@@ -15,7 +15,7 @@ const useModal = () => {
     const toggleStatus = ()=>setStatus(!status);
     const style = {
         content:{
-            width:isMobile>0?"640px":"480px",
+            width:screenSize>0?"640px":"480px",
             height:"480px",
             margin:"auto"
         }

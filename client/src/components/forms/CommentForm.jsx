@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { TextArea } from "./helpers";
 import { Button } from "../utils";
-import { useMobile } from "../../hooks";
+import { useScreenSize } from "../../hooks";
 import { categoryConfig } from "../../utils/theme";
 
 const CommentForm = () => {
-  const isMobile = useMobile();
+  const screenSize = useScreenSize();
   const { control, handleSubmit, setValue, watch } = useForm({
     defaultValues:{
       body:"", 
@@ -62,9 +62,9 @@ const CommentForm = () => {
             </button>
           </div>
         </div>
-        {isMobile>0 && <Button theme="green" expand>Submit</Button>}
+        {screenSize>0 && <Button theme="green" expand>Submit</Button>}
       </div>
-      {isMobile===0 && <div className="mt-4 grow flex justify-center"><Button theme="green" expand>Submit</Button></div>}
+      {screenSize===0 && <div className="mt-4 grow flex justify-center"><Button theme="green" expand>Submit</Button></div>}
     </form>
   );
 };

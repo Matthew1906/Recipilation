@@ -3,10 +3,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import { DashboardLayout } from "./layouts";
 import { Auth, Dashboard } from "./pages/constants";
-import { Categories, Cookbooks, MyRecipes, NewRecipe, Search} from "./pages/core";
 import { Category, Cookbook, Profile, Recipe } from "./pages/contents";
+import { Categories, Cookbooks, MyRecipes, NewRecipe, Search} from "./pages/core";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <BrowserRouter>
     <Routes>

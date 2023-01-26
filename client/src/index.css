@@ -6,9 +6,6 @@
   .link-expand {
     @apply transition transform hover:scale-110 motion-reduce:transition-none motion-reduce:hover:transform-none
   }
-  .error {
-    @apply -mt-2 text-right text-sm
-  }
 }
 
 body {
