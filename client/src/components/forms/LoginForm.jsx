@@ -1,17 +1,22 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ErrorMessage } from "@hookform/error-message";
 import { Checkbox, TextInput } from "./helpers";
 import { Button}  from "../utils";
 import { AuthIcons } from "../icons";
+import { login } from "../../api/auth";
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = () => {
   const { control, handleSubmit, formState:{errors} } = useForm({
     defaultValues:{
       email:'', 
       password:'', 
       rememberMe:false
     }
+  });
+  const navigate = useNavigate();
+  const onSubmit = (input)=>login(input).then(()=>navigate("/")).catch((err)=>{
+    console.log(err);
   });
   return (
     <form
@@ -46,7 +51,7 @@ const LoginForm = ({ onSubmit }) => {
       <p className="text-sm md:text-base text-red text-light text-center">
         or, continue with
       </p>
-      <AuthIcons />
+      <AuthIcons purpose='login'/>
       <span className="text-sm md:text-base text-red text-center">
         Don't have an account?
         <Link to="/register">

@@ -1,13 +1,7 @@
-import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
 
-export default async function (connectionString, app) {
-  const client = new MongoClient(connectionString);
-  try {
-    await client.connect();
-    app.locals.db = client.db("recipilation-db");
-    console.log("Database connected.");
-  } catch (err) {
-    await client.close();
-    throw new Error("Database connection error.");
-  }
+export default function (connectionString) {
+  mongoose.connect(connectionString, { useNewUrlParser: true , useUnifiedTopology: true});
+  const db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 }

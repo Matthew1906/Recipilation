@@ -6,11 +6,11 @@ import userRouter from "./routes/user.js";
 
 const app = express();
 
-db(config.MONGO_URI, app);
+db(config.MONGO_URI);
 
 app.use(cors({ origin: true }));
 app.use(express.json());
-app.use("/api/user", userRouter);
+app.use("/api/users", userRouter);
 
 app.listen(config.PORT, () =>
   console.log(`App listening on PORT ${config.PORT}`)

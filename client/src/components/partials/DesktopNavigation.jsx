@@ -1,14 +1,17 @@
 import { Link, NavLink } from "react-router-dom";
+import { logout } from "../../api/auth";
+import useAuth from "../../hooks/useAuth";
 import { Button } from "../utils";
 import { themeConfig } from "../../utils/theme";
 
-const DesktopNavigation = ({auth})=>{
+const DesktopNavigation = ({purpose='home'})=>{
+    const { isAuthenticated } = useAuth();
     return (
         <header className={`px-8 w-full flex justify-center py-4 ${themeConfig["red"]}`}>
             <div className="max-w-[1440px] w-full flex justify-between items-center">
                 <div className="flex justify-between items-center gap-12">
                     <Link to='/'><h1 className="font-fjalla-one text-3xl">RECIPILATION</h1></Link>
-                    {auth != null &&   
+                    {purpose!=='auth' &&   
                     <ul className="flex gap-5 text font-nunito text-light">
                         <NavLink to="/">
                             <li className="link-expand">Home</li>
@@ -16,7 +19,7 @@ const DesktopNavigation = ({auth})=>{
                         <NavLink to="/search">
                             <li className="link-expand">Search</li>
                         </NavLink>
-                        {auth === "user" && (
+                        {purpose!=='auth' && isAuthenticated && (
                         <>
                             <NavLink to="/cookbooks">
                                 <li className="link-expand">My Cookbooks</li>
@@ -32,11 +35,9 @@ const DesktopNavigation = ({auth})=>{
                     </ul>
                     }
                 </div>
-                {auth === "user" ? (
-                    <Button theme="orange" expand>
-                    LOGOUT
-                    </Button>
-                ) : auth != null && (
+                {purpose!=='auth' && isAuthenticated ? (
+                    <Button theme="orange" expand onClick={logout}>LOGOUT</Button>
+                ) : purpose!=='auth' && (
                     <Link to='/login'>
                     <Button theme="orange" expand>
                         LOGIN

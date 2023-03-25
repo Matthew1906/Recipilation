@@ -4,8 +4,11 @@ import { RecipeCarousel } from "../../components/carousels";
 import { LoadMore, Pagination } from "../../components/containers";
 import { CombinationIcon } from "../../components/icons";
 import { categories, recipes } from "../../utils/data";
+import { useAuth } from "../../hooks";
 
 const Dashboard = () => {
+  const { user } = useAuth();
+  console.log(user);
   return (
     <>
       {/* Carousel (Top rated/Trending Recipes) */}
