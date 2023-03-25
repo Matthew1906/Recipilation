@@ -16,6 +16,13 @@ app.listen(config.PORT, () =>
   console.log(`App listening on PORT ${config.PORT}`)
 );
 
+app.use((_req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', '*');
+
+  next();
+});
+
 app.get("/", async(req, res)=>{
     res.json({message:"Hello, It's me! I've been wondering if after all these years you would like to meet"})
 })

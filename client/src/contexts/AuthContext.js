@@ -73,8 +73,7 @@ function AuthProvider({ children }) {
         user: {
           id: state?.user?.uid,
           email: state?.user?.email,
-          token: state?.user?.accessToken,
-          username: state?.user?.username
+          token: state?.user?.accessToken
       }}}
     >
       {children}
