@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "client": "cd client && npm run start",
-    "server": "cd server && nodemon run server.js",
+    "server": "cd server && nodemon run index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
