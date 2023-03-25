@@ -6,7 +6,7 @@ import userRouter from "./routes/user.js";
 
 const app = express();
 
-db(config.MONGO_URI);
+db(config.MONGODB_URI);
 
 app.use(cors({ origin: true }));
 app.use(express.json());

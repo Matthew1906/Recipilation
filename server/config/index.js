@@ -4,7 +4,7 @@ dotenv.config();
 
 export default {
   PORT: process.env.PORT,
-  MONGO_URI: process.env.MONGO_URI,
+  MONGODB_URI: process.env.MONGODB_URI,
   FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
   FIREBASE_PRIVATE_KEY_ID: process.env.FIREBASE_PRIVATE_KEY_ID,
   FIREBASE_PRIVATE_KEY:
