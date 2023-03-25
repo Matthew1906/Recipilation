@@ -1,5 +1,5 @@
 import DesktopNavigation from "./DesktopNavigation";
 import MobileNavigation from "./MobileNavigation";
-import Footer from "./Footer";
+import Footer from "./footer";
 
 export { DesktopNavigation, Footer, MobileNavigation };
