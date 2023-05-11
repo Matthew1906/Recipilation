@@ -1,3 +1,8 @@
+export const errorMessages = {
+  'auth/user-not-found': 'User does not exist!',
+  'auth/wrong-password': 'Wrong password!'
+}
+
 export const recipes = [
   {
     image: "/images/lasagna-1.png",

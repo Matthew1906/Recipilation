@@ -5,9 +5,10 @@ import { Checkbox, TextInput } from "./helpers";
 import { Button}  from "../utils";
 import { AuthIcons } from "../icons";
 import { login } from "../../api/auth";
+import { useFormStatus } from "../../hooks";
 
 const LoginForm = () => {
-  const { control, handleSubmit, formState:{errors} } = useForm({
+  const { control, handleSubmit, formState:{errors}, reset } = useForm({
     defaultValues:{
       email:'', 
       password:'', 
@@ -15,9 +16,14 @@ const LoginForm = () => {
     }
   });
   const navigate = useNavigate();
-  const onSubmit = (input)=>login(input).then(()=>navigate("/")).catch((err)=>{
-    console.log(err);
-  });
+  const { status, displayFormError, resetFormError }= useFormStatus();
+  const onSubmit = (input)=>{
+    resetFormError();
+    login(input).then(()=>navigate("/")).catch((err)=>{
+      reset();
+      displayFormError(err.code);
+    });
+  };
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -26,6 +32,7 @@ const LoginForm = () => {
       <h3 className="font-fjalla-one text-center text-3xl lg:text-5xl text-red font-medium md:mb-5">
         LOGIN NOW
       </h3>
+      { status !== false && <p className="text-orange font-semibold">{status}</p>}
       <TextInput 
         type="email" 
         control={control}
