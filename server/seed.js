@@ -1,0 +1,25 @@
+
+const categories = [
+    'Breakfast', 'Brunch', 'Lunch', 'Dinner', 
+    'Pancakes', 'Sandwiches, Wraps and Rolls', 
+    'Appetisers', 'Soups', 'Salads', 'Sides', 
+    'Snacks', 'Burgers', 'Pizza', 'Pies', 
+    'Quiches and Savoury Tarts', 'Mince', 
+    'Lamb', 'Chicken', 'Seafood', 'Rice', 
+    'Noodles', 'Pasta', 'Sausages', 'Beef', 
+    'Stir Fry', 'Pork', 'Turkey', 'Duck', 
+    'Condiments and Spreads', 'Sauces', 
+    'Bread', 'Slices', 'Muffins, Scones and Scrolls', 
+    'Biscuits and Cookies', 'Treats', 'Baking', 
+    'Desserts', 'Cheesecakes', 'Ice Cream', 
+    'Smoothies and Shakes', 'Drinks and Cocktails', 
+    'Vegetarian', 'Poultry', 'Meat', 'African', 
+    'American', 'Asian', 'Australian', 'British', 
+    'Chinese', 'Creole', 'European', 'French', 
+    'Fusion', 'German', 'Greek', 'Hungarian', 
+    'Indian', 'Indonesian', 'Irish', 'Italian', 
+    'Japanese', 'Korean', 'Lebanese', 'Malaysian', 
+    'Mediterranean', 'Mexican', 'Middle Eastern', 
+    'Persian', 'Portuguese', 'Russian', 'Spanish', 
+    'Sri Lankan', 'Thai', 'Turkish', 'Vietnamese'
+]
