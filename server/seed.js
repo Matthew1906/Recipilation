@@ -1,25 +1,21 @@
+import slugify from 'slugify';
+import RecipeCategory from './models/category.js';
+import config from "./config/index.js";
+import db from "./config/db.js";
+import { categories } from './config/seed.js';
 
-const categories = [
-    'Breakfast', 'Brunch', 'Lunch', 'Dinner', 
-    'Pancakes', 'Sandwiches, Wraps and Rolls', 
-    'Appetisers', 'Soups', 'Salads', 'Sides', 
-    'Snacks', 'Burgers', 'Pizza', 'Pies', 
-    'Quiches and Savoury Tarts', 'Mince', 
-    'Lamb', 'Chicken', 'Seafood', 'Rice', 
-    'Noodles', 'Pasta', 'Sausages', 'Beef', 
-    'Stir Fry', 'Pork', 'Turkey', 'Duck', 
-    'Condiments and Spreads', 'Sauces', 
-    'Bread', 'Slices', 'Muffins, Scones and Scrolls', 
-    'Biscuits and Cookies', 'Treats', 'Baking', 
-    'Desserts', 'Cheesecakes', 'Ice Cream', 
-    'Smoothies and Shakes', 'Drinks and Cocktails', 
-    'Vegetarian', 'Poultry', 'Meat', 'African', 
-    'American', 'Asian', 'Australian', 'British', 
-    'Chinese', 'Creole', 'European', 'French', 
-    'Fusion', 'German', 'Greek', 'Hungarian', 
-    'Indian', 'Indonesian', 'Irish', 'Italian', 
-    'Japanese', 'Korean', 'Lebanese', 'Malaysian', 
-    'Mediterranean', 'Mexican', 'Middle Eastern', 
-    'Persian', 'Portuguese', 'Russian', 'Spanish', 
-    'Sri Lankan', 'Thai', 'Turkish', 'Vietnamese'
-]
+db(config.MONGODB_URI);
+
+const seedCategories = ()=>{
+    console.log(categories.length);
+    categories.forEach(async(category)=>{
+        const new_category = new RecipeCategory({
+            name:category, 
+            slug:slugify(category.toLowerCase())
+        })
+        await new_category.save()
+        console.log('Finish adding ' + category + ' recipe category');
+    });
+};
+
+seedCategories();
