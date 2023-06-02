@@ -1,24 +1,34 @@
+import reader from 'xlsx';
+
 export const categories = [
     'Breakfast', 'Brunch', 'Lunch', 'Dinner', 
-    'Pancakes', 'Sandwiches, Wraps and Rolls', 
-    'Appetisers', 'Soups', 'Salads', 'Sides', 
-    'Snacks', 'Burgers', 'Pizza', 'Pies', 
-    'Quiches and Savoury Tarts', 'Mince', 
-    'Lamb', 'Chicken', 'Seafood', 'Rice', 
-    'Noodles', 'Pasta', 'Sausages', 'Beef', 
-    'Stir Fry', 'Pork', 'Turkey', 'Duck', 
-    'Condiments and Spreads', 'Sauces', 
-    'Bread', 'Slices', 'Muffins, Scones and Scrolls', 
-    'Biscuits and Cookies', 'Treats', 'Baking', 
-    'Desserts', 'Cheesecakes', 'Ice Cream', 
-    'Smoothies and Shakes', 'Drinks and Cocktails', 
-    'Vegetarian', 'Poultry', 'Meat', 'African', 
-    'American', 'Asian', 'Australian', 'British', 
-    'Chinese', 'Creole', 'European', 'French', 
-    'Fusion', 'German', 'Greek', 'Hungarian', 
-    'Indian', 'Indonesian', 'Irish', 'Italian', 
-    'Japanese', 'Korean', 'Lebanese', 'Malaysian', 
-    'Mediterranean', 'Mexican', 'Middle Eastern', 
-    'Persian', 'Portuguese', 'Russian', 'Spanish', 
-    'Sri Lankan', 'Thai', 'Turkish', 'Vietnamese'
+    'Appetizers', 'Main Courses', 'Desserts', 'Sides', 
+    'Snacks', 'Drinks', 'Meat', 'Seafood', 
+    'Poultry', 'Vegetarian','Rice', 'Noodles', 
+    'Pasta', 'Salad', 'American', 'Chinese', 
+    'European', 'Indian', 'Italian', 'Japanese', 
+    'Korean', 'Mexican', 'Thai', 'Vietnamese'
 ];
+
+export const users = [
+    'Simply Ryan', 'Simply Betty', 'Simply Kenny', 'Simply Gaby',
+    'Simply Michael', 'Simply Petra', 'Simply Logan'
+];
+
+export const userIds = [
+    'j9M3NziEL0Y8WOFkwzb8ZMuHfpp1',
+    'jGRS5HpxRFaUEXMwQfjgT47BFNq1',
+    'YQZlM6KI7HPZDgohguljG5S3Vvx1',
+    'nShXZ0Vvx4UqRXLin0wvLtps4ON2',
+    '6eWyaL9s43PZy5zJXVPFBqvbqt93',
+    'xyJ5R4s5DwbXk89oK7pdyE7p5s32',
+    'eaTwLHQ3SdOGXERGkIsB3UvLv1z2'
+];
+
+export const recipes = [
+
+]
+
+export const steps = [
+
+]
