@@ -1,4 +1,5 @@
-import reader from 'xlsx';
+import ExcelJS from 'exceljs';
+import { ObjectId } from 'mongodb';
 
 export const categories = [
     'Breakfast', 'Brunch', 'Lunch', 'Dinner', 
@@ -16,19 +17,52 @@ export const users = [
 ];
 
 export const userIds = [
-    'j9M3NziEL0Y8WOFkwzb8ZMuHfpp1',
-    'jGRS5HpxRFaUEXMwQfjgT47BFNq1',
-    'YQZlM6KI7HPZDgohguljG5S3Vvx1',
-    'nShXZ0Vvx4UqRXLin0wvLtps4ON2',
-    '6eWyaL9s43PZy5zJXVPFBqvbqt93',
-    'xyJ5R4s5DwbXk89oK7pdyE7p5s32',
-    'eaTwLHQ3SdOGXERGkIsB3UvLv1z2'
+    new ObjectId("6479feab87cdb222302952c7"),
+    new ObjectId("6479feab87cdb222302952cd"),
+    new ObjectId("6479feab87cdb222302952cf"),
+    new ObjectId("6479feab87cdb222302952d1"),
+    new ObjectId("6479feac87cdb222302952d4"),
+    new ObjectId("6479feab87cdb222302952cb"),
+    new ObjectId("6479feab87cdb222302952c9")
 ];
 
-export const recipes = [
+const getCellValue = (row, cellIndex) => {
+    const cell = row.getCell(cellIndex);
+    return cell.value ? cell.value.toString() : '';
+  };
 
-]
+export const getRecipes = async()=>{
+    const workbook = new ExcelJS.Workbook();
+    const content = await workbook.xlsx.readFile('./data/seed.xlsx');
+    const worksheet = content.worksheets[0]
+    const startIndex = 2;
+    const numRows = 21;
+    const rows = worksheet.getRows(startIndex, numRows) ?? [];
+    return rows.map(recipe=>({
+        name:getCellValue(recipe, 2),
+        description:getCellValue(recipe, 3),
+        categories:getCellValue(recipe, 4),
+        servingSize:getCellValue(recipe, 5),
+        difficulty:getCellValue(recipe, 6),
+        cookingTime:getCellValue(recipe, 7),
+        preparationTime:getCellValue(recipe, 8),
+        ingredients:getCellValue(recipe, 9),
+        equipments:getCellValue(recipe, 10)
+    }));
+};
 
-export const steps = [
-
-]
+export const getSteps = async()=>{
+    const workbook = new ExcelJS.Workbook();
+    const content = await workbook.xlsx.readFile('./data/seed.xlsx');
+    const worksheet = content.worksheets[2]
+    const startIndex = 2;
+    const numRows = 117;
+    const rows = worksheet.getRows(startIndex, numRows) ?? [];
+    return rows.map(step=>({
+        index:getCellValue(step, 1),
+        recipe:getCellValue(step, 2),
+        title:getCellValue(step, 3),
+        details:getCellValue(step, 4),
+        image:getCellValue(step, 5)
+    }));
+}
