@@ -3,11 +3,7 @@ import slugify from 'slugify';
 import config from "./config/index.js";
 import db from "./config/db.js";
 import { categories, getRecipes, getSteps, users, userIds } from './config/seed.js';
-import RecipeCategory from './models/category.js';
-import RecipeEquipment from './models/equipment.js';
-import Recipe from './models/recipe.js';
-import RecipeStep from './models/step.js';
-import User from './models/user.js';
+import { RecipeCategory, RecipeEquipment, Recipe, RecipeStep, User } from "./models/index.js";
 import firebaseAdmin from './services/firebase.js'
 import { uploadImage } from './services/imagekit.js';
 
