@@ -3,6 +3,7 @@ import cors from "cors";
 import config from "./config/index.js";
 import db from "./config/db.js";
 import userRouter from "./routes/user.js";
+import recipeRouter from "./routes/recipe.js";
 
 const app = express();
 
@@ -11,6 +12,7 @@ db(config.MONGODB_URI);
 app.use(cors({ origin: true }));
 app.use(express.json());
 app.use("/api/users", userRouter);
+app.use('/api/recipes', recipeRouter);
 
 app.listen(config.PORT, () =>
   console.log(`App listening on PORT ${config.PORT}`)

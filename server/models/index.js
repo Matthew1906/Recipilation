@@ -1,8 +1,8 @@
-import RecipeCategory from "./category";
-import RecipeEquipment from "./equipment";
-import Recipe from "./recipe";
-import Review from "./review";
-import RecipeStep from "./step";
-import User from "./user";
+import RecipeCategory from "./category.js";
+import RecipeEquipment from "./equipment.js";
+import Recipe from "./recipe.js";
+import Review from "./review.js";
+import RecipeStep from "./step.js";
+import User from "./user.js";
 
 export { RecipeCategory, RecipeEquipment, Recipe, Review, RecipeStep, User }; 

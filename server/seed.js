@@ -96,6 +96,7 @@ const seedRecipes = async ()=>{
         const {imageId, image} = await uploadImage(base64String, filename, 'recipes')
         const new_recipe = new Recipe({
             name: recipe.name,
+            slug:slugify(recipe.name).toLowerCase(),
             user: userIds[Math.floor(Math.random()*userIds.length)],
             description: recipe.description,
             categories: category_ids,

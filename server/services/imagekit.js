@@ -16,4 +16,4 @@ export const uploadImage = (file, filename, folder) =>
         useUniqueFileName: false,
         folder: `/recipilation/${folder}/`
     }).then(res=>({imageId:res.fileId, image:res.url}))
-    .catch(err=>console.log(err));
+    .catch(err=>{console.log(err);console.log(filename)});

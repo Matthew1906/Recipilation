@@ -2,6 +2,7 @@ import { model, Schema } from "mongoose";
 
 const recipeSchema = Schema({
     name:{type:String, required:true},
+    slug:{type:String, required:true},
     user:{type:Schema.Types.ObjectId, ref:'user'},
     description:{type:String, required:true},
     categories:[{type:Schema.Types.ObjectId, ref:'category'}],
