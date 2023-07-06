@@ -1,12 +1,18 @@
 import express from "express";
 import firebaseAdmin from "../services/firebase.js";
-import User from "../models/user.js";
+import {Recipe, User} from "../models/index.js";
 
 const router = express.Router();
 
 router.get("/", async(req, res) =>{
   const users = await User.find();
   return res.json(users);
+})
+
+router.get("/:slug", async(req, res)=>{
+  const user = await User.findOne({slug:req.params.slug}, 'username email image dob following')
+  const recipes = await Recipe.find({user:user._id}, 'name description image serving_size difficulty cooking_time preparation_time');
+  return res.json({user, recipes});
 })
 
 router.post("/", async (req, res) => {

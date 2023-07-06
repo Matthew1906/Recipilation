@@ -21,7 +21,7 @@ root.render(
           <Route path='categories' element={<Categories />}/>
           <Route path='categories/:category' element={<Category />}/>
           <Route path="profile" element={<Profile />}/>
-          <Route path="recipes/:recipe" element={<Recipe />}/>
+          <Route path="recipes/:slug" element={<Recipe />}/>
           <Route element={<UserLayout />}>
             <Route path='cookbooks' element={<Cookbooks />}/>
             <Route path='cookbooks/:cookbook' element={<Cookbook />}/>

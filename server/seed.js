@@ -33,6 +33,7 @@ const seedUsers = ()=>{
             const {imageId, image} = await uploadImage(base64String, filename, 'users')
             const newUser = new User({
                 username:user, 
+                slug:slugify(user).toLowerCase(),
                 email, 
                 firebaseId:newFirebaseUser.uid,
                 imageId, image, 

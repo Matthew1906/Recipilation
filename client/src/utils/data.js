@@ -6,41 +6,41 @@ export const errorMessages = {
 export const recipes = [
   {
     image: "/images/lasagna-1.png",
-    title: "Classic Lasagna",
+    name: "Classic Lasagna",
     description:
       "A great dish to make for a crowd and easy to adjust for varying tastes.",
-    prepTime: "10 mins",
+    preparation_time: "10 mins",
     cookTime: "1 hour",
-    serving: 4,
+    serving_size: 4,
     difficulty: "Easy",
   },
   {
     image: "/images/spaghetti-card.png",
-    title: "Spaghetti Bolognaise",
+    name: "Spaghetti Bolognaise",
     description:
       "A great dish to make for yourself. Spaghetti Bolognaise combines the smoothness of pasta, sweetness of meat, and freshness of bolognaise sauce for you to enjoy.",
-    prepTime: "10 mins",
-    cookTime: "1 hour",
-    serving: 4,
+    preparation_time: "10 mins",
+    cooking_time: "1 hour",
+    serving_size: 4,
     difficulty: "Easy",
   },
   {
     image: "/images/pizza-card.png",
-    title: "Supreme Pizza",
+    name: "Supreme Pizza",
     description: "A great dish for the crowd. Who doesn't like pizza?",
     prepTime: "10 mins",
-    cookTime: "1 hour",
-    serving: 4,
+    cooking_time: "1 hour",
+    serving_size: 4,
     difficulty: "Medium",
   },
   {
     image: "/images/spaghetti-card.png",
-    title: "Spaghetti Bolognaise",
+    name: "Spaghetti Bolognaise",
     description:
       "A great dish to make for yourself. Spaghetti Bolognaise combines the smoothness of pasta, sweetness of meat, and freshness of bolognaise sauce for you to enjoy.",
-    prepTime: "10 mins",
-    cookTime: "1 hour",
-    serving: 4,
+    preparation_time: "10 mins",
+    cooking_time: "1 hour",
+    serving_size: 4,
     difficulty: "Hard",
   },
 ];
@@ -112,22 +112,22 @@ export const equipments = [
 ];
 
 export const ingredients = [
-  {amount:3, measurement:'cups', name:'hoisin sauce', details:"(60 ml/cc)"},
-  {amount:3, measurement:'cups', name:'hoisin sauce', details:"(60 ml/cc)"},
-  {amount:3, measurement:'cups', name:'hoisin sauce', details:"(60 ml/cc)"},
-  {amount:3, measurement:'cups', name:'hoisin sauce', details:"(60 ml/cc)"},
-  {amount:3, measurement:'cups', name:'hoisin sauce', details:"(60 ml/cc)"},
+  "3 cups of hoisin sauce (60 ml/cc)",
+  "3 cups of hoisin sauce (60 ml/cc)",
+  "3 cups of hoisin sauce (60 ml/cc)",
+  "3 cups of hoisin sauce (60 ml/cc)",
+  "3 cups of hoisin sauce (60 ml/cc)",
 ];
 
 export const steps = [
-  {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
-  {title:'Brown the ground beefss', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
-  {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
-  {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
-  {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
-  {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
-  {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
-  {title:'Brown the ground beef', image:'/images/step-card.png', description:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+  {index:6, title:'Brown the ground beef', image:'/images/step-card.png', details:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+  {index:2, title:'Brown the ground beefss', image:'/images/step-card.png', details:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+  {index:1, title:'Brown the ground beef', image:'/images/step-card.png', details:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+  {index:3, title:'Brown the ground beef', image:'/images/step-card.png', details:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+  {index:7, title:'Brown the ground beef', image:'/images/step-card.png', details:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+  {index:5, title:'Brown the ground beef', image:'/images/step-card.png', details:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+  {index:4, title:'Brown the ground beef', image:'/images/step-card.png', details:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
+  {index:8, title:'Brown the ground beef', image:'/images/step-card.png', details:'In a large skillet heat 2 teaspoons of olive oil on medium high heat. Add the ground beef and cook until it is lightly browned on all sides. Remove the beef with a slotted spoon to a bowl. Drain off all but a tablespoon of fat.'},
 ];
 
 export const comments = [

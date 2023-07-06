@@ -1,13 +1,13 @@
 import axiosClient from "./base";
 
-export function getRecipes(){
-    
+export function getRecipe(slug){
+    return axiosClient.get(`/api/recipes/${slug}`)
 }
 
 export function getRecipesByCategory(){
-
+    
 }
 
-export function getRecipesByCreator(){
-
+export function getRecipesByCreator(chef){
+    return axiosClient.get(`/api/recipes?user=${chef}`)
 }

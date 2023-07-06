@@ -33,13 +33,13 @@ const StepCarousel = ({items})=>{
           >
             {items.map((item, key)=>(
                 <SwiperSlide key={key}>
-                    <img src={item.image}  alt={item.title} className='w-50'/>
+                    <img src={item?.image??'/images/not-exist.jpg'}  alt={item?.title} className='w-50'/>
                 </SwiperSlide>
             ))}
         </Swiper>
         <div className='my-5 text-center text-nunito'>
-          <strong className='text-xl md:text-3xl font-semibold'>{current+1}. {items[current].title}</strong>
-          <p className="mt-3 px-24 text-lg md:text-2xl font-light text-justify">{items[current].description}</p>
+          <strong className='text-xl md:text-3xl font-semibold'>{current+1}. {items[current]?.title}</strong>
+          <p className="mt-3 px-24 text-lg md:text-2xl font-light text-justify">{items[current]?.details}</p>
         </div>
       </div>
     )
