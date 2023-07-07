@@ -28,7 +28,7 @@ const MobileNavigation = ({ purpose='home' }) => {
                 {isAuthenticated && (
                 <>
                     <NavLink to="/cookbooks"><li className="mb-4">My Cookbooks</li></NavLink>
-                    <NavLink to="/profile"><li className="mb-4">Profile</li></NavLink>
+                    {/* <NavLink to={"/profiles/"+user.slug}><li className="mb-4">Profile</li></NavLink> */}
                     <NavLink to="/my-recipes"><li className="mb-4">My Recipes</li></NavLink>
                 </>
                 )}

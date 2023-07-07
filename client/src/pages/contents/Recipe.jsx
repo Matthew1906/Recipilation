@@ -43,8 +43,8 @@ const Recipe = () => {
   return (
     <>
       <section id='basic-info' className="lg:grid lg:grid-cols-2 lg:h-full">
-        <img src={recipe?.image??'/images/not-exist.png'} alt={slug} className="w-full h-full"/>
-        <div className="p-8 lg:p-4 bg-white-primary flex flex-col justify-center items-center gap-1">
+        <img src={recipe?.image??'/images/not-exist.png'} alt={slug} className="w-full h-full aspect-[3/2]"/>
+        <div className="p-8 bg-white-primary flex flex-col justify-center items-center gap-1">
           <div className="flex justify-center items-center">
             <BackIcon className="text-2xl cursor-pointer" />
             <span className="font-fjalla-one text-2xl lg:text-4xl">{titleString(recipe?.name??slug)}</span>
@@ -52,7 +52,12 @@ const Recipe = () => {
             <FaEdit className="ml-1 cursor-pointer link-expand text-lg" />
             <FaShareAlt className="cursor-pointer link-expand text-lg" />
           </div>
-          <p className="font-nunito text-extralight text-lg lg:text-xl">by {recipe?.user?.username??"Unknown"}</p>
+          <a 
+            href={('/profiles/'+recipe?.user?.slug)??"#"} 
+            className="font-nunito text-extralight text-lg lg:text-xl hover:underline"
+          >
+            by {recipe?.user?.username??"Unknown"}
+          </a>
           <div className="flex justify-center items-center gap-1">
             <RatingIcons rating={5} />
             <p className="font-light">(5)</p>
@@ -80,7 +85,7 @@ const Recipe = () => {
           <div className="px-4 mb-3 flex wrap justify-center gap-2">
             {categories.map((category, key) => {
               return (
-                <span key={key} className={`${category.theme} px-4 py-2 rounded-md`}>
+                <span key={key} className={`${category.theme} px-4 py-2 rounded-md flex justify-center items-center`}>
                   {category.name}
                 </span>
               );

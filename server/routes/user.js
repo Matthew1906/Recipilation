@@ -11,7 +11,7 @@ router.get("/", async(req, res) =>{
 
 router.get("/:slug", async(req, res)=>{
   const user = await User.findOne({slug:req.params.slug}, 'username email image dob following')
-  const recipes = await Recipe.find({user:user._id}, 'name description image serving_size difficulty cooking_time preparation_time');
+  const recipes = await Recipe.find({user:user._id}, 'name slug description image serving_size difficulty cooking_time preparation_time');
   return res.json({user, recipes});
 })
 

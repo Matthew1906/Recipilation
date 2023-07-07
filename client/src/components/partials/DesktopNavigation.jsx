@@ -24,9 +24,9 @@ const DesktopNavigation = ({purpose='home'})=>{
                             <NavLink to="/cookbooks">
                                 <li className="link-expand">My Cookbooks</li>
                             </NavLink>
-                            <NavLink to="/profile">
+                            {/* <NavLink to={"/profiles/"+user.slug}>
                                 <li className="link-expand">Profile</li>
-                            </NavLink>
+                            </NavLink> */}
                             <NavLink to="/my-recipes">
                                 <li className="link-expand">My Recipes</li>
                             </NavLink>

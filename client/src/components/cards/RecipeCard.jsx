@@ -17,7 +17,7 @@ const RecipeCard = ({ recipe }) => {
         <img
           src={recipe.image}
           alt={recipe.name}
-          className="h-full rounded-t-2xl md:rounded-tr-none md:rounded-l-2xl"
+          className="aspect-[3/2] h-full rounded-t-2xl md:rounded-tr-none md:rounded-l-2xl"
         />
       </a>
       <div className="p-5 rounded-b-2xl md:rounded-bl-none md:rounded-r-2xl flex flex-col">

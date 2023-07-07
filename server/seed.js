@@ -2,8 +2,8 @@ import fs from 'fs';
 import slugify from 'slugify';
 import config from "./config/index.js";
 import db from "./config/db.js";
-import { categories, getRecipes, getSteps, users, userIds } from './config/seed.js';
-import { RecipeCategory, RecipeEquipment, Recipe, RecipeStep, User } from "./models/index.js";
+import { categories, getRecipes, getSteps, users, userIds, reviews } from './config/seed.js';
+import { RecipeCategory, RecipeEquipment, Recipe, RecipeStep, User, Review } from "./models/index.js";
 import firebaseAdmin from './services/firebase.js'
 import { uploadImage } from './services/imagekit.js';
 
@@ -138,4 +138,28 @@ const seedSteps = async()=>{
     })
 }
 
-await seedRecipes();
+const seedReviews = async()=>{
+    const recipes = await Recipe.find({});
+    recipes.forEach(recipe=>{
+        const ids = userIds.filter(id=>id!==recipe.user)
+        const new_reviews = [...reviews].sort(() => 0.5 - Math.random()).
+            slice(0, 2).map(review=>{
+                const random_user = ids[Math.floor(Math.random()*ids.length)];
+                const index = ids.indexOf(random_user);
+                ids.splice(index, 1);
+                const new_review = new Review({
+                    user:random_user,
+                    body:review,
+                    date:new Date(2023, 1+Math.floor(Math.random()*5), 1+Math.floor(Math.random()*27)) ,
+                    rating:4+Math.floor(Math.random())
+                })
+                new_review.save()
+                return new_review._id;
+            })
+        recipe.reviews = new_reviews;
+        recipe.save(); 
+        console.log(`Finish adding new reviews for ${recipe.name}`)
+    })
+}
+
+await seedReviews();

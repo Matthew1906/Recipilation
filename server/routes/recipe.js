@@ -1,6 +1,6 @@
 import express from "express";
 import slugify from "slugify";
-import { RecipeCategory, Recipe, User, RecipeEquipment, RecipeStep } from '../models/index.js';
+import { RecipeCategory, Recipe, User, RecipeEquipment, RecipeStep, Review } from '../models/index.js';
 
 const router = express.Router();
 
@@ -29,6 +29,7 @@ router.get('/:id', async(req, res)=>{
     const recipe = await Recipe.findOne({slug}).
         populate({path:'categories', model:RecipeCategory, select:'name -_id'}).
         populate({path:'equipments', model:RecipeEquipment, select:'name image -_id'}).
+        populate({path:'reviews', model:Review, select:'user body date rating -_id', populate:{path:'user', select:'username slug'}}).
         populate({path:'steps', model:RecipeStep, select:'-__v -recipe'}).
         populate({path:'user', model:User, select:'username slug _id'});
     return res.json(recipe);
