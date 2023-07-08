@@ -18,7 +18,7 @@ export const themeConfig = {
     'yellow':'bg-yellow text-white-primary',
     'time':'bg-light-green text-green',
     'serving':'bg-light-blue text-blue',
-    'hard':'bg-light-red, text-red',
+    'hard':'bg-light-red text-red',
     'medium':'bg-light-yellow text-orange',
     'easy':'bg-light-yellow text-yellow',
     'neutral':'bg-white-primary text-black'

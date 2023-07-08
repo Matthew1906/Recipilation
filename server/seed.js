@@ -141,7 +141,7 @@ const seedSteps = async()=>{
 const seedReviews = async()=>{
     const recipes = await Recipe.find({});
     recipes.forEach(recipe=>{
-        const ids = userIds.filter(id=>id!==recipe.user)
+        const ids = userIds.filter(id=>id.toString()!==recipe.user.toString());
         const new_reviews = [...reviews].sort(() => 0.5 - Math.random()).
             slice(0, 2).map(review=>{
                 const random_user = ids[Math.floor(Math.random()*ids.length)];
