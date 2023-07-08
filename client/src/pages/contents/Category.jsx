@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { getRecipesByCategory } from "../../api/recipe";
+import { getRecipesByCategories } from "../../api/recipe";
 import { Pagination } from "../../components/containers";
 import { BackIcon } from "../../components/icons";
 import { titleString } from "../../utils/string";
@@ -9,7 +9,7 @@ const Category = () => {
   const { slug } = useParams();
   const [ recipes, setRecipes ] = useState([]);
   useEffect(()=>{
-    getRecipesByCategory(slug).then(res=>{
+    getRecipesByCategories(slug).then(res=>{
       setRecipes(res.data);
     })
   }, [slug]);

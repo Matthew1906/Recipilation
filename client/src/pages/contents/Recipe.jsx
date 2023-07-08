@@ -4,14 +4,13 @@ import { BsFillBarChartFill } from "react-icons/bs";
 import { FaEdit, FaShareAlt, FaTrashAlt } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
-import { getRecipe, getRecipesByCreator } from "../../api/recipe";
+import { getRecipe, getRecipesByCategories, getRecipesByCreator } from "../../api/recipe";
 import { CommentCard, RecipeCard } from "../../components/cards";
 import { StepCarousel } from "../../components/carousels";
 import { LoadMore, Pagination } from "../../components/containers";
 import { BackIcon, RatingIcons } from "../../components/icons";
 import { CommentForm } from "../../components/forms";
 import { Button } from "../../components/utils";
-import { comments, equipments, ingredients, steps, recipes } from "../../utils/data";
 import { titleString } from "../../utils/string";
 import { categoryConfig, themeConfig } from "../../utils/theme";
 
@@ -29,6 +28,7 @@ const Recipe = () => {
   const { slug } = useParams();
   const [ recipe, setRecipe ] = useState({});
   const [ categories, setCategories ] = useState([]);
+  const [ similarRecipes, setSimilarRecipes ] = useState([]);
   const [ recipesByChef, setRecipesByChef ] = useState([]);
   useEffect(()=>{
     getRecipe(slug).then(res=>{
@@ -37,6 +37,7 @@ const Recipe = () => {
         name: category.name,
         theme: randomizeTheme(),
       })));
+      getRecipesByCategories(res?.data?.categories.map(category=>category.slug)).then(res=>setSimilarRecipes(res.data));
       getRecipesByCreator(res?.data?.user?.slug).then(res=>setRecipesByChef(res.data));
     }).catch(err=>console.log(err));
   }, [slug]);
@@ -59,8 +60,8 @@ const Recipe = () => {
             by {recipe?.user?.username??"Unknown"}
           </a>
           <div className="flex justify-center items-center gap-1">
-            <RatingIcons rating={5} />
-            <p className="font-light">(5)</p>
+            <RatingIcons rating={recipe?.avg_rating??0} />
+            <p className="font-light">({recipe?.reviews?.length??0})</p>
           </div>
           <p className="mt-2 md:w-96 text-center text-base md:text-xl font-extralight">
             {recipe?.description ?? "No description"}
@@ -82,7 +83,7 @@ const Recipe = () => {
               <p className="font-bold text-xs md:text-sm text-center">{recipe?.serving_size??0} people</p>
             </AttributeIcon>
           </div>
-          <div className="px-4 mb-3 flex wrap justify-center gap-2">
+          <div className="px-4 mb-3 flex flex-wrap justify-center gap-2">
             {categories.map((category, key) => {
               return (
                 <span key={key} className={`${category.theme} px-4 py-2 rounded-md flex justify-center items-center`}>
@@ -99,12 +100,12 @@ const Recipe = () => {
       <section id="ingredients-equipments" className="p-8 md:grid md:grid-cols-2 md:gap-6 lg:h-full bg-light-yellow">
         <div className="mb-4">
           <h6 className="text-nunito text-2xl md:text-4xl font-semibold">Equipments:</h6>
-          <Pagination items={recipe?.equipments ?? equipments} type="equipment" perPage={6} smCols={2} cols={3}/>
+          <Pagination items={recipe?.equipments??[]} type="equipment" perPage={6} smCols={2} cols={3}/>
         </div>
         <div>
           <h6 className="text-nunito text-2xl md:text-4xl font-semibold">Ingredients:</h6>
           <ul className="mt-2 px-10">
-            {(recipe?.ingredients??ingredients).filter(ingredient=>ingredient!=='').map((ingredient, key) => (
+            {(recipe?.ingredients??[]).filter(ingredient=>ingredient!=='').map((ingredient, key) => (
               <li key={key} className="my-1 list-disc text-2xl">
                 <span>{ingredient}</span>
               </li>
@@ -116,21 +117,21 @@ const Recipe = () => {
         <h6 className="text-nunito text-2xl md:text-4xl mb-4">
           How to make{" "}<span className="font-semibold">{titleString(recipe?.name??slug)}</span>
         </h6>
-        <StepCarousel items={recipe?.steps??steps} />
+        <StepCarousel items={recipe?.steps??[]} />
       </section>
       <LoadMore title="Comments" id="comments" className="px-10 py-8 bg-light-red" cols={3}>
-        {comments.map((comment, key) => (
-          <CommentCard key={key} comment = {comment}/>
+        {(recipe?.reviews??[]).map((review, key) => (
+          <CommentCard key={key} comment = {review}/>
         ))}
       </LoadMore>
       <CommentForm />
       <LoadMore title="More Like This" id="more-like-this" className="px-10 py-8 bg-light-yellow">
-        {recipes.map((recipe, key) => (
+        {similarRecipes.filter(recipe=>recipe.slug!==slug).map((recipe, key) => (
           <RecipeCard recipe={recipe} key={key} />
         ))}
       </LoadMore>
       <LoadMore title={"More by " + recipe?.user?.username??"Unknown"} sid="more-by-chef" className="px-10 py-8 bg-white-primary">
-        {(recipesByChef??[]).filter(recipe=>recipe.slug!==slug).map((recipe, key) => (
+        {recipesByChef.filter(recipe=>recipe.slug!==slug).map((recipe, key) => (
           <RecipeCard recipe={recipe} key={key} />
         ))}
       </LoadMore>
