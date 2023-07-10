@@ -1,12 +1,18 @@
+import { useState, useEffect } from "react";
+import { getCategories } from "../../api/category";
 import { CollectionsLayout } from "../../layouts";
-import { categories } from "../../utils/data";
 
-const Categories = ()=> (
+const Categories = () => {
+    const [ categories, setCategories ] = useState([]);
+    useEffect(()=>{
+        getCategories().then(res=>setCategories(res.data));
+    }, [])
+    return(
     <CollectionsLayout 
         heading="Categories" 
         subheading="Check out your categories of our recipes!" 
-        items={[...categories, ...categories.slice(2,4)]}
-    />
-);
+        items={categories}
+    />)
+};
 
 export default Categories;

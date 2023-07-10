@@ -10,13 +10,13 @@ const CollectionsLayout = ({ cookbook, heading, subheading, items }) => {
       <h4 className="pt-2 px-10 font-nunito font-extralight text-2xl">
         {subheading}
       </h4>
-      <LoadMore id="categories" className="my-5 px-10" cols={3}>
+      <LoadMore id="categories" className="my-5 px-10" cols={3} items={6}>
         {items.map((item, key) => (
           <CombinationCard
             key={key}
             name={item.name}
             images={item.images}
-            recipes={10}
+            recipes={item.numRecipes}
             cookbook={cookbook}
           />
         ))}

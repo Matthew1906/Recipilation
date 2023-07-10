@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Button } from "../utils";
 
-const LoadMore = ({ id, title, children, className, cols }) => {
-  const [numItems, setNumItems] = useState(4);
-  const showMore = ()=>setNumItems(numItems+4);
-  const showLess = ()=>setNumItems(4);
+const LoadMore = ({ id, title, children, className, cols, items=4 }) => {
+  const [numItems, setNumItems] = useState(items);
+  const showMore = ()=>setNumItems(numItems+items);
+  const showLess = ()=>setNumItems(items);
   return (
     <section className={className} id={id}>
       {title && (<h5 className="font-nunito font-bold text-xl md:text-3xl mb-4 md:mb-0">{title}</h5>)}
@@ -12,7 +12,7 @@ const LoadMore = ({ id, title, children, className, cols }) => {
         {children.slice(0, numItems)}
       </div>
       <div className="text-center">
-        {numItems > 4 && 
+        {numItems > items && 
         <a href={"#"+id}>
           <Button theme="red" className="mx-4 mt-4 text-xl" expand onClick={showLess}>
             Show Less

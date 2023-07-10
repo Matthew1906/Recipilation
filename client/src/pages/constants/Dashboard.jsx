@@ -1,21 +1,30 @@
 import { Link } from "react-router-dom";
+import { getCategories } from "../../api/category";
+import { getRecipes } from "../../api/recipe";
 import { RecipeCard } from "../../components/cards";
 import { RecipeCarousel } from "../../components/carousels";
 import { LoadMore, Pagination } from "../../components/containers";
 import { CombinationIcon } from "../../components/icons";
-import { categories, recipes } from "../../utils/data";
+import { recipes } from "../../utils/data";
+import { useState, useEffect } from "react";
 
 const Dashboard = () => {
+  const [ topRecipes, setTopRecipes ] = useState([]);
+  const [ topCategories, setTopCategories] = useState([]);
+  useEffect(()=>{
+    getRecipes().then(res=>setTopRecipes(res.data));
+    getCategories().then(categories=>setTopCategories(categories.data));
+  }, []);
   return (
     <>
       {/* Carousel (Top rated/Trending Recipes) */}
-      <RecipeCarousel recipes={recipes} />
+      <RecipeCarousel recipes={topRecipes.slice(0, 5)} />
       {/* Top Categories */}
       <section className="px-10 py-8" id="top-categories">
         <h5 className="font-nunito font-bold text-2xl mb-3 md:mb-0">Top Categories</h5>
         <div className="flex justify-center lg:justify-between flex-wrap items-center lg:px-8 mt-4">
-          {categories.map((category, key) => (
-            <Link to="/categories/italian" key={key}>
+          {topCategories.slice(0,4).map((category, key) => (
+            <Link to={"/categories/"+category.slug} key={key}>
               <CombinationIcon
                 images={category.images.slice(0, 4)} // can only show 4 first images
                 name={category.name}

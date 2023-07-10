@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import config from "./config/index.js";
 import db from "./config/db.js";
+import categoryRouter from "./routes/category.js";
 import userRouter from "./routes/user.js";
 import recipeRouter from "./routes/recipe.js";
 
@@ -11,6 +12,7 @@ db(config.MONGODB_URI);
 
 app.use(cors({ origin: true }));
 app.use(express.json());
+app.use("/api/categories", categoryRouter);
 app.use("/api/users", userRouter);
 app.use('/api/recipes', recipeRouter);
 
