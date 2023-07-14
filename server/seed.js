@@ -151,6 +151,7 @@ const seedReviews = async()=>{
                     user:random_user,
                     body:review,
                     date:new Date(2023, 1+Math.floor(Math.random()*5), 1+Math.floor(Math.random()*27)) ,
+                    difficulty:Math.floor(Math.random())===0?"easy":"medium",
                     rating:4+Math.floor(Math.random())
                 })
                 new_review.save()

@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { BsFillBarChartFill } from "react-icons/bs";
 import { FaEdit, FaShareAlt, FaTrashAlt } from "react-icons/fa";
@@ -10,7 +10,8 @@ import { StepCarousel } from "../../components/carousels";
 import { LoadMore, Pagination } from "../../components/containers";
 import { BackIcon, RatingIcons } from "../../components/icons";
 import { CommentForm } from "../../components/forms";
-import { Button } from "../../components/utils";
+import { useAuth } from "../../hooks";
+// import { Button } from "../../components/utils";
 import { titleString } from "../../utils/string";
 import { categoryConfig, themeConfig } from "../../utils/theme";
 
@@ -26,10 +27,14 @@ const AttributeIcon = ({ theme, children }) => {
 
 const Recipe = () => {
   const { slug } = useParams();
+  const { isAuthenticated, user } = useAuth();
+  const [ changes, setChanges ] = useState(false);
+  const updatePage = ()=>setChanges(!changes);
   const [ recipe, setRecipe ] = useState({});
   const [ categories, setCategories ] = useState([]);
   const [ similarRecipes, setSimilarRecipes ] = useState([]);
   const [ recipesByChef, setRecipesByChef ] = useState([]);
+  const [ validReviewer, setValidReviewer ] = useState(false);
   useEffect(()=>{
     getRecipe(slug).then(res=>{
       setRecipe(res.data);
@@ -37,10 +42,16 @@ const Recipe = () => {
         name: category.name,
         theme: randomizeTheme(),
       })));
+      if(isAuthenticated && res?.data?.user?.email !== user?.email && !res?.data?.reviews.map(review=>review.user.email).includes(user?.email)){
+        setValidReviewer(true);
+      }
+      else{
+        setValidReviewer(false);
+      }
       getRecipesByCategories(res?.data?.categories.map(category=>category.slug)).then(res=>setSimilarRecipes(res.data));
       getRecipesByCreator(res?.data?.user?.slug).then(res=>setRecipesByChef(res.data));
     }).catch(err=>console.log(err));
-  }, [slug]);
+  }, [slug, isAuthenticated, user, changes]);
   return (
     <>
       <section id='basic-info' className="lg:grid lg:grid-cols-2 lg:h-full">
@@ -92,9 +103,9 @@ const Recipe = () => {
               );
             })}
           </div>
-          <div>
+          {/* <div>
             <Button theme="green" expand>Add to Collection</Button>
-          </div>
+          </div> */}
         </div>
       </section>
       <section id="ingredients-equipments" className="p-8 md:grid md:grid-cols-2 md:gap-6 lg:h-full bg-light-yellow">
@@ -124,7 +135,7 @@ const Recipe = () => {
           <CommentCard key={key} comment = {review}/>
         ))}
       </LoadMore>
-      <CommentForm />
+      {isAuthenticated && validReviewer && <CommentForm recipe={recipe?.slug} user={user.email} updatePage={updatePage}/>}
       <LoadMore title="More Like This" id="more-like-this" className="px-10 py-8 bg-light-yellow">
         {similarRecipes.filter(recipe=>recipe.slug!==slug).map((recipe, key) => (
           <RecipeCard recipe={recipe} key={key} />

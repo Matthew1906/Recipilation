@@ -5,6 +5,7 @@ import db from "./config/db.js";
 import categoryRouter from "./routes/category.js";
 import userRouter from "./routes/user.js";
 import recipeRouter from "./routes/recipe.js";
+import reviewRouter from "./routes/review.js";
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use("/api/categories", categoryRouter);
 app.use("/api/users", userRouter);
 app.use('/api/recipes', recipeRouter);
+app.use('/api/reviews', reviewRouter);
 
 app.listen(config.PORT, () =>
   console.log(`App listening on PORT ${config.PORT}`)

@@ -1,9 +1,11 @@
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
+import { useAuth } from "../../hooks";
 import { limitString } from "../../utils/string";
 
 const RecipeCard = ({ recipe }) => {
+  const { isAuthenticated, user } = useAuth();
   const editRecipe = () => console.log("Edit");
   const deleteRecipe = () => console.log("Delete");
   const difficultyConfig = {
@@ -57,6 +59,7 @@ const RecipeCard = ({ recipe }) => {
               {recipe.difficulty}
             </span>
           </p>
+          { isAuthenticated && user.email === recipe.user.email &&
           <div className="flex gap-1 font-bold">
             <FaTrashAlt
               className="text-red cursor-pointer link-expand"
@@ -65,8 +68,9 @@ const RecipeCard = ({ recipe }) => {
             <FaEdit
               className="cursor-pointer link-expand"
               onClick={editRecipe}
-            />
+            />  
           </div>
+          }
         </div>
       </div>
     </div>

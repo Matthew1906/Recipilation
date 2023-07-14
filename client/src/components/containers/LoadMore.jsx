@@ -7,7 +7,7 @@ const LoadMore = ({ id, title, children, className, cols, items=4 }) => {
   const showLess = ()=>setNumItems(items);
   return (
     <section className={className} id={id}>
-      {title && (<h5 className="font-nunito font-bold text-xl md:text-3xl mb-4 md:mb-0">{title}</h5>)}
+      {children.length > 0 && title && (<h5 className="font-nunito font-bold text-xl md:text-3xl mb-4 md:mb-0">{title}</h5>)}
       <div className={`mt-4 grid grid-cols-1  lg:grid-cols-${cols ?? 2} gap-8`}>
         {children.slice(0, numItems)}
       </div>

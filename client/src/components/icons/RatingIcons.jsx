@@ -1,13 +1,14 @@
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaStarHalf } from "react-icons/fa";
 
 const RatingIcons = ({ rating }) => {
   return (
     <div className="flex items-center text-yellow gap-1">
-      {Array(rating)
+      {Array(Math.floor(rating))
         .fill("star")
         .map((val, key) => (
           <FaStar key={val+key} />
         ))}
+      {(rating*2)%2!==0 && <FaStarHalf key={1000}/>}
     </div>
   );
 };

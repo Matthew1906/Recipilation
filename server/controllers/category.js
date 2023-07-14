@@ -2,9 +2,13 @@ import { RecipeCategory } from "../models/index.js";
 import { mean } from "../utils.js";
 
 export const getCategories = async(req, res, next)=>{
-    const categories = await RecipeCategory.find({});
-    req.categories = categories;
-    next();
+    try{
+        const categories = await RecipeCategory.find({});
+        req.categories = categories;
+        next();
+    } catch(err){
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
 }
 
 export const getCategoryDetails = async(req, res, next)=>{
@@ -20,6 +24,8 @@ export const getCategoryDetails = async(req, res, next)=>{
         })
     })).then((categories)=>{
         res.categories = categories.sort((a,b)=>a.avgRating-b.avgRating||b.numRecipes-a.numRecipes);
+    }).catch((err)=>{
+        return res.status(500).json({ error: "Server error. Please try again" });
     }).finally(()=>{
         next();
     })

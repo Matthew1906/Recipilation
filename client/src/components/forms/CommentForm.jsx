@@ -3,19 +3,23 @@ import { useForm } from "react-hook-form";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { TextArea } from "./helpers";
 import { Button } from "../utils";
+import { submitReview } from "../../api/review";
 import { useScreenSize } from "../../hooks";
 import { categoryConfig } from "../../utils/theme";
 
-const CommentForm = () => {
+const CommentForm = ({recipe, user, updatePage}) => {
   const screenSize = useScreenSize();
-  const { control, handleSubmit, setValue, watch } = useForm({
+  const { control, handleSubmit, setValue, watch, reset } = useForm({
     defaultValues:{
       body:"", 
       rating:2.5, 
       difficulty:'medium'
     }
   });
-  const onSubmit = (data)=>console.log(data);
+  const onSubmit = (data)=>submitReview(data, recipe, user).finally(()=>{
+    reset();
+    updatePage();
+  });
   return (
     <form className="px-10 py-8 bg-white-primary" onSubmit={handleSubmit(onSubmit)}>
       <h2 className="pt-5 font-fjalla-one text-3xl mb-3 md:mb-0">
