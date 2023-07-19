@@ -33,6 +33,20 @@ export const authenticateUser = async(req, res)=>{
     }
 }
 
+export const getAverageUserRating = async(req, res, next)=>{
+    try {
+        const recipes = await Recipe.find({user:res.user._id}, "_id reviews").
+            populate({path:'reviews', model:Review, select:'rating -_id'});
+        res.user = {
+            ...res.user._doc, 
+            rating:mean(recipes.map(recipe=>mean(recipe.reviews.map(review=>review.rating)))),
+        }
+        next();
+    } catch(err){
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}
+
 export const getUser = async(req, res, next)=>{
     try{
         const user = await User.findOne({slug:req.params.slug}, 'username slug email image dob following')
@@ -47,6 +61,7 @@ export const getUsers = async(req, res, next)=>{
     try{ 
         const users = await User.find({}, 'username slug image');
         res.users = users;
+        next();
     } catch(err){
         return res.status(500).json({ error: "Server error. Please try again" });
     }
@@ -66,15 +81,14 @@ export const searchUsers = async(req, res, next)=>{
 
 export const getUserDetails = async(req, res, next)=>{
     Promise.all(res.users.map(async user=>{
-        const recipes = await Recipe.find({user:user._id}, "_id reviews")
-            // populate({path:'reviews', model:Review, select:'rating -_id'});
+        const recipes = await Recipe.find({user:user._id}, "_id reviews").
+            populate({path:'reviews', model:Review, select:'rating -_id'});
         const reviews = await Review.find({user:user._id}, "_id");
-        // console.log(recipes.map(recipe=>mean(recipe.reviews.map(review=>review.rating))));
         return {
             ...user._doc, 
-            rating:0,
+            rating:mean(recipes.map(recipe=>mean(recipe.reviews.map(review=>review.rating)))),
             recipes:recipes.length,
-            reviews:reviews.length
+            reviews:reviews.length,
         }
     })).then(users=>{
         res.users = users

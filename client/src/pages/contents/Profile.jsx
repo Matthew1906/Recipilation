@@ -55,8 +55,8 @@ const Profile = () => {
             </div>
           </div>
           <div className="flex place-items-center gap-1">
-            <RatingIcons rating={4} />
-            <p className="font-light">(5)</p>
+            <RatingIcons rating={user?.rating??3} />
+            <p className="font-light">({user?.rating??3})</p>
           </div>
           <p className="w-60 font-extralight text-sm text-center break-words">
             This is the average rating based on all the chef’s recipe reviews

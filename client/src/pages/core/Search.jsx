@@ -45,10 +45,9 @@ const Search = () => {
         ))}
       </LoadMore>
       {/* User results */}
-      <LoadMore title="Users" id="search-user" className="py-5 px-10" cols={3}>
+      <LoadMore title="Users" id="search-user" className="py-5 px-10" cols={3} items={3}>
         {profiles.map((profile, key) => (
-          // <ProfileCard key={key} profile={profile}/>
-          profile.name
+          <ProfileCard key={key} profile={profile}/>
         ))}
       </LoadMore>
     </>

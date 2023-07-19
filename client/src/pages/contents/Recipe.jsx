@@ -55,7 +55,7 @@ const Recipe = () => {
   return (
     <>
       <section id='basic-info' className="lg:grid lg:grid-cols-2 lg:h-full">
-        <img src={recipe?.image??'/images/not-exist.png'} alt={slug} className="w-full h-full aspect-[3/2]"/>
+        <img src={recipe?.image??'/images/not-exist.jpg'} alt={slug} className="w-full h-full aspect-[3/2]"/>
         <div className="p-8 bg-white-primary flex flex-col justify-center items-center gap-1">
           <div className="flex justify-center items-center">
             <BackIcon className="text-2xl cursor-pointer" />
