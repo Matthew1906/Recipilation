@@ -66,6 +66,18 @@ export const filterByUser = async(req, res, next)=>{
     }
 }
 
+export const searchRecipes = async(req, res, next)=>{
+    try {
+        const query = req.query.query ?? null;
+        if (query!== null){
+            res.recipes = res.recipes.filter(recipe=>recipe.name.toLowerCase().includes(query.toLowerCase()));
+        }
+        next();
+    } catch(err){
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}
+
 export const sortByRatings = async(req, res, next)=>{
     try{
         res.recipes = res.recipes.map(recipe=>{

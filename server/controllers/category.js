@@ -30,3 +30,15 @@ export const getCategoryDetails = async(req, res, next)=>{
         next();
     })
 }
+
+export const searchCategories = async(req, res, next)=>{
+    try{
+        const query = req.query.query ?? null;
+        if (query!== null){
+            req.categories = req.categories.filter(category=>category.name.toLowerCase().includes(query.toLowerCase()));
+        }
+        next();
+    } catch(err){
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}

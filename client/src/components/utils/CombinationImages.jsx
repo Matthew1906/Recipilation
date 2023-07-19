@@ -18,7 +18,7 @@ const CombinationImages = ({ images, name, round, className }) => {
           src={`${image}`}
           alt={`${name}-${key}`}
           key={key}
-          className={`w-full h-full ${
+          className={`aspect-[3/2] w-full h-full ${
             images.length === 3 && key === images.length - 1 ? "col-span-2":"" 
           } ${round ? borderRadius[images.length - 1](key) : ""}`}
         />

@@ -18,3 +18,7 @@ export function getRecipesByCategories(categories){
 export function getRecipesByCreator(chef){
     return axiosClient.get(`/api/recipes?user=${chef}`);
 }
+
+export function searchRecipes(query){
+    return axiosClient.get(`/api/recipes?query=${query}`);
+}

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { RatingIcons } from "../icons";
 
 const ProfileCard = ({profile}) => {
-  const {name, image, recipes, rating, reviews} = profile;
+  const {username:name, image, recipes, rating, reviews} = profile;
   return (
     <Link to={"/"}>
       <div className="rounded-l-full flex justify-between gap-5 bg-white-primary drop-shadow-lg">

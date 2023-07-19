@@ -1,12 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { searchCategories } from "../../api/category";
+import { searchRecipes } from "../../api/recipe";
+import { searchUsers } from "../../api/user";
 import { CombinationCard, ProfileCard, RecipeCard } from "../../components/cards";
 import { LoadMore } from "../../components/containers";
 import { SearchForm } from "../../components/forms";
-import { categories, profiles, recipes } from "../../utils/data";
+// import { categories, profiles, recipes } from "../../utils/data";
 
 const Search = () => {
-  const [query, setQuery] = useState("");
+  const [ query, setQuery ] = useState("");
+  const [ recipes, setRecipes ] = useState([]);
+  const [ categories, setCategories ] = useState([]);
+  const [ profiles, setProfiles ] = useState([]);
   const searchQuery = (res) => setQuery(res.query);
+  useEffect(()=>{
+    searchCategories(query).then(res=>setCategories(res.data));
+    searchRecipes(query).then(res=>setRecipes(res.data));
+    searchUsers(query).then(res=>setProfiles(res.data));
+  }, [query])
   return (
     <>
       <SearchForm onSubmit={searchQuery}/>
@@ -17,13 +28,13 @@ const Search = () => {
       </h3>
       {/* Recipe results */}
       <LoadMore title="Recipes" id="search-recipe" className="pt-5 px-10">
-        {recipes.slice(0, 2).map((recipe, key) => (
+        {recipes.map((recipe, key) => (
           <RecipeCard recipe={recipe} key={key} />
         ))}
       </LoadMore>
       {/* Category results */}
       <LoadMore title="Categories" id="search-category" className="pt-5 px-10">
-        {categories.slice(2, 4).map((category, key) => (
+        {categories.map((category, key) => (
           <CombinationCard
             key={key}
             images={category.images.slice(0, 4)} // can only show 4 first images
@@ -35,8 +46,9 @@ const Search = () => {
       </LoadMore>
       {/* User results */}
       <LoadMore title="Users" id="search-user" className="py-5 px-10" cols={3}>
-        {profiles.slice(1, 4).map((profile, key) => (
-          <ProfileCard key={key} profile={profile}/>
+        {profiles.map((profile, key) => (
+          // <ProfileCard key={key} profile={profile}/>
+          profile.name
         ))}
       </LoadMore>
     </>
