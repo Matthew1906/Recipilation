@@ -1,9 +1,10 @@
+import { useEffect, useState } from "react";
 import Rating from "react-rating";
 import { useForm } from "react-hook-form";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { TextArea } from "./helpers";
 import { Button } from "../utils";
-import { submitReview } from "../../api/review";
+import { getReview, submitReview, updateReview } from "../../api/review";
 import { useScreenSize } from "../../hooks";
 import { categoryConfig } from "../../utils/theme";
 
@@ -16,10 +17,22 @@ const CommentForm = ({recipe, user, updatePage}) => {
       difficulty:'medium'
     }
   });
-  const onSubmit = (data)=>submitReview(data, recipe, user).finally(()=>{
-    reset();
-    updatePage();
-  });
+  const [isUpdate, setIsUpdate ] = useState(false);
+  useEffect(()=>{
+    getReview(recipe, user).then(res=>{
+      setValue('body', res.data.body);
+      setValue('rating', res.data.rating);
+      setValue('difficulty', res.data.difficulty);
+      setIsUpdate(true);
+    })
+  }, [recipe, user, setValue]);
+  const onSubmit = (data)=>{
+    let submit = isUpdate? updateReview:submitReview;
+    submit(data, recipe, user).finally(()=>{
+      reset();
+      updatePage();
+    })
+  };
   return (
     <form className="px-10 py-8 bg-white-primary" onSubmit={handleSubmit(onSubmit)}>
       <h2 className="pt-5 font-fjalla-one text-3xl mb-3 md:mb-0">
@@ -66,9 +79,9 @@ const CommentForm = ({recipe, user, updatePage}) => {
             </button>
           </div>
         </div>
-        {screenSize>0 && <Button theme="green" expand>Submit</Button>}
+        {screenSize>0 && <Button theme="green" expand>{isUpdate?'Edit':'Submit'}</Button>}
       </div>
-      {screenSize===0 && <div className="mt-4 grow flex justify-center"><Button theme="green" expand>Submit</Button></div>}
+      {screenSize===0 && <div className="mt-4 grow flex justify-center"><Button theme="green" expand>{isUpdate?'Edit':'Submit'}</Button></div>}
     </form>
   );
 };

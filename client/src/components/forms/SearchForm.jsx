@@ -11,6 +11,7 @@ const SearchForm = ({onSubmit, color})=>{
                 <TextInput name="query" control={control}
                     placeholder="Search recipes, categories, or users" 
                     className={`grow text-${color??"red"} placeholder:text-${color??"red"} rounded-r-none`}
+                    minLength={1}
                 />
                 <Button className="rounded-l-none" theme="red" expand={false}>
                     Search

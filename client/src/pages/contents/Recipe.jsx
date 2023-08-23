@@ -1,10 +1,11 @@
-import { useParams, useNavigate } from "react-router";
+import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import { BsFillBarChartFill } from "react-icons/bs";
 import { FaEdit, FaShareAlt, FaTrashAlt } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
 import { getRecipe, getRecipesByCategories, getRecipesByCreator } from "../../api/recipe";
+import { deleteReview } from "../../api/review";
 import { CommentCard, RecipeCard } from "../../components/cards";
 import { StepCarousel } from "../../components/carousels";
 import { LoadMore, Pagination } from "../../components/containers";
@@ -132,7 +133,11 @@ const Recipe = () => {
       </section>
       <LoadMore title="Comments" id="comments" className="px-10 py-8 bg-light-red" cols={3}>
         {(recipe?.reviews??[]).map((review, key) => (
-          <CommentCard key={key} comment = {review}/>
+          <CommentCard 
+            key={key} 
+            comment = {review} 
+            deleteAction={()=>deleteReview(recipe?.slug, user?.email).catch(err=>console.log(err)).finally(updatePage)}
+            updateAction={()=>setValidReviewer(true)}/>
         ))}
       </LoadMore>
       {isAuthenticated && validReviewer && <CommentForm recipe={recipe?.slug} user={user.email} updatePage={updatePage}/>}

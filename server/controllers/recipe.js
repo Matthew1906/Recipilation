@@ -8,7 +8,7 @@ export const getRecipe = async(req, res, next)=>{
         const recipe = await Recipe.findOne({slug}).
             populate({path:'categories', model:RecipeCategory, select:'name slug -_id'}).
             populate({path:'equipments', model:RecipeEquipment, select:'name image -_id'}).
-            populate({path:'reviews', model:Review, select:'user body date rating -_id', populate:{path:'user', select:'username slug email'}}).
+            populate({path:'reviews', model:Review, populate:{path:'user', select:'username slug email'}}).
             populate({path:'steps', model:RecipeStep, select:'-__v -recipe'}).
             populate({path:'user', model:User, select:'username slug email _id'});
         const avg_rating = mean(recipe['reviews'].map(review=>review.rating))
