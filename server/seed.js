@@ -25,7 +25,7 @@ const seedUsers = ()=>{
     users.forEach(async(user)=>{
         const email = user.replace(' ', '').toLowerCase() + '@gmail.com';
         const slug = user.replace(' ', '-').toLowerCase();
-        const newFirebaseUser = await firebaseAdmin.auth.createUser({ email, password:slug });
+        const newFirebaseUser = await firebaseAdmin.auth.createUser({ displayName:user, email, password:slug });
         if (newFirebaseUser) {
             const filename = `${slug}.jpg`;
             const file = fs.readFileSync(`./data/users/${filename}`)
@@ -40,7 +40,7 @@ const seedUsers = ()=>{
                 dob: new Date(1985, 1+Math.floor(Math.random()*11), 1+Math.floor(Math.random()*27)) 
             });
             newUser.save();
-            console.log(newUser.firebaseId);
+            console.log(newUser._id);
         };
     });
 };
@@ -125,6 +125,7 @@ const seedSteps = async()=>{
             title:step.title,
             details:step.details==""?'-':step.details,
         });
+        console.log(step.image);
         if(step.image!==''){
             const filename = `${step.image}.webp`;
             const file = fs.readFileSync(`./data/recipes/${filename}`)
@@ -163,4 +164,7 @@ const seedReviews = async()=>{
     })
 }
 
+// await seedEquipments();
+// await seedSteps();
+// await seedRecipes();
 await seedReviews();

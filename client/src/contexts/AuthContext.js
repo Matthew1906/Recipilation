@@ -72,6 +72,7 @@ function AuthProvider({ children }) {
         method: 'firebase',
         user: {
           id: state?.user?.uid,
+          displayName: state?.user?.displayName,
           email: state?.user?.email,
           token: state?.user?.accessToken
       }}}

@@ -1,7 +1,9 @@
+import { useAuth } from "../../hooks";
 import { RecipeInformationForm, RecipeMaterialForm, RecipeTutorialForm } from "../../components/forms";
 
 const NewRecipe = ()=>{
-    return <RecipeMaterialForm/>;
+    const { isAuthenticated } = useAuth();
+    return isAuthenticated?<RecipeInformationForm/>:<></>;
 }
 
 export default NewRecipe;

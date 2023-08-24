@@ -5,10 +5,11 @@ import { logout } from "../../api/auth";
 import useAuth from "../../hooks/useAuth";
 import { Button } from "../utils";
 import { themeConfig } from "../../utils/theme";
+import { slugifyString } from "../../utils/string";
 
 
 const MobileNavigation = ({ purpose='home' }) => {
-    const { isAuthenticated } = useAuth();
+    const { user, isAuthenticated } = useAuth();
     const [dropdown, setDropdown] = useState(false);
     const display = ()=>setDropdown(!dropdown);
     return (
@@ -28,8 +29,7 @@ const MobileNavigation = ({ purpose='home' }) => {
                 {isAuthenticated && (
                 <>
                     <NavLink to="/cookbooks"><li className="mb-4">My Cookbooks</li></NavLink>
-                    {/* <NavLink to={"/profiles/"+user.slug}><li className="mb-4">Profile</li></NavLink> */}
-                    <NavLink to="/my-recipes"><li className="mb-4">My Recipes</li></NavLink>
+                    <NavLink to={`/profiles/${slugifyString(user.displayName)}`}><li className="mb-4">My Profile</li></NavLink>
                 </>
                 )}
                 {purpose!=='auth' && isAuthenticated ? (

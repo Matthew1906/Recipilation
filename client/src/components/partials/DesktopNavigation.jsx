@@ -3,9 +3,10 @@ import { logout } from "../../api/auth";
 import useAuth from "../../hooks/useAuth";
 import { Button } from "../utils";
 import { themeConfig } from "../../utils/theme";
+import { slugifyString } from "../../utils/string";
 
 const DesktopNavigation = ({purpose='home'})=>{
-    const { isAuthenticated } = useAuth();
+    const { user, isAuthenticated } = useAuth();
     return (
         <header className={`px-8 w-full flex justify-center py-4 ${themeConfig["red"]}`}>
             <div className="max-w-[1440px] w-full flex justify-between items-center">
@@ -24,11 +25,8 @@ const DesktopNavigation = ({purpose='home'})=>{
                             <NavLink to="/cookbooks">
                                 <li className="link-expand">My Cookbooks</li>
                             </NavLink>
-                            {/* <NavLink to={"/profiles/"+user.slug}>
-                                <li className="link-expand">Profile</li>
-                            </NavLink> */}
-                            <NavLink to="/my-recipes">
-                                <li className="link-expand">My Recipes</li>
+                            <NavLink to={`/profiles/${slugifyString(user.displayName)}`}>
+                                <li className="link-expand">My Profile</li>
                             </NavLink>
                         </>
                         )}
