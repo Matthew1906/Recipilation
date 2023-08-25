@@ -20,16 +20,18 @@ const initialState = {
   isAuthenticated: false,
   isInitialized: false,
   user: null,
+  loading: true,
 };
 
 const reducer = (state, action) => {
-  if (action.type === 'INITIALISE') {
-    const { isAuthenticated, user } = action.payload;
+  if (action.type === 'INITIALIZE') {
+    const { isAuthenticated, loading, user } = action.payload;
     return {
       ...state,
       isAuthenticated,
       isInitialized: true,
       user,
+      loading
     };
   }
 
@@ -44,21 +46,18 @@ const AuthContext = createContext({
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const [profile, setProfile] = useState(null);
-
-  useEffect(
-    () =>
+  useEffect(() =>
       onAuthStateChanged(AUTH, async (user) => {
         if (user) {
-          setProfile(user);
+          // setProfile(user);
           dispatch({
-            type: 'INITIALISE',
-            payload: { isAuthenticated: true, user },
+            type: 'INITIALIZE',
+            payload: { isAuthenticated: true, user, loading:false },
           });
         } else {
           dispatch({
-            type: 'INITIALISE',
-            payload: { isAuthenticated: false, user: null },
+            type: 'INITIALIZE',
+            payload: { isAuthenticated: false, user: null, loading:false },
           });
         }
       }),

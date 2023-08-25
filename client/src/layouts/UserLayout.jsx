@@ -1,9 +1,13 @@
 import { useAuth } from "../hooks";
-import { Outlet } from "react-router";
+import { Navigate, Outlet } from "react-router";
 
 const UserLayout = ()=>{
-    const {isAuthenticated} = useAuth();
-    return <Outlet isAuthenticated={isAuthenticated}/>
+    const {isAuthenticated, loading} = useAuth();
+    if (loading){
+        return "Loading" // TBA
+    } else{
+        return isAuthenticated? <Outlet /> : <Navigate to='/'/>
+    }
 }
 
 export default UserLayout;

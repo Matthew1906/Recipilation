@@ -34,12 +34,12 @@ const DesktopNavigation = ({purpose='home'})=>{
                     }
                 </div>
                 {purpose!=='auth' && isAuthenticated ? (
-                    <Button theme="orange" expand onClick={logout}>LOGOUT</Button>
+                    <a href="/"><Button theme="orange" expand onClick={logout}>LOGOUT</Button></a>
                 ) : purpose!=='auth' && (
                     <Link to='/login'>
-                    <Button theme="orange" expand>
-                        LOGIN
-                    </Button>
+                        <Button theme="orange" expand>
+                            LOGIN
+                        </Button>
                     </Link>
                 )}
             </div>

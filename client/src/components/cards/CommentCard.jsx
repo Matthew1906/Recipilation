@@ -5,13 +5,13 @@ import { RatingIcons } from "../icons";
 import { slugifyString } from "../../utils/string";
 
 const CommentCard = ({comment, updateAction, deleteAction})=>{
-    const { user } = useAuth();
+    const { isAuthenticated, user } = useAuth();
     const {user:{username, slug}, date, rating, body} = comment;
     return (
         <div className="bg-white-primary p-4 border-black border-2 rounded-md">
             <div className="flex justify-between items-center">
                 <h6 className="text-lg font-semibold">{username??"Unknown"}</h6>
-                {slugifyString(user?.displayName) === slug &&
+                {isAuthenticated && slugifyString(user?.displayName) === slug &&
                 <div className="flex gap-1">
                     <FaEdit className="cursor-pointer link-expand" onClick={updateAction}/>  
                     <FaTrashAlt className="text-red cursor-pointer link-expand" onClick={deleteAction}/>    

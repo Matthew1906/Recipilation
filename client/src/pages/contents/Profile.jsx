@@ -15,7 +15,6 @@ const Profile = () => {
   const { user } = useAuth();
   const [ userData, setUserData ] = useState({});
   const [ recipes, setRecipes ] = useState([]);
-  const [ isUpdate, setIsUpdate] = useState(false);
   useEffect(()=>{
     getUser(slug).then(res=>{
       const { user, recipes } = res.data;
@@ -78,7 +77,7 @@ const Profile = () => {
             Recipes by {userData?.username??"John Doe"}
           </h5>
           <Pagination auto items={recipes} perPage={2}/>
-          { slugifyString(user.displayName) !== userData.slug &&
+          { slugifyString(user.displayName) === userData.slug &&
             <div className="flex justify-between">
               <Button theme='blue' onClick={updateProfile}>Update Profile</Button>
               <a href={`/recipes-new`}>

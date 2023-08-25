@@ -33,7 +33,7 @@ const MobileNavigation = ({ purpose='home' }) => {
                 </>
                 )}
                 {purpose!=='auth' && isAuthenticated ? (
-                    <Button theme="orange" expand onClick={logout}>LOGOUT</Button>
+                    <a href="/"><Button theme="orange" expand onClick={logout}>LOGOUT</Button></a>
                 ) : (purpose!=='auth' && (
                     <Link to="/login">
                         <Button theme="orange" expand>LOGIN</Button>
