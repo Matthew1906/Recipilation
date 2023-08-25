@@ -7,6 +7,7 @@ import { Pagination } from "../../components/containers";
 import { useAuth } from "../../hooks";
 import { RatingIcons } from "../../components/icons";
 import { Button } from "../../components/utils";
+import { slugifyString } from "../../utils/string";
 // import { recipes } from "../../utils/data";
 
 const Profile = () => {
@@ -14,6 +15,7 @@ const Profile = () => {
   const { user } = useAuth();
   const [ userData, setUserData ] = useState({});
   const [ recipes, setRecipes ] = useState([]);
+  const [ isUpdate, setIsUpdate] = useState(false);
   useEffect(()=>{
     getUser(slug).then(res=>{
       const { user, recipes } = res.data;
@@ -21,7 +23,7 @@ const Profile = () => {
       setRecipes(recipes);
     }).catch(err=>console.log(err));
   }, [slug]);
-  const editPassword = () => console.log("Edit Password");
+  const updateProfile = () => console.log("Update Profile");
   const followUser = () => console.log("Follow User");
   return (
     <>
@@ -33,17 +35,14 @@ const Profile = () => {
             className="w-40 md:w-80 h-40 md:h-80 mb-4 rounded-full"
           />
           <h5 className="font-semibold text-2xl md:text-4xl">{userData?.username??"John Doe"}</h5>
-          { user.email === userData.email &&
+          { slugifyString(user.displayName) === userData.slug &&
           <>
             <p className="font-extralight">{moment(userData?.dob).format("Do MMMM YYYY")??"25th January 1992"}</p>
-            <p className="font-extralight">{userData?.email??"johndoe@joemail.com"}"</p>
-            <div className="flex justify-between gap-1">
-              <p className="font-light">******************</p>
-              <FaEdit onClick={editPassword} className="cursor-pointer" />
-            </div>
+            <p className="font-extralight">{userData?.email??"johndoe@joemail.com"}</p>
+            <p className="font-light">******************</p>
           </>
           }
-          { user.email !== userData.email && 
+          { slugifyString(user.displayName) !== userData.slug && 
           <div onClick={followUser}>
             <Button theme="blue" className="text-sm md:text-base">FOLLOW</Button>
           </div>
@@ -62,6 +61,8 @@ const Profile = () => {
               <p className="font-light">{recipes.length??0} recipes</p>
             </div>
           </div>
+          {userData?.rating &&
+          <>
           <div className="flex place-items-center gap-1">
             <RatingIcons rating={userData?.rating??3} />
             <p className="font-light">({userData?.rating??3})</p>
@@ -69,15 +70,22 @@ const Profile = () => {
           <p className="w-60 font-extralight text-sm text-center break-words">
             This is the average rating based on all the chef’s recipe reviews
           </p>
+          </>
+          }
         </div>
         <div className="py-5 flex flex-col gap-5">
           <h5 className="mb-3 text-center text-3xl font-fjalla-one">
             Recipes by {userData?.username??"John Doe"}
           </h5>
           <Pagination auto items={recipes} perPage={2}/>
-          <a href={`/recipes-new`}>
-            <Button theme='yellow'>New Recipe</Button>
-          </a>
+          { slugifyString(user.displayName) !== userData.slug &&
+            <div className="flex justify-between">
+              <Button theme='blue' onClick={updateProfile}>Update Profile</Button>
+              <a href={`/recipes-new`}>
+                <Button theme='yellow'>New Recipe</Button>
+              </a>
+            </div>
+          }
         </div>
       </div>
     </>

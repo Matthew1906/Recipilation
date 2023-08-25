@@ -1,3 +1,4 @@
+import slugify from "slugify";
 import { Recipe, Review, User } from "../models/index.js";
 import firebaseAdmin from "../services/firebase.js";
 import { mean } from "../utils.js";
@@ -7,7 +8,7 @@ export const authenticateUser = async(req, res)=>{
     try{
         if(type=='oauth'){
         const firebaseUser = await firebaseAdmin.auth.getUserByEmail(email);
-        const newUser = new User({username, email, firebaseId:firebaseUser.uid});
+        const newUser = new User({username, email, firebaseId:firebaseUser.uid, slug:slugify(username)});
         const checkUser = await User.find({email});
         if(checkUser.length == 0){
             newUser.save();

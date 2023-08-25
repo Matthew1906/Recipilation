@@ -24,11 +24,11 @@ const CommentForm = ({recipe, user, updatePage}) => {
       setValue('rating', res.data.rating);
       setValue('difficulty', res.data.difficulty);
       setIsUpdate(true);
-    })
+    }).catch(err=>reset());
   }, [recipe, user, setValue]);
   const onSubmit = (data)=>{
     let submit = isUpdate? updateReview:submitReview;
-    submit(data, recipe, user).finally(()=>{
+    submit(data, recipe, user).catch(err=>console.log(err)).finally(()=>{
       reset();
       updatePage();
     })
