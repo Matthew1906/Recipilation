@@ -7,3 +7,7 @@ export function searchUsers(query){
 export function getUser(slug){
     return axiosClient.get(`/api/users/${slug}`);
 }
+
+export function updateUser(slug, data){
+    return axiosClient.put(`/api/users/${slug}`, data);
+}

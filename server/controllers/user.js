@@ -1,6 +1,7 @@
 import slugify from "slugify";
-import { Recipe, Review, User } from "../models/index.js";
 import firebaseAdmin from "../services/firebase.js";
+import { uploadImage } from "../services/imagekit.js";
+import { Recipe, Review, User } from "../models/index.js";
 import { mean } from "../utils.js";
 
 export const authenticateUser = async(req, res)=>{
@@ -50,7 +51,7 @@ export const getAverageUserRating = async(req, res, next)=>{
 
 export const getUser = async(req, res, next)=>{
     try{
-        const user = await User.findOne({slug:req.params.slug}, 'username slug email image dob following')
+        const user = await User.findOne({slug:req.params.slug})
         res.user = user;
         next()
     } catch(err){
@@ -97,4 +98,29 @@ export const getUserDetails = async(req, res, next)=>{
     }).catch(err=>{
         return res.status(500).json({ error: "Server error. Please try again" });
     });
+}
+
+export const updateUser = async(req, res, next)=>{
+    try{
+        const { username, dob, image} = req.body;
+        await firebaseAdmin.auth.updateUser(res.user.firebaseId, {
+            displayName:username
+        })
+        if(image!==null){
+            const {imageId, image:imageResult} = await uploadImage(image, `${slugify(username.toLowerCase())}.jpg`, 'users')
+            await User.findOneAndUpdate({slug:res.user.slug}, {
+                username, slug:slugify(username.toLowerCase()), 
+                dob, image:imageResult, imageId
+            })
+        }else{
+            await User.findOneAndUpdate({slug:res.user.slug}, 
+                {username, slug:slugify(username.toLowerCase()), dob}
+            )
+        }
+        res.user = await User.find({_id:res.user._id});
+        next()
+    } catch(err){
+        console.log(err);
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
 }

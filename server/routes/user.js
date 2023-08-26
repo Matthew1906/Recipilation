@@ -2,8 +2,8 @@ import express from "express";
 import { getRecipes, filterByUser } from "../controllers/recipe.js";
 import { 
   authenticateUser, getAverageUserRating, 
-  getUser, getUsers, 
-  getUserDetails, searchUsers 
+  getUser, getUsers, getUserDetails, 
+  searchUsers, updateUser
 } from "../controllers/user.js";
 
 const router = express.Router();
@@ -24,5 +24,10 @@ router.get("/:slug",
 );
 
 router.post("/", authenticateUser);
+
+router.put("/:slug", 
+  getUser, updateUser, 
+  async(req, res)=>res.status(200).json(res.user)
+);
 
 export default router;
