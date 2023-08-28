@@ -1,4 +1,13 @@
 import axiosClient from "./base";
+import axiosUserClient from "./baseUser";
+
+// Create Recipes (C)
+
+export function getRecipeDraft(){
+    return axiosUserClient.get(`/api/recipes/new`);
+}
+
+// Get Recipes (R)
 
 export function getRecipe(slug){
     return axiosClient.get(`/api/recipes/${slug}`);

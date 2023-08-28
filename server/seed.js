@@ -167,4 +167,7 @@ const seedReviews = async()=>{
 // await seedEquipments();
 // await seedSteps();
 // await seedRecipes();
-await seedReviews();
+// await seedReviews();
+
+// await Recipe.updateMany({}, {status:1})
+// console.log('uPDATED')

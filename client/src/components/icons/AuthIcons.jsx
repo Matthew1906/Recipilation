@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 // import { BsGoogle, BsFacebook, BsMicrosoft, BsTwitter } from "react-icons/bs";
 import { FcGoogle} from "react-icons/fc"
-import { loginWithGoogle, registerOAuth, logout, loginWithFacebook } from "../../api/auth";
+import { loginWithGoogle, registerOAuth, logout, /*loginWithFacebook*/ } from "../../api/auth";
 import { Button } from "../utils";
 import { useFormStatus } from "../../hooks";
 

@@ -15,7 +15,8 @@ const recipeSchema = Schema({
     ingredients:[{type:String}],
     equipments:[{type:Schema.Types.ObjectId, ref:'equipment'}],
     steps:[{type:Schema.Types.ObjectId, ref:'step'}],
-    reviews:[{type:Schema.Types.ObjectId, ref:'review'}]
+    reviews:[{type:Schema.Types.ObjectId, ref:'review'}],
+    status:{type:Number, default:0},
 });
 
 const Recipe = model('recipe', recipeSchema);

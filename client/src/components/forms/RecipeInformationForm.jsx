@@ -6,8 +6,9 @@ import { Button } from "../utils";
 import { CategoryModal } from "../modals";
 import { useImage, useThemeCategories } from "../../hooks";
 import { difficulties, timeLengths } from "../../utils/data";
+import { base64String } from "../../utils/string";
 
-const RecipeInformationForm = ()=>{
+const RecipeInformationForm = ({onSave})=>{
     const categories = useThemeCategories(["Lunch", "Dinner", "Western", "Pasta", "Meat"]);
     const { control, handleSubmit, formState:{errors, submitCount} } = useForm({
         defaultValues:{
@@ -20,8 +21,18 @@ const RecipeInformationForm = ()=>{
     const { image, setImage, getRootProps, getInputProps, imageError } = useImage();
     const setCategories = (data)=>console.log(data);
     const onSubmit = (data)=>{
-        console.log({...data, image });
-        setImage(null);
+        if(image!==null){
+            fetch(image.preview).then(r => {
+                r.blob().then(res=>base64String(res).then(res=>{
+                    onSave({...data, image:res});
+                    setImage(null);
+                }))
+            });
+        }
+        else{
+            onSave({...data, image});
+            setImage(null);
+        }
     }
     return (
         <form className="px-10 py-8" onSubmit={handleSubmit(onSubmit)}>

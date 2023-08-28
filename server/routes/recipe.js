@@ -1,11 +1,21 @@
 import express from "express";
+import validateUser from "../middlewares/auth.js";
 import { 
     getRecipe, getRecipes, 
     filterCategories, filterByUser, 
-    searchRecipes, sortByRatings
+    searchRecipes, sortByRatings, getRecipeDraft
 } from "../controllers/recipe.js";
 
 const router = express.Router();
+
+// Add Recipes
+
+router.get('/new', validateUser, getRecipeDraft, async(req, res)=>res.json(res.recipe));
+
+// router.post("/new",);
+
+
+// Get Recipes
 
 router.get('/', 
     getRecipes, 

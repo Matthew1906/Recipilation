@@ -4,8 +4,10 @@ import { BackIcon } from "../icons";
 import { Button } from "../utils";
 import { steps } from "../../utils/data";
 
-const RecipeTutorialForm = ()=>{
+const RecipeTutorialForm = ({onSave, onCancel})=>{
+    const submit = ()=>onSave("Tutorials");
     const addStep = ()=>console.log("Add New Step");
+
     const submitStep = (data)=>console.log(data);
     return (
         <div className="px-10 py-8">
@@ -29,8 +31,8 @@ const RecipeTutorialForm = ()=>{
                 </div>
             </div>
             <div className="mt-2 flex justify-between">
-                <Button theme="yellow" className="text-xl px-12">Back</Button>
-                <Button theme="green" className="text-xl px-12">Save Recipe</Button>
+                <Button theme="yellow" className="text-xl px-12" onClick={onCancel}>Back</Button>
+                <Button theme="green" className="text-xl px-12" onClick={submit}>Save Recipe</Button>
             </div>
         </div>
     );

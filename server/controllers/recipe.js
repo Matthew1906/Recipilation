@@ -21,7 +21,7 @@ export const getRecipe = async(req, res, next)=>{
 
 export const getRecipes = async(req, res, next)=>{
     try{
-        const recipes = await Recipe.find({}, 'name slug user description categories image serving_size difficulty cooking_time preparation_time reviews').
+        const recipes = await Recipe.find({status:1}, 'name slug user description categories image serving_size difficulty cooking_time preparation_time reviews').
             populate({path:'categories', model:RecipeCategory, select:'slug -_id'}).
             populate({path:'reviews', model:Review, select:'rating -_id'}).
             populate({path:'user', model:User, select:'username slug email _id'});
@@ -87,6 +87,31 @@ export const sortByRatings = async(req, res, next)=>{
             }
         }).sort((a,b)=>a.rating-b.rating);
         next();
+    } catch(err){
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}
+
+export const getRecipeDraft = async(req, res, next)=>{
+    try{
+        const recipe = await Recipe.findOne({user:req.user, status:0})
+        if(!recipe){
+            res.recipe = null;
+        }
+        else{
+            res.recipe = recipe;
+        }
+        next();
+    } catch(err){
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}
+
+export const addRecipe = async(req, res, next)=>{
+    try{
+        if(res.recipe===null){
+
+        }
     } catch(err){
         return res.status(500).json({ error: "Server error. Please try again" });
     }

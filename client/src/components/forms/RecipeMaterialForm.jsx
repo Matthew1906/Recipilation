@@ -87,7 +87,8 @@ const IngredientListForm = ()=>{
     );
 };
 
-const RecipeMaterialForm = ()=>{
+const RecipeMaterialForm = ({onSave, onCancel})=>{
+    const submit = ()=>onSave('materials');
     const saveEquipments = (data)=>console.log(data);
     const addIngredients = ()=>console.log("Add new ingredient");
     return (
@@ -124,8 +125,8 @@ const RecipeMaterialForm = ()=>{
                 </div>
             </div>
             <div className="mt-2 flex justify-between">
-                <Button theme="yellow" className="text-xl px-12">Back</Button>
-                <Button theme="orange" className="text-xl px-12">Continue</Button>
+                <Button theme="yellow" className="text-xl px-12" onClick={onCancel}>Back</Button>
+                <Button theme="orange" className="text-xl px-12" onClick={submit}>Continue</Button>
             </div>
         </div>
     );
