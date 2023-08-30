@@ -3,13 +3,26 @@ import { ErrorMessage } from "@hookform/error-message";
 import { ImageInput, InputLabel, TextArea, TextInput } from "./helpers";
 import { useImage } from "../../hooks";
 import { Button } from "../utils";
+import { base64String } from "../../utils/string";
 
 const StepForm = ({index, onSubmit})=>{
-    const { control, handleSubmit, formState:{errors, submitCount} } = useForm({defaultValues:{title:'', description:''}});
+    const { control, handleSubmit, formState:{errors, submitCount} } = useForm({defaultValues:{
+        title:'', description:''
+    }});
     const { image, setImage, getRootProps, getInputProps, imageError } = useImage();
     const submit = (data)=>{
-        onSubmit({...data, image});
-        setImage(null);
+        if(image!==null){
+            fetch(image.preview).then(r => {
+                r.blob().then(res=>base64String(res).then(res=>{
+                    onSubmit({...data, image:res});
+                    setImage(null);
+                }))
+            });
+        }
+        else{
+            onSubmit({...data, image});
+            setImage(null);
+        }
     }
     return (
         <form className="px-5 py-4 border border-red rounded-md" onSubmit={handleSubmit(submit)}>

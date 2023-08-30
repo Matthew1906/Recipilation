@@ -3,7 +3,8 @@ import validateUser from "../middlewares/auth.js";
 import { 
     getRecipe, getRecipes, 
     filterCategories, filterByUser, 
-    searchRecipes, sortByRatings, getRecipeDraft
+    searchRecipes, sortByRatings, getRecipeDraft,
+    saveRecipe
 } from "../controllers/recipe.js";
 
 const router = express.Router();
@@ -12,7 +13,7 @@ const router = express.Router();
 
 router.get('/new', validateUser, getRecipeDraft, async(req, res)=>res.json(res.recipe));
 
-// router.post("/new",);
+router.post("/new/:type", validateUser, getRecipeDraft, saveRecipe, async(req, res)=>res.json(res.recipe));
 
 
 // Get Recipes

@@ -4,7 +4,11 @@ import axiosUserClient from "./baseUser";
 // Create Recipes (C)
 
 export function getRecipeDraft(){
-    return axiosUserClient.get(`/api/recipes/new`);
+    return axiosUserClient.get('/api/recipes/new');
+}
+
+export function saveRecipe(type, data){
+    return axiosUserClient.post(`/api/recipes/new/${type}`, data)
 }
 
 // Get Recipes (R)

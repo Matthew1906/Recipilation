@@ -2,9 +2,10 @@ import StepForm from "./StepForm";
 import { StepCard } from "../cards";
 import { BackIcon } from "../icons";
 import { Button } from "../utils";
-import { steps } from "../../utils/data";
+import { useState } from "react";
 
-const RecipeTutorialForm = ({onSave, onCancel})=>{
+const RecipeTutorialForm = ({draft, onSave, onCancel})=>{
+    const [steps, setSteps] = useState([]);
     const submit = ()=>onSave("Tutorials");
     const addStep = ()=>console.log("Add New Step");
 

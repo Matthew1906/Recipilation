@@ -1,12 +1,13 @@
 import { useController } from "react-hook-form";
 import { titleString } from "../../../utils/string";
 
-const TextInput = ({ type, control, name, placeholder, className, minLength=5, maxLength=30 }) => {
-  const { field } = useController({name, control, rules:{
+const TextInput = ({ type, control, name, placeholder, className, isSearch=false, minLength=5, maxLength=30 }) => {
+  const rules = {
     required:`${titleString(name)} must be filled`,
     minLength:{value:minLength, message:`Length must be at least ${minLength} letters`},
     maxLength:{value:maxLength, message:`Length must be less than or equal to ${maxLength} letters`},
-  }}); 
+  }
+  const { field } = useController({name, control, rules:isSearch?{}:rules}); 
   return (
     <input 
       type={type || 'text'} 

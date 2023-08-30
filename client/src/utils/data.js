@@ -147,7 +147,7 @@ export const difficulties = [
 ];
 
 export const timeLengths = [
-  {value:'second', name:'second(s)'},
-  {value:'minute', name:'minute(s)'},
-  {value:'hour', name:'hour(s)'}
+  {value:'seconds', name:'second(s)'},
+  {value:'minutes', name:'minute(s)'},
+  {value:'hours', name:'hour(s)'}
 ];

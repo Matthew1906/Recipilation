@@ -3,13 +3,22 @@ import { ErrorMessage } from "@hookform/error-message";
 import { ImageInput, InputLabel, TextInput } from "./helpers";
 import { useImage } from "../../hooks";
 import { Button } from "../utils";
+import { base64String } from "../../utils/string";
 
 const EquipmentForm = ({onSubmit})=>{
     const { control, handleSubmit, formState:{errors, submitCount} } = useForm({defaultValues:{name:''}});
-    const { image, setImage, getRootProps, getInputProps, imageError } = useImage();
+    const { image, getRootProps, getInputProps, imageError } = useImage();
     const submit = (data)=>{
-        onSubmit({...data, image});
-        setImage(null);
+        if(image!==null){
+            fetch(image.preview).then(r => {
+                r.blob().then(res=>base64String(res).then(res=>{
+                    onSubmit({...data, image:res});
+                }))
+            });
+        }
+        else{
+            onSubmit({...data, image});
+        }
     }
     return (
         <form className="mt-4 px-5 py-4 border border-red rounded-md" onSubmit={handleSubmit(submit)}>

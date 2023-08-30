@@ -3,13 +3,27 @@ import { SearchForm } from "../forms";
 import { BackIcon, CombinationIcon } from "../icons";
 import { Button } from "../utils";
 import { useModal } from "../../hooks"
-import { categories } from "../../utils/data";
+import { useEffect, useState } from "react";
+import { getCategories, searchCategories } from "../../api/category";
 
 Modal.setAppElement("#modal");
 
-const CategoryModal = ({onSubmit})=>{
+const CategoryModal = ({onSubmit, draft})=>{
+    const [ query, setQuery ] = useState("");
+    const [ categories, setCategories ] = useState([]);
     const { isOpen, modal, style, data } = useModal();
-    const searchCategory = (value)=>console.log(value.query);
+    useEffect(()=>{
+        getCategories().then(res=>{
+            setCategories(res.data);
+            draft.forEach(category=>{
+                data.toggle(category);
+            })     
+        });
+    }, [isOpen])
+    const searchCategory = (value)=>setQuery(value);
+    useEffect(()=>{
+        searchCategories(query).then(res=>setCategories(res.data));
+    }, [query])
     return (
         <>
             <Button theme="neutral" className="border border-red !rounded-full w-12 h-12" 

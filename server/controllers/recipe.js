@@ -1,6 +1,9 @@
 import slugify from "slugify";
+import mongoose from "mongoose";
 import { RecipeCategory, Recipe, User, RecipeEquipment, RecipeStep, Review } from '../models/index.js';
 import { mean } from "../utils.js";
+import { uploadImage } from "../services/imagekit.js";
+import { ObjectId } from "mongodb";
 
 export const getRecipe = async(req, res, next)=>{
     try{
@@ -94,7 +97,11 @@ export const sortByRatings = async(req, res, next)=>{
 
 export const getRecipeDraft = async(req, res, next)=>{
     try{
-        const recipe = await Recipe.findOne({user:req.user, status:0})
+        const recipe = await Recipe.findOne({user:req.user, status:0}).
+            populate({path:'categories', model:RecipeCategory, select:'name slug -_id'}).
+            populate({path:'equipments', model:RecipeEquipment }).
+            populate({path:'steps', model:RecipeStep, select:'-__v -recipe'}).
+            populate({path:'user', model:User, select:'username slug email _id'});
         if(!recipe){
             res.recipe = null;
         }
@@ -107,12 +114,64 @@ export const getRecipeDraft = async(req, res, next)=>{
     }
 }
 
-export const addRecipe = async(req, res, next)=>{
+export const saveRecipe = async(req, res, next)=>{
     try{
-        if(res.recipe===null){
-
+        switch(req.params.type){
+            case "information":
+                const { name, description, difficulty, servingSize, image, cookingTime, preparationTime, categories } = req.body
+                const {imageId, image:imageResult} = await uploadImage(image, `${slugify(name.toLowerCase())}.jpg`, 'recipes')
+                const recipe_categories = await Promise.all(
+                    categories.map(async(name, theme)=>{
+                        const item = await RecipeCategory.findOne({name});
+                        return item._id;
+                    })
+                );
+                if(res.recipe===null){
+                    console.log(`${cookingTime.amount} ${cookingTime.type}${cookingTime.amount>1?"s":""}`)
+                    console.log(`${preparationTime.amount} ${preparationTime.type}${preparationTime.amount>1?"s":""}`)
+                    const recipe = new Recipe({ 
+                        name, description, difficulty, 
+                        slug: slugify(name.toLowerCase()),
+                        imageId, image:imageResult,
+                        user:req.user, serving_size: servingSize,
+                        categories:recipe_categories,
+                        cooking_time: `${cookingTime.amount} ${cookingTime.type}${(cookingTime.amount>1)?"s":""}`,
+                        preparation_time: `${preparationTime.amount} ${preparationTime.type}${(preparationTime.amount>1)?"s":""}`
+                    });
+                    recipe.save()
+                    res.recipe = recipe;
+                } else{
+                    await Recipe.findOneAndUpdate({_id:res.recipe._id}, {
+                        name, description, difficulty, 
+                        slug: slugify(name.toLowerCase()),
+                        imageId, image:imageResult,
+                        user:req.user, serving_size: servingSize,
+                        categories:recipe_categories,
+                        cooking_time: `${cookingTime.amount} ${cookingTime.type}${(cookingTime.amount>1)?"s":""}`,
+                        preparation_time: `${preparationTime.amount} ${preparationTime.type}${(preparationTime.amount>1)?"s":""}`
+                    })
+                    const recipe = await Recipe.findOne({_id:res.recipe_id})
+                    res.recipe = recipe;
+                }
+                break;
+            case "material":
+                if(res.recipe!==null){
+                    const { equipments, ingredients} = req.body;
+                    await Recipe.findOneAndUpdate({_id:res.recipe._id}, {
+                        equipments:equipments.map(equipment=>new mongoose.Types.ObjectId(equipment)),
+                        ingredients
+                    });
+                    const recipe = await Recipe.findOne({_id:res.recipe_id})
+                    res.recipe = recipe;
+                }
+                break;
+            case "step":
+                console.log('step');
+                break;
         }
+        next();
     } catch(err){
+        console.log(err);
         return res.status(500).json({ error: "Server error. Please try again" });
     }
 }

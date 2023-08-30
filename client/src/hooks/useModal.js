@@ -6,7 +6,7 @@ const useModal = () => {
     const [data, setData] = useState([]);
     const toggleData = (input) => data.includes(input)
         ? setData(prev=>prev.filter(value=>value!==input))
-        : setData(prev=>[...prev, input])
+        : setData(prev=>Array.from(new Set([...prev, input])))
     ;
     const [isOpen, setIsOpen] = useState(false);
     const openModal = ()=>setIsOpen(true);
