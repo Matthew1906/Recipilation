@@ -35,3 +35,23 @@ export function getRecipesByCreator(chef){
 export function searchRecipes(query){
     return axiosClient.get(`/api/recipes?query=${query}`);
 }
+
+// Edit Recipes (U)
+
+export function getOnEditRecipes(){
+    return axiosUserClient.get(`/api/recipes/edit`)
+}
+
+export function editRecipe(slug){
+    return axiosUserClient.get(`/api/recipes/${slug}/edit`);
+}
+
+export function updateRecipe(slug, type, data){
+    return axiosUserClient.put(`/api/recipes/${slug}/edit/${type}`, data)
+}
+
+// Delete Recipes (D)
+
+export function deleteRecipe(slug){
+    return axiosUserClient.delete(`/api/recipes/${slug}`);
+}

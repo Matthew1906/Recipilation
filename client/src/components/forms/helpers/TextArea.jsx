@@ -5,7 +5,7 @@ const TextArea = ({rows, control, name, placeholder, className})=>{
     const { field } = useController({name, control, rules:{
         required:`${titleString(name)} must be filled`,
         minLength:{value:5, message:"Length must be at least 5 letters"},
-        maxLength:{value:200, message:"Length must be less than or equal to 200 letters"},
+        maxLength:{value:5000, message:"Length must be less than or equal to 5000 letters"},
     }}); 
     return (
         <textarea 

@@ -1,13 +1,8 @@
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
-import { useAuth } from "../../hooks";
 import { limitString } from "../../utils/string";
 
-const RecipeCard = ({ recipe }) => {
-  const { isAuthenticated, user } = useAuth();
-  const editRecipe = () => console.log("Edit");
-  const deleteRecipe = () => console.log("Delete");
+const RecipeCard = ({ recipe, isDraft=false }) => {
   const difficultyConfig = {
     easy: "text-yellow",
     medium: "text-orange",
@@ -15,7 +10,7 @@ const RecipeCard = ({ recipe }) => {
   };
   return (
     <div className="grid grid-rows-2 md:grid-rows-none md:grid-cols-2 bg-white-primary h-full rounded-2xl drop-shadow-md">
-      <a href={"/recipes/"+recipe.slug}>
+      <a href={`/recipes/${recipe?.slug}${isDraft?"/edit":""}`}>
         <img
           src={recipe.image}
           alt={recipe.name}
@@ -23,8 +18,8 @@ const RecipeCard = ({ recipe }) => {
         />
       </a>
       <div className="p-5 rounded-b-2xl md:rounded-bl-none md:rounded-r-2xl flex flex-col">
-        <a href={"/recipes/"+recipe.slug}>
-          <h6 className="text-2xl font-fjalla-one">{recipe.name}</h6>
+        <a href={`/recipes/${recipe?.slug}${isDraft?"/edit":""}`}>
+          <h6 className="text-2xl font-fjalla-one">{recipe.name}{isDraft?' (DRAFT)':""}</h6>
         </a>
         <p className="my-2 font-nunito font-light">
           {limitString(recipe.description, 100)}
@@ -59,18 +54,6 @@ const RecipeCard = ({ recipe }) => {
               {recipe.difficulty}
             </span>
           </p>
-          { isAuthenticated && user.email === recipe.user.email &&
-          <div className="flex gap-1 font-bold">
-            <FaTrashAlt
-              className="text-red cursor-pointer link-expand"
-              onClick={deleteRecipe}
-            />{" "}
-            <FaEdit
-              className="cursor-pointer link-expand"
-              onClick={editRecipe}
-            />  
-          </div>
-          }
         </div>
       </div>
     </div>

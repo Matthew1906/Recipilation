@@ -26,6 +26,7 @@ root.render(
             <Route path='cookbooks' element={<Cookbooks />}/>
             <Route path='cookbooks/:cookbook' element={<Cookbook />}/>
             <Route path="recipes-new" element={<NewRecipe/>}/>
+            <Route path='recipes/:slug/edit' element={<NewRecipe isEdit/>}/>
           </Route>
         </Route>
       </Routes>

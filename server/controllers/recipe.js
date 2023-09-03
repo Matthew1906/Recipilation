@@ -24,7 +24,7 @@ export const getRecipe = async(req, res, next)=>{
 
 export const getRecipes = async(req, res, next)=>{
     try{
-        const recipes = await Recipe.find({status:1}, 'name slug user description categories image serving_size difficulty cooking_time preparation_time reviews').
+        const recipes = await Recipe.find({status:1}, 'status name slug user description categories image serving_size difficulty cooking_time preparation_time reviews').
             populate({path:'categories', model:RecipeCategory, select:'slug -_id'}).
             populate({path:'reviews', model:Review, select:'rating -_id'}).
             populate({path:'user', model:User, select:'username slug email _id'});
@@ -127,8 +127,6 @@ export const saveRecipe = async(req, res, next)=>{
                     })
                 );
                 if(res.recipe===null){
-                    console.log(`${cookingTime.amount} ${cookingTime.type}${cookingTime.amount>1?"s":""}`)
-                    console.log(`${preparationTime.amount} ${preparationTime.type}${preparationTime.amount>1?"s":""}`)
                     const recipe = new Recipe({ 
                         name, description, difficulty, 
                         slug: slugify(name.toLowerCase()),
@@ -150,7 +148,7 @@ export const saveRecipe = async(req, res, next)=>{
                         cooking_time: `${cookingTime.amount} ${cookingTime.type}${(cookingTime.amount>1)?"s":""}`,
                         preparation_time: `${preparationTime.amount} ${preparationTime.type}${(preparationTime.amount>1)?"s":""}`
                     })
-                    const recipe = await Recipe.findOne({_id:res.recipe_id})
+                    const recipe = await Recipe.findOne({_id:res.recipe._id})
                     res.recipe = recipe;
                 }
                 break;
@@ -161,15 +159,77 @@ export const saveRecipe = async(req, res, next)=>{
                         equipments:equipments.map(equipment=>new mongoose.Types.ObjectId(equipment)),
                         ingredients
                     });
-                    const recipe = await Recipe.findOne({_id:res.recipe_id})
+                    const recipe = await Recipe.findOne({_id:res.recipe._id})
                     res.recipe = recipe;
                 }
                 break;
-            case "step":
-                console.log('step');
+            case "tutorial":
+                if(res.recipe!==null){
+                    const {index, title, details, image} = req.body;
+                    if(image!==null){
+                        const {imageId, image:imageResult} = await uploadImage(image, `${res.recipe.slug}-${index}.webp`, 'steps')
+                        const newStep = new RecipeStep({recipe:res.recipe.slug, index, title, details, image:imageResult, imageId});
+                        const prevStep = res.recipe.steps.filter(step=>step.index===index);
+                        if(prevStep.length>0){
+                            await Recipe.findOneAndUpdate({_id:res.recipe._id}, {$pull:{steps:prevStep[0]._id}});
+                            await RecipeStep.deleteOne({_id:prevStep[0]._id});
+                        }
+                        await Recipe.findOneAndUpdate({_id:res.recipe._id}, {$push:{steps:newStep}})
+                        newStep.save();
+                    }
+                    else{
+                        const newStep = new RecipeStep({recipe:res.recipe.slug, index, title, details})
+                        const prevStep = res.recipe.steps.filter(step=>step.index===index);
+                        if(prevStep.length>0){
+                            await Recipe.findOneAndUpdate({_id:res.recipe._id}, {$pull:{steps:prevStep[0]._id}});
+                            await RecipeStep.deleteOne({_id:prevStep[0]._id});
+                        }
+                        await Recipe.findOneAndUpdate({_id:res.recipe._id}, {$push:{steps:newStep}})
+                        newStep.save();
+                    }
+                }
+                break;
+            case "final":
+                await Recipe.findOneAndUpdate({_id:res.recipe._id}, {status:1});
+                const recipe = await Recipe.findOne({_id:res.recipe._id});
+                res.recipe = recipe;
                 break;
         }
         next();
+    } catch(err){
+        console.log(err);
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}
+
+export const editRecipe = async(req, res, next)=>{
+    try{
+        await Recipe.findOneAndUpdate({_id:res.recipe._id}, {status:2});
+        next();
+    } catch(err){
+        console.log(err);
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}
+
+export const getOnEditRecipes = async(req, res, next)=>{
+    try{
+        const user = res.user ? res.user.slug : req.query.user ?? null
+        const recipes = await Recipe.find({status:2}, 'name status slug user description categories image serving_size difficulty cooking_time preparation_time reviews').
+            populate({path:'categories', model:RecipeCategory, select:'slug -_id'}).
+            populate({path:'reviews', model:Review, select:'rating -_id'}).
+            populate({path:'user', model:User, select:'username slug email _id'});
+        res.onEdit = recipes.filter(recipe=>slugify(recipe.user.username).toLowerCase()===user);
+        next();
+    } catch(err){
+        console.log(err)
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}
+
+export const deleteRecipe = async(req, res, next)=>{
+    try{
+    
     } catch(err){
         console.log(err);
         return res.status(500).json({ error: "Server error. Please try again" });

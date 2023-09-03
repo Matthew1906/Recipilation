@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useController, useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message"; 
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
@@ -8,7 +9,6 @@ import { EquipmentModal } from "../modals";
 import { Button } from "../utils";
 // import { equipments } from "../../utils/data";
 import { titleString } from "../../utils/string";
-import { useEffect, useState } from "react";
 
 const IngredientListItem = ({ingredient, onUpdate, onDelete})=>{
     const editIngredient = ()=>onUpdate(ingredient.index);
@@ -68,7 +68,7 @@ const IngredientListForm = ({ingredient, onSubmit, onCancel})=>{
     );
 };
 
-const RecipeMaterialForm = ({draft, onSave, onCancel})=>{
+const RecipeMaterialForm = ({draft, onSave, onCancel, isEdit})=>{
     const [ isChanged, setIsChanged ] = useState(false);
     const changeItems  = ()=>setIsChanged(true);
     const [ ingredients, setIngredients ] = useState((draft?.ingredients??[]).map((ingredient, index)=>({index, name:ingredient, isUpdate:false})));
@@ -76,7 +76,6 @@ const RecipeMaterialForm = ({draft, onSave, onCancel})=>{
     // Retrieve draft
     useEffect(()=>{
         if(draft!==null){
-            console.log(draft);
             setIngredients((draft?.ingredients??[]).map((ingredient, index)=>({index, name:ingredient, isUpdate:false})));
             setEquipments(draft?.equipments??[]);
         }

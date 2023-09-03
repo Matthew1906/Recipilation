@@ -18,11 +18,16 @@ const Profile = () => {
   const [ isUpdate, setIsUpdate] = useState(false);
   useEffect(()=>{
     getUser(slug).then(res=>{
-      const { user, recipes } = res.data;
-      setUserData(user);
-      setRecipes(recipes);
+      const { user:profile, recipes, onEdit } = res.data;
+      setUserData(profile);
+      if(profile.username === user.displayName){
+        setRecipes([...onEdit, ...recipes]);
+      }else{
+        setRecipes(recipes);
+      }
+      
     }).catch(err=>console.log(err));
-  }, [slug]);
+  }, [slug, user]);
   const showUpdateProfile = () => setIsUpdate(true);
   const showRecipes = ()=> setIsUpdate(false);
   const updateProfile = (data)=>{

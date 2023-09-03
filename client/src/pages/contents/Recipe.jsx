@@ -1,10 +1,10 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useState, useEffect } from "react";
 import { BsFillBarChartFill } from "react-icons/bs";
 import { FaEdit, FaShareAlt, FaTrashAlt } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
-import { getRecipe, getRecipesByCategories, getRecipesByCreator } from "../../api/recipe";
+import { editRecipe, getRecipe, getRecipesByCategories, getRecipesByCreator } from "../../api/recipe";
 import { deleteReview } from "../../api/review";
 import { CommentCard, RecipeCard } from "../../components/cards";
 import { StepCarousel } from "../../components/carousels";
@@ -28,6 +28,7 @@ const AttributeIcon = ({ theme, children }) => {
 
 const Recipe = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
   const [ changes, setChanges ] = useState(false);
   const updatePage = ()=>setChanges(!changes);
@@ -61,8 +62,17 @@ const Recipe = () => {
           <div className="flex justify-center items-center">
             <BackIcon className="text-2xl cursor-pointer" />
             <span className="font-fjalla-one text-2xl lg:text-4xl">{titleString(recipe?.name??slug)}</span>
-            <FaTrashAlt className="ml-2 text-red cursor-pointer link-expand text-lg" />
-            <FaEdit className="ml-1 cursor-pointer link-expand text-lg" />
+            {user?.displayName === recipe?.user?.username &&
+            <>            
+            <FaTrashAlt className="ml-2 text-red cursor-pointer link-expand text-lg"/>
+            <FaEdit className="ml-1 cursor-pointer link-expand text-lg" onClick={
+              ()=>{
+                console.log("Updating");
+                console.log(recipe?.slug);
+                editRecipe(recipe?.slug).then(navigate(`/recipes/${recipe?.slug}/edit`))
+              }
+            }/>
+            </>}
             <FaShareAlt className="cursor-pointer link-expand text-lg" />
           </div>
           <a 

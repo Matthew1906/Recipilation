@@ -1,17 +1,19 @@
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
-const StepCard = ({index, step})=>{
+const StepCard = ({index, step, onUpdate, onDelete})=>{
+    const updateItem = ()=>onUpdate(index);
+    const deleteItem = ()=>onDelete(index);
     return (
         <div className="my-4 flex gap-5 bg-white-primary rounded-md drop-shadow-md">
             <div className="flex">
-                <img src={step.image} alt={step.title} className="w-full h-full"/>
+                <img src={step.image??'/images/not-exist.jpg'} alt={step.title} className="w-full h-full aspect-[3/2]"/>
             </div>
             <div className="px-3 py-6">
                 <h4 className="font-semibold">{index+1}. {step.title}</h4>
-                <p>{step.description}</p>
+                <p>{step.details}</p>
                 <div className="mr-3 flex justify-end gap-2 font-bold">
-                    <FaTrashAlt className="text-red text-2xl cursor-pointer link-expand"/>
-                    <FaEdit className="text-2xl cursor-pointer link-expand" />
+                    <FaTrashAlt className="text-red text-2xl cursor-pointer link-expand" onClick={deleteItem}/>
+                    <FaEdit className="text-2xl cursor-pointer link-expand" onClick={updateItem}/>
                 </div>
             </div>
         </div>

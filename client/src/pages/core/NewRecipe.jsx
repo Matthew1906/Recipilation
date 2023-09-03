@@ -1,24 +1,41 @@
 import { useState, useEffect } from "react";
 import { RecipeInformationForm, RecipeMaterialForm, RecipeTutorialForm } from "../../components/forms";
-import { getRecipeDraft, saveRecipe } from "../../api/recipe";
+import { getRecipe, getRecipeDraft, saveRecipe, updateRecipe } from "../../api/recipe";
+import { base64String } from "../../utils/string";
+import { useNavigate, useParams } from "react-router";
 
-const NewRecipe = ()=>{
+const NewRecipe = ({isEdit=false})=>{
+    const navigate = useNavigate();
+    const { slug } = useParams(); 
     const [ draft, setDraft ] = useState(null);
     const [ index, setIndex ] = useState(0);
     
     useEffect(()=>{
-        getRecipeDraft().then(res=>setDraft(res.data));
-    }, [index])
+        if(isEdit){
+            getRecipe(slug).then(res=>setDraft(res.data));
+        }
+        else{
+            getRecipeDraft().then(res=>setDraft(res.data));
+        }
+    }, [index, isEdit, slug])
 
     const saveInformation = (data)=>{
         if(data===null){
             setIndex(1);
         }
         else{
-            saveRecipe("information", data).then(res=>{
-                setDraft(res.data);
-                setIndex(1);
-            }).catch(err=>console.log(err));
+            if(!isEdit){
+                saveRecipe("information", data).then(res=>{
+                    setDraft(res.data);
+                    setIndex(1);
+                }).catch(err=>console.log(err));
+            }
+            else{
+                updateRecipe(slug, "information", data).then(res=>{
+                    setDraft(res.data);
+                    setIndex(1);
+                }).catch(err=>console.log(err));
+            }
         }
     };
 
@@ -27,25 +44,59 @@ const NewRecipe = ()=>{
             setIndex(2);
         }
         else{
-            // console.log(data);
-            saveRecipe("material", data).then(res=>{
-                setDraft(res.data);
-                setIndex(2);
-            }).catch(err=>console.log(err));
+            if(!isEdit){
+                saveRecipe("material", data).then(res=>{
+                    setDraft(res.data);
+                    setIndex(2);
+                }).catch(err=>console.log(err));
+            }
+            else{
+                updateRecipe(slug, "material", data).then(res=>{
+                    setDraft(res.data);
+                    setIndex(2);
+                }).catch(err=>console.log(err));
+            }
+            
         }
     };
 
     const saveTutorial = (data)=>{
-        saveRecipe("tutorial", data).then(res=>{
-            setDraft(res.data);
-            setIndex(0);
-        })
+        if(data===null){
+            navigate('/recipes/'+draft?.slug);
+        }
+        else{
+            Promise.all(data.steps.map(async step=>{
+                fetch(step.image).then(r => {
+                    r.blob()
+                    .then(res=>base64String(res)
+                    .then(res=>{
+                        if(isEdit){
+                            updateRecipe(slug, "tutorial", {...step, image:res})
+                        }
+                        else{
+                            saveRecipe("tutorial", {...step, image:res})
+                        }
+                    }))
+                });
+            })).then(()=>{
+                    if(isEdit){
+                        updateRecipe(slug, "final", {})
+                        .then(res=>navigate("/recipes/"+res.data.slug)).catch(err=>console.log(err))
+                    }
+                    else{
+                        saveRecipe('final', {})
+                        .then(res=>navigate("/recipes/"+res.data.slug)).catch(err=>console.log(err))
+                    }
+                })
+                .catch(err=>console.log(err));
+            
+        }
     };
 
     const forms = [
-        <RecipeInformationForm onSave={saveInformation} draft={draft}/>, 
-        <RecipeMaterialForm onSave={saveMaterials} draft={draft} onCancel={()=>setIndex(0)}/>, 
-        <RecipeTutorialForm onSave={saveTutorial} draft={draft} onCancel={()=>setIndex(1)}/>
+        <RecipeInformationForm onSave={saveInformation} draft={draft} isEdit={isEdit}/>, 
+        <RecipeMaterialForm onSave={saveMaterials} draft={draft} onCancel={()=>setIndex(0)} isEdit={isEdit}/>, 
+        <RecipeTutorialForm onSave={saveTutorial} draft={draft} onCancel={()=>setIndex(1)} isEdit={isEdit}/>
     ];
 
     return forms[index];
