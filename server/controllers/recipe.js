@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import { RecipeCategory, Recipe, User, RecipeEquipment, RecipeStep, Review } from '../models/index.js';
 import { mean } from "../utils.js";
 import { uploadImage } from "../services/imagekit.js";
-import { ObjectId } from "mongodb";
 
 export const getRecipe = async(req, res, next)=>{
     try{
@@ -133,8 +132,8 @@ export const saveRecipe = async(req, res, next)=>{
                         imageId, image:imageResult,
                         user:req.user, serving_size: servingSize,
                         categories:recipe_categories,
-                        cooking_time: `${cookingTime.amount} ${cookingTime.type}${(cookingTime.amount>1)?"s":""}`,
-                        preparation_time: `${preparationTime.amount} ${preparationTime.type}${(preparationTime.amount>1)?"s":""}`
+                        cooking_time: `${cookingTime.amount} ${cookingTime.type}`,
+                        preparation_time: `${preparationTime.amount} ${preparationTime.type}`
                     });
                     recipe.save()
                     res.recipe = recipe;
@@ -145,8 +144,8 @@ export const saveRecipe = async(req, res, next)=>{
                         imageId, image:imageResult,
                         user:req.user, serving_size: servingSize,
                         categories:recipe_categories,
-                        cooking_time: `${cookingTime.amount} ${cookingTime.type}${(cookingTime.amount>1)?"s":""}`,
-                        preparation_time: `${preparationTime.amount} ${preparationTime.type}${(preparationTime.amount>1)?"s":""}`
+                        cooking_time: `${cookingTime.amount} ${cookingTime.type}`,
+                        preparation_time: `${preparationTime.amount} ${preparationTime.type}`
                     })
                     const recipe = await Recipe.findOne({_id:res.recipe._id})
                     res.recipe = recipe;
@@ -229,7 +228,12 @@ export const getOnEditRecipes = async(req, res, next)=>{
 
 export const deleteRecipe = async(req, res, next)=>{
     try{
-    
+        await RecipeStep.deleteMany({recipe:res.recipe.slug});
+        res.recipe.reviews.forEach(async review=>{
+            await Review.findOneAndDelete({_id:review._id});
+        });
+        await Recipe.deleteOne({_id:res.recipe._id});
+        next()
     } catch(err){
         console.log(err);
         return res.status(500).json({ error: "Server error. Please try again" });

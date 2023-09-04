@@ -62,7 +62,14 @@ const NewRecipe = ({isEdit=false})=>{
 
     const saveTutorial = (data)=>{
         if(data===null){
-            navigate('/recipes/'+draft?.slug);
+            if(isEdit){
+                updateRecipe(slug, "final", {})
+                .then(res=>navigate("/recipes/"+res.data.slug)).catch(err=>console.log(err))
+            }
+            else{
+                saveRecipe('final', {})
+                .then(res=>navigate("/recipes/"+res.data.slug)).catch(err=>console.log(err))
+            }
         }
         else{
             Promise.all(data.steps.map(async step=>{

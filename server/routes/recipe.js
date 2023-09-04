@@ -6,19 +6,16 @@ import {
     searchRecipes, sortByRatings, getRecipeDraft,
     saveRecipe,
     editRecipe,
-    deleteRecipe,
-    getOnEditRecipes
+    deleteRecipe
 } from "../controllers/recipe.js";
 
 const router = express.Router();
 
 // Add Recipes
-
 router.get('/new', validateUser, getRecipeDraft, async(req, res)=>res.json(res.recipe));
 router.post("/new/:type", validateUser, getRecipeDraft, saveRecipe, async(req, res)=>res.json(res.recipe));
 
 // Get Recipes
-
 router.get('/', 
     getRecipes, 
     filterCategories, 
@@ -34,12 +31,11 @@ router.get('/:id',
 );
 
 // Edit recipes
-router.get('/:id/edit', validateUser, getRecipe, editRecipe)
+router.get('/:id/edit', validateUser, getRecipe, editRecipe);
 router.put('/:id/edit/:type', validateUser, getRecipe, saveRecipe, async(req, res)=>(res.json(res.recipe)));
 
 // Delete recipes
-
-router.delete(":id", validateUser, deleteRecipe)
+router.delete("/:id", validateUser, getRecipe, deleteRecipe);
 
 
 export default router;

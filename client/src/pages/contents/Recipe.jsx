@@ -4,7 +4,7 @@ import { BsFillBarChartFill } from "react-icons/bs";
 import { FaEdit, FaShareAlt, FaTrashAlt } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
-import { editRecipe, getRecipe, getRecipesByCategories, getRecipesByCreator } from "../../api/recipe";
+import { deleteRecipe, editRecipe, getRecipe, getRecipesByCategories, getRecipesByCreator } from "../../api/recipe";
 import { deleteReview } from "../../api/review";
 import { CommentCard, RecipeCard } from "../../components/cards";
 import { StepCarousel } from "../../components/carousels";
@@ -64,13 +64,11 @@ const Recipe = () => {
             <span className="font-fjalla-one text-2xl lg:text-4xl">{titleString(recipe?.name??slug)}</span>
             {user?.displayName === recipe?.user?.username &&
             <>            
-            <FaTrashAlt className="ml-2 text-red cursor-pointer link-expand text-lg"/>
+            <FaTrashAlt className="ml-2 text-red cursor-pointer link-expand text-lg" onClick={
+              ()=>deleteRecipe(recipe?.slug).then(navigate('/'))
+            }/>
             <FaEdit className="ml-1 cursor-pointer link-expand text-lg" onClick={
-              ()=>{
-                console.log("Updating");
-                console.log(recipe?.slug);
-                editRecipe(recipe?.slug).then(navigate(`/recipes/${recipe?.slug}/edit`))
-              }
+              ()=>editRecipe(recipe?.slug).then(navigate(`/recipes/${recipe?.slug}/edit`))
             }/>
             </>}
             <FaShareAlt className="cursor-pointer link-expand text-lg" />
@@ -92,8 +90,8 @@ const Recipe = () => {
             <AttributeIcon theme="time">
               <MdTimer className="w-12 h-12" />
               <div className="text-xs md:text-sm text-center">
-                <p><strong className="mr-1">Prep:</strong>{recipe?.preparation_time??"-"}</p>
-                <p><strong className="mr-1">Cook:</strong>{recipe?.cooking_time??"-"}</p>
+                <p><strong className="mr-1">Prep:</strong>{recipe?.preparation_time??"-"}(s)</p>
+                <p><strong className="mr-1">Cook:</strong>{recipe?.cooking_time??"-"}(s)</p>
               </div>
             </AttributeIcon>
             <AttributeIcon theme={(recipe.difficulty??"easy").toLowerCase()}>

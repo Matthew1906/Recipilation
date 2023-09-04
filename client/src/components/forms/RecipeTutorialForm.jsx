@@ -8,16 +8,16 @@ import { saveRecipe } from "../../api/recipe";
 
 const RecipeTutorialForm = ({draft, onSave, onCancel, isEdit})=>{
     const navigate = useNavigate();
-    const [steps, setSteps] = useState(draft?.steps.map((step, index)=>({
-        index:index+1, title:step.title, details:step.details, image:step.image
-    }))??[]);
+    const [steps, setSteps] = useState(draft?.steps.map((step)=>({
+        index:step.index, title:step.title, details:step.details, image:step.image
+    })).sort((a,b)=>a.index-b.index)??[]);
     const [ isChanged, setIsChanged ] = useState(false);
     const changeItems  = ()=>setIsChanged(true);
     useEffect(()=>{
         if(draft!==null){
-            setSteps(draft?.steps.map((step, index)=>({
-                index:index+1, title:step.title, details:step.details, image:step.image
-            }))??[])
+            setSteps(draft?.steps.map((step)=>({
+                index:step.index, title:step.title, details:step.details, image:step.image
+            })).sort((a,b)=>a.index-b.index)??[])
         }
     }, [draft])
     const [ toUpdate, setToUpdate ] = useState(false);

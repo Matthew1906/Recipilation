@@ -30,11 +30,11 @@ const RecipeCard = ({ recipe, isDraft=false }) => {
             <div className="text-sm">
               <p>
                 <span className="font-bold">Prep:</span>
-                {recipe.preparation_time}
+                {recipe.preparation_time}(s)
               </p>
               <p>
                 <span className="font-bold">Cook:</span>
-                {recipe.cooking_time}
+                {recipe.cooking_time}(s)
               </p>
             </div>
           </div>
