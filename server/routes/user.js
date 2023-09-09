@@ -1,9 +1,10 @@
 import express from "express";
+import validateUser from "../middlewares/auth.js";
 import { getRecipes, filterByUser, getOnEditRecipes } from "../controllers/recipe.js";
 import { 
-  authenticateUser, getAverageUserRating, 
+  authenticateUser, followUser, getAverageUserRating, 
   getUser, getUsers, getUserDetails, 
-  searchUsers, updateUser
+  searchUsers, updateUser, unfollowUser, getFollowing
 } from "../controllers/user.js";
 
 const router = express.Router();
@@ -21,8 +22,13 @@ router.get("/:slug",
   filterByUser, 
   getAverageUserRating,
   getOnEditRecipes,
+  getFollowing, 
   async(req, res)=>res.status(200).json({user:res.user, recipes:res.recipes, onEdit:res.onEdit})
 );
+
+// Follow other user
+router.put("/follow/:toFollow", validateUser, followUser);
+router.put("/unfollow/:toUnfollow", validateUser, unfollowUser);
 
 router.post("/", authenticateUser);
 

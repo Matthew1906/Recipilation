@@ -37,5 +37,4 @@ router.put('/:id/edit/:type', validateUser, getRecipe, saveRecipe, async(req, re
 // Delete recipes
 router.delete("/:id", validateUser, getRecipe, deleteRecipe);
 
-
 export default router;

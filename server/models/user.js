@@ -8,7 +8,7 @@ const userSchema = Schema({
     imageId: {type:String},
     image: {type:String, trim:true},
     dob : {type:Date},
-    following:[{type:Schema.Types.ObjectId, ref:'user'}],
+    followers:[{type:String}],
 })
 
 const User = model('user', userSchema);

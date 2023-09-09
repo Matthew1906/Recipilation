@@ -1,7 +1,7 @@
 import moment from "moment";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
-import { getUser, updateUser } from "../../api/user";
+import { followUser, getUser, unfollowUser, updateUser } from "../../api/user";
 import { Pagination } from "../../components/containers";
 import { useAuth } from "../../hooks";
 import { RatingIcons } from "../../components/icons";
@@ -38,7 +38,8 @@ const Profile = () => {
       })
       .catch(err=>console.log(err))
   };
-  const followUser = () => console.log("Follow User");
+  const follow = () => followUser(userData?.slug).finally(()=>navigate('/profiles/'+slugifyString(user?.displayName)));
+  const unfollow = () => unfollowUser(userData?.slug).finally(()=>navigate('/profiles/'+slugifyString(user?.displayName)));
   if(loading){
     return 'Loading'
   }
@@ -60,18 +61,21 @@ const Profile = () => {
           </>
           }
           { slugifyString(user?.displayName) !== userData?.slug && 
-          <div onClick={followUser}>
-            <Button theme="blue" className="text-sm md:text-base">FOLLOW</Button>
-          </div>
+          <>
+          { !userData?.followers?.includes(slugifyString(user?.displayName))
+           ? <Button theme="blue" className="text-sm md:text-base" onClick={follow} expand>FOLLOW</Button>
+           : <Button theme="red" className="text-sm md:text-base" onClick={unfollow} expand>UNFOLLOW</Button>
+          }
+          </>
           }
           <div className="mt-2 md:grid md:grid-cols-3 gap-4 text-center">
             <div className="md:border-r-2 md:border-black px-2">
               <h6 className="font-semibold">followers</h6>
-              <p className="font-light">100 people</p>
+              <p className="font-light">{userData?.followers?.length??0} people</p>
             </div>
             <div className="px-2">
               <h6 className="font-semibold">following</h6>
-              <p className="font-light">10 people</p>
+              <p className="font-light">{userData?.following??0} people</p>
             </div>
             <div className="md:border-l-2 md:border-black px-2">
               <h6 className="font-semibold">recipes</h6>

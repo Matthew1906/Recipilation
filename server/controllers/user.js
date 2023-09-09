@@ -124,3 +124,34 @@ export const updateUser = async(req, res, next)=>{
         return res.status(500).json({ error: "Server error. Please try again" });
     }
 }
+
+export const followUser = async(req, res, next)=>{
+    try{
+        await User.findOneAndUpdate({slug:req.params.toFollow}, {$push:{followers:req.user.slug}});
+        next();
+    } catch(err){
+        console.log(err);
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}
+
+export const unfollowUser = async(req, res, next)=>{
+    try{
+        await User.findOneAndUpdate({slug:req.params.toUnfollow}, {$pull:{followers:req.user.slug}});
+        next();
+    } catch(err){
+        console.log(err);
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}
+
+export const getFollowing = async(req, res, next)=>{
+    try{
+        const following = await User.find({followers:res.user.slug});
+        res.user = {...res.user, following:following.length}
+        next();
+    } catch(err){
+        console.log(err);
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}
