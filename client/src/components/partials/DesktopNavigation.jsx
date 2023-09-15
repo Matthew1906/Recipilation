@@ -20,16 +20,11 @@ const DesktopNavigation = ({purpose='home'})=>{
                         <NavLink to="/search">
                             <li className="link-expand">Search</li>
                         </NavLink>
-                        {purpose!=='auth' && isAuthenticated && (
-                        <>
-                            <NavLink to="/cookbooks">
-                                <li className="link-expand">My Cookbooks</li>
-                            </NavLink>
+                        {purpose!=='auth' && isAuthenticated && 
                             <NavLink to={`/profiles/${slugifyString(user.displayName)}`}>
                                 <li className="link-expand">My Profile</li>
                             </NavLink>
-                        </>
-                        )}
+                        }
                     </ul>
                     }
                 </div>
