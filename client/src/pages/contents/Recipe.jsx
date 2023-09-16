@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router";
 import { useState, useEffect } from "react";
 import { BsFillBarChartFill } from "react-icons/bs";
-import { FaEdit, FaShareAlt, FaTrashAlt } from "react-icons/fa";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
 import { deleteRecipe, editRecipe, getRecipe, getRecipesByCategories, getRecipesByCreator } from "../../api/recipe";
@@ -11,6 +11,7 @@ import { StepCarousel } from "../../components/carousels";
 import { LoadMore, Pagination } from "../../components/containers";
 import { BackIcon, RatingIcons } from "../../components/icons";
 import { CommentForm } from "../../components/forms";
+import { ShareModal } from "../../components/modals";
 import { useAuth } from "../../hooks";
 // import { Button } from "../../components/utils";
 import { slugifyString, titleString } from "../../utils/string";
@@ -71,7 +72,7 @@ const Recipe = () => {
               ()=>editRecipe(recipe?.slug).then(navigate(`/recipes/${recipe?.slug}/edit`))
             }/>
             </>}
-            <FaShareAlt className="cursor-pointer link-expand text-lg" />
+            <ShareModal link={`${process.env.REACT_APP_URL}/recipes/${recipe?.slug}`} title={recipe?.title}/>
           </div>
           <a 
             href={('/profiles/'+recipe?.user?.slug)??"#"} 
