@@ -1,0 +1,13 @@
+config: configuration files (database, environment variables, and seeder data)
+
+controllers: methods to pass in endpoints
+
+data: dummy data to seed the database
+
+middlewares: authentication middleware
+
+models: mongoose schema models
+
+routes: API routes
+
+services: functions from third party services (firebase, imagekit)

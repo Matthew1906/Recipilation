@@ -1,10 +1,20 @@
+api: folders containing functions to make api request using axios, grouped by mongoose model
+
 components
     - cards: display card-type components
+    - carousels: slider componets
     - containers: display collection-type components
     - forms: forms and form inputs
     - icons: icon type components
+    - modals: popup components
     - partials: partial elements (header and footer)
     - utils: utility components (buttons, images, etc.)
+
+contexts: React contexts for authentication and form state
+
+hooks: React hooks
+
+layouts: Page layouts
 
 pages:
     - constants: pages that always exist in a webpage (authentication pages, dashboard)

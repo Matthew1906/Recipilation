@@ -1,0 +1,18 @@
+TODO:
+
+Dashboard:
+- Recipes recommended for the user (based on user review --> need algorithm)
+- Recently viewed recipes (using redis)
+
+My Cookbook:
+- User can save food into collections/cookbooks
+- When the user clicks the cookbook in header, they will be redirected to a page that shows all the user's cookbooks.
+- In this page, the cookbook is displayed in a gallery card fashion
+- These cookbooks can be edited, shared, or deleted
+- When the user opens a cookbook, it will show the recipes sorted by alphabet.
+
+Individual recipe page:
+- This page will display average difficulty based on user reviews and the cook's input
+
+User Interface:
+- Fix responsive UI
