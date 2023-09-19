@@ -1,19 +1,29 @@
 import { Link } from "react-router-dom";
 import { getCategories } from "../../api/category";
-import { getRecipes } from "../../api/recipe";
+import { getRecentlyViewedRecipes, getRecipes } from "../../api/recipe";
 import { RecipeCard } from "../../components/cards";
 import { RecipeCarousel } from "../../components/carousels";
 import { LoadMore, Pagination } from "../../components/containers";
 import { CombinationIcon } from "../../components/icons";
+import { useAuth } from "../../hooks";
 import { useState, useEffect } from "react";
 
 const Dashboard = () => {
+  const { isAuthenticated, user } = useAuth();
+  const [ recentlyViewed, setRecentlyViewed ] = useState([]);
   const [ topRecipes, setTopRecipes ] = useState([]);
   const [ topCategories, setTopCategories] = useState([]);
   useEffect(()=>{
-    getRecipes().then(res=>setTopRecipes(res.data));
+    getRecipes().then(res=>setTopRecipes(res.data.sort((a,b)=>
+      a.rating===b.rating?b.reviews.length-a.reviews.length:b.rating-a.rating
+    )));
     getCategories().then(categories=>setTopCategories(categories.data));
   }, []);
+  useEffect(()=>{
+    if(isAuthenticated){
+      getRecentlyViewedRecipes().then(res=>setRecentlyViewed(res.data));
+    }
+  }, [isAuthenticated])
   return (
     <>
       {/* Carousel (Top rated/Trending Recipes) */}
@@ -45,10 +55,12 @@ const Dashboard = () => {
       </LoadMore>
       {/* Top-rated recipes in (most famous category) */}
       {/* Recently viewed recipes (both) */}
-      <section className="px-10 py-8 bg-white-secondary" id="recommended">
-        <h5 className="font-nunito font-bold text-xl md:text-3xl mb-4 md:mb-0">Recently viewed</h5>
-        <Pagination items={topRecipes.reverse()} perPage={4}/>
-      </section>
+      {isAuthenticated && (recentlyViewed??[]).length>0 &&
+        <section className="px-10 py-8 bg-white-secondary" id="recommended">
+          <h5 className="font-nunito font-bold text-xl md:text-3xl mb-4 md:mb-0">Recently viewed</h5>
+          <Pagination items={recentlyViewed??[]} perPage={4}/>
+        </section>
+      }
       {/* Top-rated recipes in (recently viewed category if exists) */}
     </>
   );

@@ -1,5 +1,6 @@
 import slugify from "slugify";
 import mongoose from "mongoose";
+import cache from "../config/cache.js";
 import { RecipeCategory, Recipe, User, RecipeEquipment, RecipeStep, Review } from '../models/index.js';
 import { mean } from "../utils.js";
 import { uploadImage } from "../services/imagekit.js";
@@ -7,15 +8,22 @@ import { uploadImage } from "../services/imagekit.js";
 export const getRecipe = async(req, res, next)=>{
     try{
         const slug = req.params.id;
-        const recipe = await Recipe.findOne({slug}).
-            populate({path:'categories', model:RecipeCategory, select:'name slug -_id'}).
-            populate({path:'equipments', model:RecipeEquipment, select:'name image -_id'}).
-            populate({path:'reviews', model:Review, populate:{path:'user', select:'username slug email'}}).
-            populate({path:'steps', model:RecipeStep, select:'-__v -recipe'}).
-            populate({path:'user', model:User, select:'username slug email _id'});
-        const avg_rating = mean(recipe['reviews'].map(review=>review.rating))
-        res.recipe = {...recipe._doc, avg_rating};
-        next();
+        const cached = await cache.get(slug);
+        if(cached){
+            return res.json(JSON.parse(cached));
+        }else{
+            const recipe = await Recipe.findOne({slug}).
+                populate({path:'categories', model:RecipeCategory, select:'name slug -_id'}).
+                populate({path:'equipments', model:RecipeEquipment, select:'name image -_id'}).
+                populate({path:'reviews', model:Review, populate:{path:'user', select:'username slug email'}}).
+                populate({path:'steps', model:RecipeStep, select:'-__v -recipe'}).
+                populate({path:'user', model:User, select:'username slug email _id'});
+            const avg_rating = mean(recipe['reviews'].map(review=>review.rating))
+            res.recipe = {...recipe._doc, avg_rating};
+            await cache.set(slug, JSON.stringify(res.recipe), {EX:900});
+            await cache.sAdd("history", slug)
+            next();
+        }
     } catch(err){
         return res.status(500).json({ error: "Server error. Please try again" });
     }
@@ -80,14 +88,14 @@ export const searchRecipes = async(req, res, next)=>{
     }
 }
 
-export const sortByRatings = async(req, res, next)=>{
+export const addRatings = async(req, res, next)=>{
     try{
         res.recipes = res.recipes.map(recipe=>{
             const rating = mean(recipe['reviews'].map(review=>review.rating))
             return {
-                ...recipe._doc, rating
+                ...recipe._doc, rating:rating!==null?rating*100:0
             }
-        }).sort((a,b)=>a.rating-b.rating);
+        });
         next();
     } catch(err){
         return res.status(500).json({ error: "Server error. Please try again" });
@@ -233,6 +241,34 @@ export const deleteRecipe = async(req, res, next)=>{
             await Review.findOneAndDelete({_id:review._id});
         });
         await Recipe.deleteOne({_id:res.recipe._id});
+        next()
+    } catch(err){
+        console.log(err);
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}
+
+export const getRecentlyViewed = async(req, res, next)=>{
+    try{
+        const history = await cache.sMembers("history");
+        const recipes = await Promise.all(history.map(async(slug)=>{
+            const recipe = await Recipe.findOne({slug}, 'status name slug user description categories image serving_size difficulty cooking_time preparation_time reviews').
+                populate({path:'categories', model:RecipeCategory, select:'slug -_id'}).
+                populate({path:'reviews', model:Review, select:'rating -_id'}).
+                populate({path:'user', model:User, select:'username slug email _id'});
+            return recipe;
+        }))
+        res.recipes = recipes;
+        next()
+    } catch(err){
+        console.log(err);
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}
+
+export const getRecommendations = async(req, res, next)=>{
+    try{
+        
         next()
     } catch(err){
         console.log(err);

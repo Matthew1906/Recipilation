@@ -19,6 +19,10 @@ export function getRecipes(){
     return axiosClient.get("/api/recipes");
 }
 
+export function getRecentlyViewedRecipes(){
+    return axiosUserClient.get("/api/recipes/recent");
+}
+
 export function getRecipesByCategories(categories){
     if(typeof(categories)==='string'){
         return axiosClient.get(`/api/recipes?category=${categories}`);

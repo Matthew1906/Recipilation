@@ -2,8 +2,9 @@ import express from "express";
 import validateUser from "../middlewares/auth.js";
 import { 
     getRecipe, getRecipes, 
+    getRecentlyViewed, getRecommendations,
     filterCategories, filterByUser, 
-    searchRecipes, sortByRatings, getRecipeDraft,
+    searchRecipes, addRatings, getRecipeDraft,
     saveRecipe,
     editRecipe,
     deleteRecipe
@@ -21,10 +22,15 @@ router.get('/',
     filterCategories, 
     filterByUser, 
     searchRecipes,
-    sortByRatings,
+    addRatings,
     async(req, res)=>(res.json(res.recipes))
 );
 
+router.get('/recommendations', validateUser, getRecommendations, async(req, res)=>res.json(res.recipes));
+
+router.get('/recent', validateUser, getRecentlyViewed, async(req, res)=>res.json(res.recipes));
+
+// Get Recipe
 router.get('/:id', 
     getRecipe, 
     async(req, res)=>(res.json(res.recipe))
