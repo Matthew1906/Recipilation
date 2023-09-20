@@ -28,7 +28,7 @@ router.get('/',
 
 router.get('/recommendations', validateUser, getRecommendations, async(req, res)=>res.json(res.recipes));
 
-router.get('/recent', validateUser, getRecentlyViewed, async(req, res)=>res.json(res.recipes));
+router.get('/recent', getRecentlyViewed, async(req, res)=>res.json(res.recipes));
 
 // Get Recipe
 router.get('/:id', 

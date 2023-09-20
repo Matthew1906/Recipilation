@@ -20,7 +20,11 @@ export function getRecipes(){
 }
 
 export function getRecentlyViewedRecipes(){
-    return axiosUserClient.get("/api/recipes/recent");
+    return axiosClient.get("/api/recipes/recent");
+}
+
+export function getRecommendedRecipes(){
+    return axiosUserClient.get("/api/recipes/recommended");
 }
 
 export function getRecipesByCategories(categories){

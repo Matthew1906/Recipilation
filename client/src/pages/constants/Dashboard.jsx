@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 const Dashboard = () => {
   const { isAuthenticated, user } = useAuth();
   const [ recentlyViewed, setRecentlyViewed ] = useState([]);
+  const [ recommendedRecipes , setRecommendedRecipes ] = useState([]);
   const [ topRecipes, setTopRecipes ] = useState([]);
   const [ topCategories, setTopCategories] = useState([]);
   useEffect(()=>{
@@ -18,10 +19,11 @@ const Dashboard = () => {
       a.rating===b.rating?b.reviews.length-a.reviews.length:b.rating-a.rating
     )));
     getCategories().then(categories=>setTopCategories(categories.data));
+    getRecentlyViewedRecipes().then(res=>setRecentlyViewed(res.data));
   }, []);
   useEffect(()=>{
     if(isAuthenticated){
-      getRecentlyViewedRecipes().then(res=>setRecentlyViewed(res.data));
+      
     }
   }, [isAuthenticated])
   return (
@@ -47,21 +49,30 @@ const Dashboard = () => {
           </Link>
         </div>
       </section>
-      {/* Recipes - Recommended for you (User) */}
-      <LoadMore title="Recommended for you" id="recommended" className="px-10 py-8 bg-light-yellow">
-        {topRecipes.map((recipe, key) => (
+      {/* Recipes - Recommended for you
+        * For logged in users: show recipes based on the user's review (take recipes with similar categories and users)
+        * For guest users: show recipes based on their overall rating
+      */}
+      {isAuthenticated && (recommendedRecipes??[]).length>0
+        ? <LoadMore title="Recommended for you" id="recommended" className="px-10 py-8 bg-light-yellow">
+          {recommendedRecipes.map((recipe, key) => (
+            <RecipeCard recipe={recipe} key={key} />
+          ))}
+        </LoadMore>
+        : <LoadMore title="Recommended for you" id="recommended" className="px-10 py-8 bg-light-yellow">
+        {topRecipes.slice(10).map((recipe, key) => (
           <RecipeCard recipe={recipe} key={key} />
         ))}
-      </LoadMore>
+        </LoadMore>
+      }
       {/* Top-rated recipes in (most famous category) */}
       {/* Recently viewed recipes (both) */}
-      {isAuthenticated && (recentlyViewed??[]).length>0 &&
+      {(recentlyViewed??[]).length>0 &&
         <section className="px-10 py-8 bg-white-secondary" id="recommended">
           <h5 className="font-nunito font-bold text-xl md:text-3xl mb-4 md:mb-0">Recently viewed</h5>
-          <Pagination items={recentlyViewed??[]} perPage={4}/>
+          <Pagination items={recentlyViewed.reverse()??[]} perPage={4}/>
         </section>
       }
-      {/* Top-rated recipes in (recently viewed category if exists) */}
     </>
   );
 };
