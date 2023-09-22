@@ -9,7 +9,7 @@ import { useAuth } from "../../hooks";
 import { useState, useEffect } from "react";
 
 const Dashboard = () => {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
   const [ recentlyViewed, setRecentlyViewed ] = useState([]);
   const [ recommendedRecipes , setRecommendedRecipes ] = useState([]);
   const [ topRecipes, setTopRecipes ] = useState([]);
@@ -19,7 +19,8 @@ const Dashboard = () => {
       a.rating===b.rating?b.reviews.length-a.reviews.length:b.rating-a.rating
     )));
     getCategories().then(categories=>setTopCategories(categories.data));
-    getRecentlyViewedRecipes().then(res=>setRecentlyViewed(res.data));
+    const history = sessionStorage.getItem("history");
+    getRecentlyViewedRecipes(history!==null?history:"").then(res=>setRecentlyViewed(res.data));
   }, []);
   useEffect(()=>{
     if(isAuthenticated){
@@ -65,7 +66,6 @@ const Dashboard = () => {
         ))}
         </LoadMore>
       }
-      {/* Top-rated recipes in (most famous category) */}
       {/* Recently viewed recipes (both) */}
       {(recentlyViewed??[]).length>0 &&
         <section className="px-10 py-8 bg-white-secondary" id="recommended">

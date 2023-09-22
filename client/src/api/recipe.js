@@ -19,8 +19,8 @@ export function getRecipes(){
     return axiosClient.get("/api/recipes");
 }
 
-export function getRecentlyViewedRecipes(){
-    return axiosClient.get("/api/recipes/recent");
+export function getRecentlyViewedRecipes(history){
+    return axiosClient.get(`/api/recipes/recent?history=${history}`);
 }
 
 export function getRecommendedRecipes(){

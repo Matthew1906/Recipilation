@@ -21,7 +21,6 @@ export const getRecipe = async(req, res, next)=>{
             const avg_rating = mean(recipe['reviews'].map(review=>review.rating))
             res.recipe = {...recipe._doc, avg_rating};
             await cache.set(slug, JSON.stringify(res.recipe), {EX:900});
-            await cache.sAdd("history", slug)
             next();
         }
     } catch(err){
@@ -250,15 +249,21 @@ export const deleteRecipe = async(req, res, next)=>{
 
 export const getRecentlyViewed = async(req, res, next)=>{
     try{
-        const history = await cache.sMembers("history");
-        const recipes = await Promise.all(history.map(async(slug)=>{
-            const recipe = await Recipe.findOne({slug}, 'status name slug user description categories image serving_size difficulty cooking_time preparation_time reviews').
-                populate({path:'categories', model:RecipeCategory, select:'slug -_id'}).
-                populate({path:'reviews', model:Review, select:'rating -_id'}).
-                populate({path:'user', model:User, select:'username slug email _id'});
-            return recipe;
-        }))
-        res.recipes = recipes;
+        const history = req.query.history;
+        if(history.trim()===''){
+            res.recipes = []
+        }
+        else{
+            const recipes = await Promise.all(history.split("_").map(async(slug)=>{
+                const recipe = await Recipe.findOne({slug}, 'status name slug user description categories image serving_size difficulty cooking_time preparation_time reviews').
+                    populate({path:'categories', model:RecipeCategory, select:'slug -_id'}).
+                    populate({path:'reviews', model:Review, select:'rating -_id'}).
+                    populate({path:'user', model:User, select:'username slug email _id'});
+                    return recipe;
+                })
+            );
+            res.recipes = recipes;
+        }
         next()
     } catch(err){
         console.log(err);

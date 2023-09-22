@@ -39,6 +39,15 @@ const Recipe = () => {
   const [ recipesByChef, setRecipesByChef ] = useState([]);
   const [ validReviewer, setValidReviewer ] = useState(false);
   useEffect(()=>{
+    const recentlyViewed = sessionStorage.getItem("history");
+    if(recentlyViewed===null){
+      sessionStorage.setItem("history", slug);
+    }
+    else if(!recentlyViewed.includes(slug)){
+      sessionStorage.setItem("history", recentlyViewed+ "_" + slug);
+    }
+  }, [slug])
+  useEffect(()=>{
     getRecipe(slug).then(res=>{
       setRecipe(res.data);
       setCategories(res?.data?.categories.map(category=>({

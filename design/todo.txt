@@ -2,7 +2,6 @@ TODO:
 
 Dashboard:
 - Recipes recommended for the user (based on user review --> need algorithm)
-- Recently viewed recipes (using redis)
 
 My Cookbook:
 - User can save food into collections/cookbooks
