@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { getCategories } from "../../api/category";
-import { getRecentlyViewedRecipes, getRecipes } from "../../api/recipe";
+import { getRecentlyViewedRecipes, getRecipes, getRecommendedRecipes } from "../../api/recipe";
 import { RecipeCard } from "../../components/cards";
 import { RecipeCarousel } from "../../components/carousels";
 import { LoadMore, Pagination } from "../../components/containers";
@@ -24,7 +24,9 @@ const Dashboard = () => {
   }, []);
   useEffect(()=>{
     if(isAuthenticated){
-      
+      getRecommendedRecipes().then(res=>setRecommendedRecipes(res.data.sort((a,b)=>
+        a.rating===b.rating?b.reviews.length-a.reviews.length:b.rating-a.rating
+      )));
     }
   }, [isAuthenticated])
   return (
@@ -60,8 +62,8 @@ const Dashboard = () => {
             <RecipeCard recipe={recipe} key={key} />
           ))}
         </LoadMore>
-        : <LoadMore title="Recommended for you" id="recommended" className="px-10 py-8 bg-light-yellow">
-        {topRecipes.slice(10).map((recipe, key) => (
+        : <LoadMore title="Top recipes" id="recommended" className="px-10 py-8 bg-light-yellow">
+        {topRecipes.map((recipe, key) => (
           <RecipeCard recipe={recipe} key={key} />
         ))}
         </LoadMore>

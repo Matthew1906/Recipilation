@@ -8,10 +8,11 @@ import { uploadImage } from "../services/imagekit.js";
 export const getRecipe = async(req, res, next)=>{
     try{
         const slug = req.params.id;
-        const cached = await cache.get(slug);
-        if(cached){
-            return res.json(JSON.parse(cached));
-        }else{
+        // const cached = await cache.get(slug);
+        // if(cached){
+            // res.recipe = JSON.parse(cached);
+            // next();
+        // }else{
             const recipe = await Recipe.findOne({slug}).
                 populate({path:'categories', model:RecipeCategory, select:'name slug -_id'}).
                 populate({path:'equipments', model:RecipeEquipment, select:'name image -_id'}).
@@ -20,9 +21,9 @@ export const getRecipe = async(req, res, next)=>{
                 populate({path:'user', model:User, select:'username slug email _id'});
             const avg_rating = mean(recipe['reviews'].map(review=>review.rating))
             res.recipe = {...recipe._doc, avg_rating};
-            await cache.set(slug, JSON.stringify(res.recipe), {EX:900});
+            // await cache.set(slug, JSON.stringify(res.recipe), {EX:900});
             next();
-        }
+        // }
     } catch(err){
         return res.status(500).json({ error: "Server error. Please try again" });
     }
@@ -32,7 +33,7 @@ export const getRecipes = async(req, res, next)=>{
     try{
         const recipes = await Recipe.find({status:1}, 'status name slug user description categories image serving_size difficulty cooking_time preparation_time reviews').
             populate({path:'categories', model:RecipeCategory, select:'slug -_id'}).
-            populate({path:'reviews', model:Review, select:'rating -_id'}).
+            populate({path:'reviews', model:Review, select:'user rating -_id'}).
             populate({path:'user', model:User, select:'username slug email _id'});
         res.recipes = recipes;
         next();
@@ -97,6 +98,61 @@ export const addRatings = async(req, res, next)=>{
         });
         next();
     } catch(err){
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}
+
+export const getRecentlyViewed = async(req, res, next)=>{
+    try{
+        const history = req.query.history;
+        if(history.trim()===''){
+            res.recipes = []
+        }
+        else{
+            const recipes = await Promise.all(history.split("_").map(async(slug)=>{
+                const recipe = await Recipe.findOne({slug}, 'status name slug user description categories image serving_size difficulty cooking_time preparation_time reviews').
+                    populate({path:'categories', model:RecipeCategory, select:'slug -_id'}).
+                    populate({path:'reviews', model:Review, select:'rating -_id'}).
+                    populate({path:'user', model:User, select:'username slug email _id'});
+                    return recipe;
+                })
+            );
+            res.recipes = recipes;
+        }
+        next()
+    } catch(err){
+        console.log(err);
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}
+
+
+
+export const filterRecommendations = async(req, res, next)=>{
+    try{
+        /*
+        1. Get a list of recipes that the user have reviewed
+        2. Get the categories and creator of the recipes from the list
+        3. Get all recipes from both categories and creator, and sort them by rating
+        4. Only get the top 10 recipes
+        */
+       const reviewed = res.recipes.filter(recipe=>recipe.reviews.map(review=>review.user.toString()).includes(req.user._id.toString()))
+       const categoriesLists = reviewed.map((recipe)=>(recipe.categories));
+       const categories = Array.from(new Set(categoriesLists.reduce(
+        (acc, curr)=> acc + ";" + curr.map(cat=>cat.slug).join(";"), "")
+        .split(";").filter(x=>x.trim()!==''))
+       )
+       const creators = Array.from(new Set(reviewed.map((recipe)=>(recipe.user._id.toString()))));
+       res.recipes = res.recipes.filter(recipe=>{
+            return !reviewed.map(r=>r.name).includes(recipe.name) && 
+                recipe.user.slug !== req.user.slug && ( 
+                creators.includes(recipe.user._id.toString()) || 
+                recipe.categories.filter(category=>categories.includes(category.slug)).length>0
+            )
+       })
+       next()
+    } catch(err){
+        console.log(err);
         return res.status(500).json({ error: "Server error. Please try again" });
     }
 }
@@ -240,40 +296,6 @@ export const deleteRecipe = async(req, res, next)=>{
             await Review.findOneAndDelete({_id:review._id});
         });
         await Recipe.deleteOne({_id:res.recipe._id});
-        next()
-    } catch(err){
-        console.log(err);
-        return res.status(500).json({ error: "Server error. Please try again" });
-    }
-}
-
-export const getRecentlyViewed = async(req, res, next)=>{
-    try{
-        const history = req.query.history;
-        if(history.trim()===''){
-            res.recipes = []
-        }
-        else{
-            const recipes = await Promise.all(history.split("_").map(async(slug)=>{
-                const recipe = await Recipe.findOne({slug}, 'status name slug user description categories image serving_size difficulty cooking_time preparation_time reviews').
-                    populate({path:'categories', model:RecipeCategory, select:'slug -_id'}).
-                    populate({path:'reviews', model:Review, select:'rating -_id'}).
-                    populate({path:'user', model:User, select:'username slug email _id'});
-                    return recipe;
-                })
-            );
-            res.recipes = recipes;
-        }
-        next()
-    } catch(err){
-        console.log(err);
-        return res.status(500).json({ error: "Server error. Please try again" });
-    }
-}
-
-export const getRecommendations = async(req, res, next)=>{
-    try{
-        
         next()
     } catch(err){
         console.log(err);

@@ -24,7 +24,7 @@ export function getRecentlyViewedRecipes(history){
 }
 
 export function getRecommendedRecipes(){
-    return axiosUserClient.get("/api/recipes/recommended");
+    return axiosUserClient.get("/api/recipes/recommendations");
 }
 
 export function getRecipesByCategories(categories){

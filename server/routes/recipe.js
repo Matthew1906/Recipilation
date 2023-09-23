@@ -2,7 +2,7 @@ import express from "express";
 import validateUser from "../middlewares/auth.js";
 import { 
     getRecipe, getRecipes, 
-    getRecentlyViewed, getRecommendations,
+    getRecentlyViewed, filterRecommendations,
     filterCategories, filterByUser, 
     searchRecipes, addRatings, getRecipeDraft,
     saveRecipe,
@@ -26,7 +26,7 @@ router.get('/',
     async(req, res)=>(res.json(res.recipes))
 );
 
-router.get('/recommendations', validateUser, getRecommendations, async(req, res)=>res.json(res.recipes));
+router.get('/recommendations', validateUser, getRecipes, filterRecommendations, addRatings, async(req, res)=>res.json(res.recipes));
 
 router.get('/recent', getRecentlyViewed, async(req, res)=>res.json(res.recipes));
 

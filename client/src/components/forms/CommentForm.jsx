@@ -8,7 +8,7 @@ import { getReview, submitReview, updateReview } from "../../api/review";
 import { useScreenSize } from "../../hooks";
 import { categoryConfig } from "../../utils/theme";
 
-const CommentForm = ({recipe, user, updatePage}) => {
+const CommentForm = ({recipe, updatePage}) => {
   const screenSize = useScreenSize();
   const { control, handleSubmit, setValue, watch, reset } = useForm({
     defaultValues:{
@@ -19,16 +19,18 @@ const CommentForm = ({recipe, user, updatePage}) => {
   });
   const [isUpdate, setIsUpdate ] = useState(false);
   useEffect(()=>{
-    getReview(recipe, user).then(res=>{
-      setValue('body', res.data.body);
-      setValue('rating', res.data.rating);
-      setValue('difficulty', res.data.difficulty);
-      setIsUpdate(true);
+    getReview(recipe).then(res=>{
+      if(res.data!==null){
+        setValue('body', res.data.body);
+        setValue('rating', res.data.rating);
+        setValue('difficulty', res.data.difficulty);
+        setIsUpdate(true);
+      }
     }).catch(err=>reset());
-  }, [recipe, user, setValue, reset]);
+  }, [recipe, setValue, reset]);
   const onSubmit = (data)=>{
     let submit = isUpdate? updateReview:submitReview;
-    submit(data, recipe, user).catch(err=>console.log(err)).finally(()=>{
+    submit(data, recipe).catch(err=>console.log(err)).finally(()=>{
       reset();
       updatePage();
     })

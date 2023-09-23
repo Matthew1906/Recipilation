@@ -1,8 +1,5 @@
 TODO:
 
-Dashboard:
-- Recipes recommended for the user (based on user review --> need algorithm)
-
 My Cookbook:
 - User can save food into collections/cookbooks
 - When the user clicks the cookbook in header, they will be redirected to a page that shows all the user's cookbooks.

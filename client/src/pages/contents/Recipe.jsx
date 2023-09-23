@@ -13,8 +13,7 @@ import { BackIcon, RatingIcons } from "../../components/icons";
 import { CommentForm } from "../../components/forms";
 import { ShareModal } from "../../components/modals";
 import { useAuth } from "../../hooks";
-// import { Button } from "../../components/utils";
-import { slugifyString, titleString } from "../../utils/string";
+import { titleString } from "../../utils/string";
 import { categoryConfig, themeConfig } from "../../utils/theme";
 
 const randomizeTheme = () => categoryConfig[Object.keys(categoryConfig)[Math.floor(Math.random() * Object.keys(categoryConfig).length)]];
@@ -154,11 +153,11 @@ const Recipe = () => {
           <CommentCard 
             key={key} 
             comment = {review} 
-            deleteAction={()=>deleteReview(recipe?.slug, slugifyString(user?.displayName)).catch(err=>console.log(err)).finally(updatePage)}
+            deleteAction={()=>deleteReview(recipe?.slug).catch(err=>console.log(err)).finally(updatePage)}
             updateAction={()=>setValidReviewer(true)}/>
         ))}
       </LoadMore>
-      {isAuthenticated && validReviewer && <CommentForm recipe={recipe?.slug} user={slugifyString(user?.displayName)} updatePage={updatePage}/>}
+      {isAuthenticated && validReviewer && <CommentForm recipe={recipe?.slug} updatePage={updatePage}/>}
       <LoadMore title="More Like This" id="more-like-this" className="px-10 py-8 bg-light-yellow">
         {similarRecipes.filter(recipe=>recipe.slug!==slug).map((recipe, key) => (
           <RecipeCard recipe={recipe} key={key} />
