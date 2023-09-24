@@ -18,7 +18,9 @@ const Dashboard = () => {
     getRecipes().then(res=>setTopRecipes(res.data.sort((a,b)=>
       a.rating===b.rating?b.reviews.length-a.reviews.length:b.rating-a.rating
     )));
-    getCategories().then(categories=>setTopCategories(categories.data));
+    getCategories().then(categories=>setTopCategories(categories.data.sort((a,b)=>
+      a.avgRating-b.avgRating||b.numRecipes-a.numRecipes))
+    );
     const history = sessionStorage.getItem("history");
     getRecentlyViewedRecipes(history!==null?history:"").then(res=>setRecentlyViewed(res.data));
   }, []);

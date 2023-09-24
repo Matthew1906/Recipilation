@@ -1,29 +1,22 @@
 import slugify from "slugify";
 import mongoose from "mongoose";
-import cache from "../config/cache.js";
+// import cache from "../services/cache.js";
 import { RecipeCategory, Recipe, User, RecipeEquipment, RecipeStep, Review } from '../models/index.js';
-import { mean } from "../utils.js";
+import { intersect, mean } from "../utils.js";
 import { uploadImage } from "../services/imagekit.js";
 
 export const getRecipe = async(req, res, next)=>{
     try{
         const slug = req.params.id;
-        // const cached = await cache.get(slug);
-        // if(cached){
-            // res.recipe = JSON.parse(cached);
-            // next();
-        // }else{
-            const recipe = await Recipe.findOne({slug}).
-                populate({path:'categories', model:RecipeCategory, select:'name slug -_id'}).
-                populate({path:'equipments', model:RecipeEquipment, select:'name image -_id'}).
-                populate({path:'reviews', model:Review, populate:{path:'user', select:'username slug email'}}).
-                populate({path:'steps', model:RecipeStep, select:'-__v -recipe'}).
-                populate({path:'user', model:User, select:'username slug email _id'});
-            const avg_rating = mean(recipe['reviews'].map(review=>review.rating))
-            res.recipe = {...recipe._doc, avg_rating};
-            // await cache.set(slug, JSON.stringify(res.recipe), {EX:900});
-            next();
-        // }
+        const recipe = await Recipe.findOne({slug}).
+            populate({path:'categories', model:RecipeCategory, select:'name slug -_id'}).
+            populate({path:'equipments', model:RecipeEquipment, select:'name image -_id'}).
+            populate({path:'reviews', model:Review, populate:{path:'user', select:'username slug email'}}).
+            populate({path:'steps', model:RecipeStep, select:'-__v -recipe'}).
+            populate({path:'user', model:User, select:'username slug email _id'});
+        const avg_rating = mean(recipe['reviews'].map(review=>review.rating))
+        res.recipe = {...recipe._doc, avg_rating };
+        next();
     } catch(err){
         return res.status(500).json({ error: "Server error. Please try again" });
     }
@@ -33,7 +26,7 @@ export const getRecipes = async(req, res, next)=>{
     try{
         const recipes = await Recipe.find({status:1}, 'status name slug user description categories image serving_size difficulty cooking_time preparation_time reviews').
             populate({path:'categories', model:RecipeCategory, select:'slug -_id'}).
-            populate({path:'reviews', model:Review, select:'user rating -_id'}).
+            populate({path:'reviews', model:Review, select:'user rating difficulty -_id'}).
             populate({path:'user', model:User, select:'username slug email _id'});
         res.recipes = recipes;
         next();
@@ -48,15 +41,9 @@ export const filterCategories = async(req, res, next)=>{
         if(category!==null){
             // Get all recipes based on a category
             let categories = category.split(";");
-            let intersectCategories = (rCats, qCats)=>{
-                return rCats.filter(cat=>qCats.includes(cat)).length>0;
-            }
             res.recipes = res.recipes.filter(
-                recipe=>intersectCategories(
-                    recipe.categories.map(category=>category.slug), 
-                    categories
-                )
-            ) 
+                recipe=>intersect(recipe.categories.map(category=>category.slug), categories)
+            ); 
         }
         next();
     } catch(err){
@@ -147,7 +134,7 @@ export const filterRecommendations = async(req, res, next)=>{
             return !reviewed.map(r=>r.name).includes(recipe.name) && 
                 recipe.user.slug !== req.user.slug && ( 
                 creators.includes(recipe.user._id.toString()) || 
-                recipe.categories.filter(category=>categories.includes(category.slug)).length>0
+                intersect(categories, recipe.categories.map(cat=>cat.slug))
             )
        })
        next()

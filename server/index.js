@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import config from "./config/index.js";
 import db from "./config/db.js";
-import cache from "./config/cache.js";
+// import cache from "./services/cache.js";
 import categoryRouter from "./routes/category.js";
 import equipmentRouter from "./routes/equipment.js";
 import userRouter from "./routes/user.js";
@@ -33,7 +33,7 @@ app.use((_req, res, next) => {
   next();
 });
 
-await cache.expireAt("history", parseInt((+new Date)/1000) + 86400)
+// await cache.expireAt("history", parseInt((+new Date)/1000) + 86400)
 
 app.get("/", async(req, res)=>{
     res.json({message:"Hello, It's me! I've been wondering if after all these years you would like to meet"})

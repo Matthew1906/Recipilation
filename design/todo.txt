@@ -7,8 +7,5 @@ My Cookbook:
 - These cookbooks can be edited, shared, or deleted
 - When the user opens a cookbook, it will show the recipes sorted by alphabet.
 
-Individual recipe page:
-- This page will display average difficulty based on user reviews and the cook's input
-
 User Interface:
 - Fix responsive UI

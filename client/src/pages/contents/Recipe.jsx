@@ -105,7 +105,7 @@ const Recipe = () => {
             </AttributeIcon>
             <AttributeIcon theme={(recipe.difficulty??"easy").toLowerCase()}>
               <BsFillBarChartFill className="w-12 h-12" />
-              <p className="font-bold text-xs md:text-sm text-center">{recipe?.difficulty??"Easy"}</p>
+              <p className="font-bold text-xs md:text-sm text-center">{titleString(recipe?.difficulty??"easy")}</p>
             </AttributeIcon>
             <AttributeIcon theme="serving">
               <GiMeal className="w-12 h-12" />

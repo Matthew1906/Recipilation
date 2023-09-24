@@ -3,11 +3,6 @@ import { MdTimer } from "react-icons/md";
 import { limitString } from "../../utils/string";
 
 const RecipeCard = ({ recipe, isDraft=false }) => {
-  const difficultyConfig = {
-    easy: "text-yellow",
-    medium: "text-orange",
-    hard: "text-red",
-  };
   return (
     <div className="grid grid-rows-2 md:grid-rows-none md:grid-cols-2 bg-white-primary h-full rounded-2xl drop-shadow-md">
       <a href={`/recipes/${recipe?.slug}${isDraft?"/edit":""}`}>
@@ -43,7 +38,7 @@ const RecipeCard = ({ recipe, isDraft=false }) => {
             <span>{recipe.serving_size} people</span>
           </div>
         </div>
-        <div className="flex justify-center items-center gap-3 mt-3">
+        {/* <div className="flex justify-center items-center gap-3 mt-3">
           <p>
             Level:{" "}
             <span
@@ -54,7 +49,7 @@ const RecipeCard = ({ recipe, isDraft=false }) => {
               {recipe.difficulty}
             </span>
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
