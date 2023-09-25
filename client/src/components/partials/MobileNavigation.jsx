@@ -27,9 +27,14 @@ const MobileNavigation = ({ purpose='home' }) => {
                 <NavLink to="/"><li className="mb-4">Home</li></NavLink>
                 <NavLink to="/search"><li className="mb-4">Search</li></NavLink>
                 {isAuthenticated && 
+                    <>
+                    <NavLink to="/cookbooks">
+                        <li className="mb-4">My Cookbooks</li>
+                    </NavLink>
                     <NavLink to={`/profiles/${slugifyString(user.displayName)}`}>
                         <li className="mb-4">My Profile</li>
                     </NavLink>
+                    </>
                 }
                 {purpose!=='auth' && isAuthenticated ? (
                     <a href="/"><Button theme="orange" expand onClick={logout}>LOGOUT</Button></a>

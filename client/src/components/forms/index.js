@@ -1,6 +1,7 @@
 import CommentForm from "./CommentForm";
 import EquipmentForm from "./EquipmentForm";
 import LoginForm from "./LoginForm";
+import NewCookbookForm from "./NewCookbookForm";
 import ProfileForm from "./ProfileForm";
 import RecipeInformationForm from "./RecipeInformationForm";
 import RecipeMaterialForm from "./RecipeMaterialForm";
@@ -12,6 +13,7 @@ export {
     CommentForm, 
     EquipmentForm,
     LoginForm, 
+    NewCookbookForm,
     ProfileForm,
     RecipeInformationForm, 
     RecipeMaterialForm, 
