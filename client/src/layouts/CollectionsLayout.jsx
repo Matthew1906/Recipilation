@@ -1,6 +1,5 @@
 import { LoadMore } from "../components/containers";
 import { CombinationCard } from "../components/cards";
-import { Button } from "../components/utils";
 import { NewCookbookModal } from "../components/modals";
 
 const CollectionsLayout = ({ cookbook, heading, subheading, items }) => {
@@ -18,7 +17,7 @@ const CollectionsLayout = ({ cookbook, heading, subheading, items }) => {
         {cookbook && <NewCookbookModal/>}
       </div>
       
-      <LoadMore id="categories" className="my-5 px-10" cols={3} items={6}>
+      <LoadMore id="collections" className="my-5 px-10" cols={3} items={6}>
         {items.length>0 && items.map((item, key) => (
           <CombinationCard
             key={key}

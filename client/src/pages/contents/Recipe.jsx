@@ -11,7 +11,7 @@ import { StepCarousel } from "../../components/carousels";
 import { LoadMore, Pagination } from "../../components/containers";
 import { BackIcon, RatingIcons } from "../../components/icons";
 import { CommentForm } from "../../components/forms";
-import { ShareModal } from "../../components/modals";
+import { SelectCookbookModal, ShareModal } from "../../components/modals";
 import { useAuth } from "../../hooks";
 import { titleString } from "../../utils/string";
 import { categoryConfig, themeConfig } from "../../utils/theme";
@@ -121,9 +121,9 @@ const Recipe = () => {
               );
             })}
           </div>
-          {/* <div>
-            <Button theme="green" expand>Add to Collection</Button>
-          </div> */}
+          <div>
+            <SelectCookbookModal recipe={recipe?.slug}/>
+          </div>
         </div>
       </section>
       <section id="ingredients-equipments" className="p-8 md:grid md:grid-cols-2 md:gap-6 lg:h-full bg-light-yellow">

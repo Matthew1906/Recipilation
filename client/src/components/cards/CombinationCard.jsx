@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { FaTrashAlt } from "react-icons/fa";
 import { CombinationImages } from "../utils";
+import { slugifyString } from "../../utils/string";
 
 const CombinationCard = ({ cookbook, name, images, recipes }) => {
     return (
@@ -14,11 +14,11 @@ const CombinationCard = ({ cookbook, name, images, recipes }) => {
                 />
             </div>
           <div className="p-5 flex flex-col justify-center">
-            <h6 className="text-2xl font-fjalla-one flex items-center gap-1">{`${name} Food`} {cookbook?<span className="text-red cursor-pointer"><FaTrashAlt /></span>:""}</h6>
+            <h6 className="text-2xl font-fjalla-one flex items-center gap-1">{cookbook?`${name}`:`${name} food`}</h6>
             <p className="mt-2 font-nunito font-light text-xl">
                 {recipes} recipes
             </p>
-            <Link to={cookbook?`/cookbooks/${name.toLowerCase()}`:`/categories/${name.toLowerCase()}`}>
+            <Link to={cookbook?`/cookbooks/${slugifyString(name.toLowerCase())}`:`/categories/${name.toLowerCase()}`}>
             <p className="mt-1 font-nunito font-light text-xl text-red underline">
                 Check it out
             </p>

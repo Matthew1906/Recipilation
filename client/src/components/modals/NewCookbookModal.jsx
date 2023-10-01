@@ -3,14 +3,20 @@ import { BackIcon } from "../icons";
 import { Button } from "../utils";
 import { useModal, useScreenSize } from "../../hooks"
 import { NewCookbookForm } from "../forms";
+import { saveCookbook } from "../../api/cookbook";
 
 Modal.setAppElement("#modal");
 
 const NewCookbookModal = ()=>{
     const screenSize = useScreenSize();
     const { isOpen, modal, style } = useModal();
-    style.content.height = screenSize>0?"240px":"180px";
+    style.content.height = "170px";
     style.content.width = screenSize>0?"600px":"200px";
+    const saveNewCookbook = (data)=>{
+        saveCookbook(data);
+        modal.close();
+        window.location.reload();
+    }
     return (
         <>
             <Button theme="yellow" onClick={modal.open}>New Cookbook</Button>
@@ -19,15 +25,7 @@ const NewCookbookModal = ()=>{
                     <BackIcon className="text-2xl cursor-pointer" modal={modal.close}/>
                     <span className="font-fjalla-one text-2xl">New Cookbook</span>
                 </div>
-                <NewCookbookForm />
-                <div className="mt-6 flex justify-center gap-4">
-                    <Button 
-                        theme="green" className="px-12" 
-                        onClick={()=>{
-                            modal.close();
-                        }}
-                    >SAVE</Button>
-                </div>
+                <NewCookbookForm onSubmit={saveNewCookbook}/>
             </Modal>
         </>
     );

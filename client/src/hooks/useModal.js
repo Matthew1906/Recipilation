@@ -24,7 +24,8 @@ const useModal = () => {
         isOpen, style,    
         data:{
             value:data, 
-            toggle:toggleData
+            toggle:toggleData,
+            clear: ()=>setData([])
         }, 
         modal:{
             open:openModal, 
