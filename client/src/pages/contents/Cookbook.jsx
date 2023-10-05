@@ -32,6 +32,7 @@ const Cookbook = () => {
         <Pagination
           items={recipes}
           perPage={4}
+          cookbook={slug}
         />
         <div className="mt-6 flex justify-center items-center">
           <Button theme='red' type='button' onClick={removeCookbook}>Delete Cookbook</Button>

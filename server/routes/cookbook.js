@@ -3,6 +3,7 @@ import validateUser from "../middlewares/auth.js";
 import { 
     addRecipeToCookbook,
     deleteCookbook,
+    deleteRecipeFromCookbook,
     getCookbook, getCookbookDetails, getCookbooks, 
     saveCookbook, searchCookbooks 
 } from "../controllers/cookbook.js";
@@ -26,6 +27,8 @@ router.get("/:id",
 router.post("/", saveCookbook);
 
 router.put("/:id", addRecipeToCookbook);
+
+router.put("/:id/delete", deleteRecipeFromCookbook);
 
 router.delete("/:id", deleteCookbook);
 

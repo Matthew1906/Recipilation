@@ -76,6 +76,17 @@ export const addRecipeToCookbook = async(req, res, next)=>{
     }
 }
 
+export const deleteRecipeFromCookbook = async(req, res, next)=>{
+    try{
+        const { recipe } = req.body;
+        const toDelete = await Recipe.findOne({slug:recipe});
+        await Cookbook.findOneAndUpdate({user:req.user, slug:req.params.id}, {$pull:{recipes:toDelete._id}})
+        next();
+    }catch(err){
+        return res.status(500).json(err);
+    }
+}
+
 export const deleteCookbook = async(req, res, next)=>{
     try{
         await Cookbook.findOneAndDelete({user:req.user, slug:req.params.id});

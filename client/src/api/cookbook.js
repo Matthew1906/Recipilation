@@ -8,6 +8,10 @@ export const addRecipeToCookbook = (slug, recipe)=>{
     return axiosUserClient.put(`/api/cookbooks/${slug}`, recipe);
 }
 
+export const deleteRecipeFromCookbook = (slug, recipe)=>{
+    return axiosUserClient.put(`/api/cookbooks/${slug}/delete`, recipe);   
+}
+
 export const getCookbooks = ()=>{
     return axiosUserClient.get("/api/cookbooks")
 }

@@ -1,8 +1,10 @@
+import { FaTrashAlt } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
 import { limitString } from "../../utils/string";
+import { deleteRecipeFromCookbook } from "../../api/cookbook";
 
-const RecipeCard = ({ recipe, isDraft=false }) => {
+const RecipeCard = ({ recipe, isDraft=false, cookbook=false }) => {
   return (
     <div className="grid grid-rows-2 md:grid-rows-none md:grid-cols-2 bg-white-primary h-full rounded-2xl drop-shadow-md">
       <a href={`/recipes/${recipe?.slug}${isDraft?"/edit":""}`}>
@@ -13,9 +15,18 @@ const RecipeCard = ({ recipe, isDraft=false }) => {
         />
       </a>
       <div className="p-5 rounded-b-2xl md:rounded-bl-none md:rounded-r-2xl flex flex-col">
-        <a href={`/recipes/${recipe?.slug}${isDraft?"/edit":""}`}>
-          <h6 className="text-2xl font-fjalla-one">{recipe.name}{isDraft?' (DRAFT)':""}</h6>
-        </a>
+        <div className="flex items-center gap-2">
+          <a href={`/recipes/${recipe?.slug}${isDraft?"/edit":""}`}>
+            <h6 className="text-2xl font-fjalla-one">{recipe.name}{isDraft?' (DRAFT)':""}</h6>
+          </a>
+          {cookbook && <FaTrashAlt 
+            className='text-red cursor-pointer' 
+            onClick={()=>{
+              deleteRecipeFromCookbook(cookbook, {recipe:recipe?.slug})
+              window.location.reload();
+            }}
+          />}
+        </div>
         <p className="my-2 font-nunito font-light">
           {limitString(recipe.description, 100)}
         </p>
