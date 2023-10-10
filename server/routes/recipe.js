@@ -7,7 +7,8 @@ import {
     searchRecipes, addRatings, getRecipeDraft,
     saveRecipe,
     editRecipe,
-    deleteRecipe
+    deleteRecipe,
+    downloadRecipe
 } from "../controllers/recipe.js";
 
 const router = express.Router();
@@ -35,6 +36,8 @@ router.get('/:id',
     getRecipe, 
     async(req, res)=>(res.json(res.recipe))
 );
+
+router.get('/:id/download', getRecipe, downloadRecipe);
 
 // Edit recipes
 router.get('/:id/edit', validateUser, getRecipe, editRecipe);

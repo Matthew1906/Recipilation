@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title><%= recipe.name %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/c17ba6bae7.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Nunito&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      #recipe-image{
+        margin-top: 10px;
+        width:750px;
+        height:500px;
+        aspect-ratio:"3/2";
+      }
+      #recipe-info{
+        display: flex; 
+        padding: 2rem; 
+        flex-direction: column; 
+        gap: 0.25rem; 
+        justify-content: center; 
+        align-items: center; 
+      }
+      #recipe-name{
+        font-weight: 700;
+        font-size: 3rem;
+        line-height: 2rem;
+        margin-bottom: 25px; 
+      }
+      #recipe-creator{
+        font-size: 1.5rem;
+        line-height: 1.25rem; 
+        margin-bottom: 20px;
+      }
+      #recipe-description{
+        margin-top: 0.5rem; 
+        font-size: 1.125rem;
+        line-height: 1.75rem; 
+        margin-bottom: 25px;
+        text-align: center; 
+      }
+      #attribute-container{
+        display: flex;
+        justify-content: space-between;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem; 
+        margin-top: 1.25rem;
+        margin-bottom: 1.25rem;  
+        gap: 1.25rem; 
+      }
+      #recipe-categories{
+        display: flex; 
+        padding-left: 1rem;
+        padding-right: 1rem; 
+        margin-bottom: 0.75rem; 
+        flex-wrap: wrap; 
+        gap: 0.5rem; 
+        justify-content: center; 
+      }
+      .container{
+        display: grid; 
+        grid-template-rows: repeat(2, minmax(0, 1fr)); 
+        place-items: center; 
+        padding: 0.5rem; 
+        border-width: 2.5px;
+        border-radius: 0.5rem; 
+        border-color: rgba(0, 0, 0, 0.7);
+        box-shadow: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.07)) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.06));
+      }
+      .hover-underline:hover{
+        text-decoration: underline; 
+      }
+      .flex-center{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .square-12{
+        font-size: 2.25rem;
+      }
+      .font-bold{
+        font-weight: bold;
+      }
+      .small-center-text{
+        font-size: 0.875rem;
+        line-height: 1.25rem; 
+        text-align: center; 
+      }
+      .font-fjalla-one{
+        font-family: 'Fjalla One' 'sans-serif';
+      }
+      .font-nunito{
+        font-family: 'Nunito', 'sans-serif';
+      }
+      .mr-1{
+        margin-right: 1rem;
+      }
+      .bg-white-primary{
+        background-color: #F7F7FF;
+      }
+      .lg-text-xl{
+        font-size: 1.25rem;
+        line-height: 1.75rem; 
+      }
+    </style>
+  </head>
+  <body>
+    <div id="recipe-info">
+      <div class="flex-center">
+        <span id="recipe-name" class="font-fjalla-one"><%= recipe.name %></span>
+      </div>
+      <a class="font-nunito hover-underline lg-text-xl" id="recipe-creator">by <%=recipe.user.username%></a>
+      <p id="recipe-description lg-text-xl" class="hover-underline">
+        <%=recipe.description%>
+      </p>
+      <img src="<%=recipe.image%>" alt="<%=recipe.slug%>" id="recipe-image"/>  
+      <div id="attribute-container">
+        <div class="container">
+          <p class="square-12">⏰</p>
+          <div class="small-center-text">
+            <p><strong class="mr-1">Preparation time:</strong><%=recipe.preparation_time%>(s)</p>
+            <p><strong class="mr-1">Cooking time:</strong><%=recipe.cooking_time%>(s)</p>
+          </div>
+        </div>
+        <div class="container">
+          <p class='square-12'>📊</p>
+          <p class="font-bold small-center-text">Difficulty: <%=recipe.difficulty%></p>
+        </div>
+        <div class="container">
+          <p class='square-12'>🍽</p>
+          <p class="font-bold small-center-text">Serving size: <%=recipe.serving_size%> people</p>
+        </div>
+      </div>
+      <div id="recipe-categories">
+        <% for(var i=0; i<categories.length; i++) { %>
+            <span class="flex-center" style="padding: 0.25rem 0.5rem;border-width: 1px; border-radius: 0.5rem; border-color: rgba(0, 0, 0, 0.7);">
+              <%= categories[i].name %>
+            </span>
+        <% } %>
+      </div>
+    </div>
+    <div class="flex-center" style="margin-top:100px">
+      <span id="recipe-creator" class="font-fjalla-one font-bold">Equipments:</span>
+    </div>
+    <div class="flex-center">
+      <% for(var i=0; i<equipments.length; i++) { %>
+        <div style="margin:5px;padding: 0.25rem 0.5rem;border-width: 1px; border-radius: 0.5rem; border-color: rgba(0, 0, 0, 0.7); display:flex; flex-direction:column; justify-content: center; align-items: center;">
+          <img src="<%=equipments[i].image%>" alt="<%=equipments[i].name%>" style="margin-bottom: 5px; width:300px; height:200px;">
+          <p class="font-bold"><%=equipments[i].name %></p>
+        </div>
+      <% } %>
+    </div>
+    <div class="flex-center" style="margin-top:20px">
+      <span id="recipe-creator" class="font-fjalla-one font-bold">Ingredients:</span>
+    </div>
+    <ul>
+      <% for(var i=0; i<ingredients.length; i++) { %>
+      <li>- <%=ingredients[i]%></li>
+      <% } %>
+    </ul>
+    <div class="flex-center" style="margin-top:20px">
+      <span id="recipe-creator" class="font-fjalla-one font-bold">How to make <%=recipe.name%>:</span>
+    </div>
+    <div style="margin:5px;padding: 0.25rem 0.5rem; display:flex; flex-direction:column; justify-content: center; align-items: center;">
+      <% for(var i=0; i<steps.length; i++) { %>
+        <div style="display: flex;margin-top: 10px;">
+          <img src="<%=steps[i].image??'https://recipilation.vercel.app/images/not-exist.jpg'%>" alt="<%=steps[i].title%>" style="width:200px;height:200px;">
+          <div style="margin-left: 10px;">
+            <!-- <%=steps[i].image%> -->
+            <strong><%=i+1%>. <%=steps[i].title%></strong>
+            <p><%=steps[i].details%></p>
+          </div>
+        </div>
+      <% } %>
+    </div>
+    <p class="flex-center" style="margin-top: 10px;">Copyright © Matthew1906's Recipe Blog Project 2022</p>
+  </body>
+</html>

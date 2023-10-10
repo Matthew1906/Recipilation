@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import { RecipeCategory, Recipe, User, RecipeEquipment, RecipeStep, Review } from '../models/index.js';
 import { intersect, mean } from "../utils.js";
 import { uploadImage } from "../services/imagekit.js";
+import { saveToPDF } from "../services/pdf.js";
 
 export const getRecipe = async(req, res, next)=>{
     try{
@@ -284,6 +285,17 @@ export const deleteRecipe = async(req, res, next)=>{
         });
         await Recipe.deleteOne({_id:res.recipe._id});
         next()
+    } catch(err){
+        console.log(err);
+        return res.status(500).json({ error: "Server error. Please try again" });
+    }
+}
+
+export const downloadRecipe = async(req, res)=>{
+    try{
+        const pdf = await saveToPDF(res.recipe);
+        res.set("Content-Type", "application/pdf");
+        res.send(pdf);
     } catch(err){
         console.log(err);
         return res.status(500).json({ error: "Server error. Please try again" });

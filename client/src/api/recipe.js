@@ -27,6 +27,10 @@ export function getRecommendedRecipes(){
     return axiosUserClient.get("/api/recipes/recommendations");
 }
 
+export function downloadRecipe(slug){
+return axiosClient.get(`/api/recipes/${slug}/download`, {responseType: "blob"});
+}
+
 export function getRecipesByCategories(categories){
     if(typeof(categories)==='string'){
         return axiosClient.get(`/api/recipes?category=${categories}`);

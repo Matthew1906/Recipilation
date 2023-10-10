@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from "react-router";
 import { useState, useEffect } from "react";
-import { BsFillBarChartFill } from "react-icons/bs";
+import { BsFillBarChartFill, BsDownload } from "react-icons/bs";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
-import { deleteRecipe, editRecipe, getRecipe, getRecipesByCategories, getRecipesByCreator } from "../../api/recipe";
+import { deleteRecipe, downloadRecipe, editRecipe, getRecipe, getRecipesByCategories, getRecipesByCreator } from "../../api/recipe";
 import { deleteReview } from "../../api/review";
 import { CommentCard, RecipeCard } from "../../components/cards";
 import { StepCarousel } from "../../components/carousels";
@@ -81,6 +81,17 @@ const Recipe = () => {
             }/>
             </>}
             <ShareModal link={`${process.env.REACT_APP_URL}/recipes/${recipe?.slug}`} title={recipe?.title}/>
+            <BsDownload className="ml-1 cursor-pointer link-expand text-lg" onClick={
+              ()=>downloadRecipe(recipe?.slug).then(res=>{
+                const file = new Blob([res.data], { type: "application/pdf" });
+                const fileURL = URL.createObjectURL(file);
+                const a = document.createElement("a");
+                a.href=fileURL;
+                a.title= `${recipe?.slug}.pdf`;
+                a.target="_blank";
+                a.click();
+              })
+            }/>
           </div>
           <a 
             href={('/profiles/'+recipe?.user?.slug)??"#"} 
