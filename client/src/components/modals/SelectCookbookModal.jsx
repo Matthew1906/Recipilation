@@ -2,7 +2,7 @@ import Modal from "react-modal";
 import { SearchForm } from "../forms";
 import { BackIcon, CombinationIcon } from "../icons";
 import { Button } from "../utils";
-import { useModal } from "../../hooks"
+import { useAuth, useModal } from "../../hooks"
 import { useEffect, useState } from "react";
 import { addRecipeToCookbook, getCookbooks, searchCookbooks } from "../../api/cookbook";
 import { useNavigate } from "react-router";
@@ -10,17 +10,22 @@ import { useNavigate } from "react-router";
 Modal.setAppElement("#modal");
 
 const SelectCookbookModal = ({recipe})=>{
+    const { isAuthenticated } = useAuth();
     const [ query, setQuery ] = useState("");
     const [ cookbooks, setCookbooks ] = useState([]);
     const { isOpen, modal, style, data } = useModal();
     useEffect(()=>{
-        getCookbooks().then(res=>{
-            setCookbooks(res.data);   
-        });
+        if(isAuthenticated){
+            getCookbooks().then(res=>{
+                setCookbooks(res.data);   
+            });
+        }
     }, [isOpen])
     const search = (value)=>setQuery(value);
     useEffect(()=>{
-        searchCookbooks(query).then(res=>setCookbooks(res.data));
+        if(isAuthenticated){
+            searchCookbooks(query).then(res=>setCookbooks(res.data));
+        }
     }, [query])
     const navigate = useNavigate();
     const onSubmit = (data)=>{
