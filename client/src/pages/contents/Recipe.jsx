@@ -132,7 +132,7 @@ const Recipe = () => {
               );
             })}
           </div>
-          {user?.displayName === recipe?.user?.username &&
+          {isAuthenticated &&
           <div>
             <SelectCookbookModal recipe={recipe?.slug}/>
           </div>
