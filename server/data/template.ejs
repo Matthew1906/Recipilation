@@ -32,7 +32,7 @@
         line-height: 2rem;
         margin-bottom: 25px; 
       }
-      #recipe-creator{
+      .recipe-creator{
         font-size: 1.5rem;
         line-height: 1.25rem; 
         margin-bottom: 20px;
@@ -114,7 +114,7 @@
       <div class="flex-center">
         <span id="recipe-name" class="font-fjalla-one"><%= recipe.name %></span>
       </div>
-      <a class="font-nunito hover-underline lg-text-xl" id="recipe-creator">by <%=recipe.user.username%></a>
+      <a class="font-nunito hover-underline lg-text-xl recipe-creator">by <%=recipe.user.username%></a>
       <p id="recipe-description lg-text-xl" class="hover-underline">
         <%=recipe.description%>
       </p>
@@ -145,7 +145,7 @@
       </div>
     </div>
     <div class="flex-center" style="margin-top:100px">
-      <span id="recipe-creator" class="font-fjalla-one font-bold">Equipments:</span>
+      <span class="recipe-creator ont-fjalla-one font-bold">Equipments:</span>
     </div>
     <div class="flex-center">
       <% for(var i=0; i<equipments.length; i++) { %>
@@ -156,7 +156,7 @@
       <% } %>
     </div>
     <div class="flex-center" style="margin-top:20px">
-      <span id="recipe-creator" class="font-fjalla-one font-bold">Ingredients:</span>
+      <span class="recipe-creator font-fjalla-one font-bold">Ingredients:</span>
     </div>
     <ul>
       <% for(var i=0; i<ingredients.length; i++) { %>
@@ -164,7 +164,7 @@
       <% } %>
     </ul>
     <div class="flex-center" style="margin-top:20px">
-      <span id="recipe-creator" class="font-fjalla-one font-bold">How to make <%=recipe.name%>:</span>
+      <span class="recipe-creator font-fjalla-one font-bold">How to make <%=recipe.name%>:</span>
     </div>
     <div style="margin:5px;padding: 0.25rem 0.5rem; display:flex; flex-direction:column; justify-content: center; align-items: center;">
       <% for(var i=0; i<steps.length; i++) { %>

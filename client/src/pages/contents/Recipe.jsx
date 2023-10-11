@@ -81,7 +81,7 @@ const Recipe = () => {
             }/>
             </>}
             <ShareModal link={`${process.env.REACT_APP_URL}/recipes/${recipe?.slug}`} title={recipe?.title}/>
-            <BsDownload className="ml-1 cursor-pointer link-expand text-lg" onClick={
+            {/* <BsDownload className="ml-1 cursor-pointer link-expand text-lg" onClick={
               ()=>downloadRecipe(recipe?.slug).then(res=>{
                 const file = new Blob([res.data], { type: "application/pdf" });
                 const fileURL = URL.createObjectURL(file);
@@ -91,7 +91,7 @@ const Recipe = () => {
                 a.target="_blank";
                 a.click();
               })
-            }/>
+            }/> */}
           </div>
           <a 
             href={('/profiles/'+recipe?.user?.slug)??"#"} 
@@ -132,9 +132,11 @@ const Recipe = () => {
               );
             })}
           </div>
+          {user?.displayName === recipe?.user?.username &&
           <div>
             <SelectCookbookModal recipe={recipe?.slug}/>
           </div>
+          }
         </div>
       </section>
       <section id="ingredients-equipments" className="p-8 md:grid md:grid-cols-2 md:gap-6 lg:h-full bg-light-yellow">
