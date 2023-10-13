@@ -143,8 +143,8 @@ const RecipeMaterialForm = ({draft, onSave, onCancel, isEdit})=>{
                 </div>
             </div>
             <div className="mt-2 flex justify-between">
-                <Button theme="yellow" className="text-xl px-12" onClick={onCancel}>Back</Button>
-                <Button theme="orange" className="text-xl px-12" onClick={onSubmit}>Save and Continue</Button>
+                <Button theme="yellow" className="text-sm sm:text-md lg:text-xl px-3 md:px-6 lg:px-12" onClick={onCancel}>Back</Button>
+                <Button theme="orange" className="text-sm sm:text-md lg:text-xl px-3 md:px-6 lg:px-12" onClick={onSubmit}>Save and Continue</Button>
             </div>
         </div>
     );

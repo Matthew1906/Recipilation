@@ -62,12 +62,12 @@ const RegisterForm = () => {
           <Checkbox name="termsAndConditions" label="Terms and Conditions" control={control} required/>
           <ErrorMessage errors={errors} name="termsAndConditions" render={({ message }) => <p className="-mt-2 text-sm text-right text-orange">{message}</p>}/>
         </div>
-        <Button theme="orange" className="grow px-2 rounded-lg text-sm" expand>
+        <Button theme="orange" className="grow px-2 rounded-lg text-xs md:text-sm" expand>
           Sign Up
         </Button>
       </div>
       <p className="text-sm md:text-base text-red text-light text-center">
-        or, register with
+        or register with
       </p>
       <AuthIcons purpose='register'/>
       <span className="text-sm md:text-base text-red text-center">

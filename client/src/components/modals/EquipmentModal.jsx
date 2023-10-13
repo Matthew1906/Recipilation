@@ -3,7 +3,7 @@ import { EquipmentCard } from "../cards";
 import { EquipmentForm, SearchForm } from "../forms";
 import { BackIcon } from "../icons";
 import { Button } from "../utils";
-import { useModal } from "../../hooks";
+import { useModal, useScreenSize } from "../../hooks";
 // import { equipments } from "../../utils/data";
 import { useEffect, useState } from "react";
 import { addEquipment, getEquipments, searchEquipments } from "../../api/equipment";
@@ -44,6 +44,9 @@ const EquipmentModal = ({onSubmit, draft})=>{
             status.toggle()
         })
     };
+    const screenSize = useScreenSize();
+    style.content.height = screenSize>0?"500px":"400px";
+    style.content.width = screenSize>0?"500px":"350px";
     return (
         <>
             <Button theme="neutral" className="border border-red !rounded-full w-12 h-12" 
@@ -56,7 +59,7 @@ const EquipmentModal = ({onSubmit, draft})=>{
                 {status.value
                     ? <>
                         <SearchForm onSubmit={searchEquipment} color="black"/>
-                        <div className="px-5 flex flex-wrap justify-start items-center gap-6">
+                        <div className="px-2 md:px-5 flex flex-wrap justify-center items-start gap-1 md:gap-6">
                             {equipments.map((equipment, key)=>(
                                 <EquipmentCard 
                                     equipment={equipment} 
@@ -70,11 +73,11 @@ const EquipmentModal = ({onSubmit, draft})=>{
                     : <EquipmentForm onSubmit={addNewEquipment}/> 
                 }
                 <div className="mt-6 flex justify-center gap-4">
-                    <Button theme="orange" className="text-xl px-12" type="button" onClick={status.toggle}>
+                    <Button theme="orange" className="text-sm sm:text-md lg:text-xl px-3 md:px-6 lg:px-12" type="button" onClick={status.toggle}>
                         {status.value?"ADD NEW":"FIND"}
                     </Button>
                     <Button 
-                        theme="yellow" className="text-xl px-12" 
+                        theme="yellow" className="text-sm sm:text-md lg:text-xl px-3 md:px-6 lg:px-12" 
                         onClick={()=>{
                             submitData();
                             modal.close();

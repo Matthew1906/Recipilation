@@ -56,7 +56,7 @@ const RecipeTutorialForm = ({draft, onSave, onCancel, isEdit})=>{
                     saveRecipe('final', {}).then(navigate('/'))
                 }:false}/> Add New Recipe
             </h2>
-            <h4 className="pt-2 font-nunito font-extralight text-2xl">
+            <h4 className="pt-2 font-nunito font-extralight text-2xl mb-5">
                 Enter the steps on how to make your dish!
             </h4>
             <div className="md:grid md:grid-cols-5 gap-10 font-nunito">
@@ -78,8 +78,8 @@ const RecipeTutorialForm = ({draft, onSave, onCancel, isEdit})=>{
                 </div>
             </div>
             <div className="mt-2 flex justify-between">
-                <Button theme="yellow" className="text-xl px-12" onClick={onCancel}>Back</Button>
-                <Button theme="green" className="text-xl px-12" onClick={onSubmit}>Save Recipe</Button>
+                <Button theme="yellow" className="text-sm sm:text-md lg:text-xl px-3 md:px-6 lg:px-12" onClick={onCancel}>Back</Button>
+                <Button theme="green" className="text-sm sm:text-md lg:text-xl px-3 md:px-6 lg:px-12" onClick={onSubmit}>Save Recipe</Button>
             </div>
         </div>
     );

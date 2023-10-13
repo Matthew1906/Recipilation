@@ -11,7 +11,7 @@ import { ProfileForm } from "../../components/forms";
 
 const Profile = () => {
   const { slug } = useParams();
-  const { user, loading } = useAuth();
+  const { isAuthenticated, user, loading } = useAuth();
   const navigate = useNavigate();
   const [ userData, setUserData ] = useState({});
   const [ recipes, setRecipes ] = useState([]);
@@ -20,14 +20,14 @@ const Profile = () => {
     getUser(slug).then(res=>{
       const { user:profile, recipes, onEdit } = res.data;
       setUserData(profile);
-      if(profile.username === user.displayName){
+      if(isAuthenticated && profile.username === user.displayName){
         setRecipes([...onEdit, ...recipes]);
       }else{
         setRecipes(recipes);
       }
       
     }).catch(err=>console.log(err));
-  }, [slug, user]);
+  }, [isAuthenticated, slug, user]);
   const showUpdateProfile = () => setIsUpdate(true);
   const showRecipes = ()=> setIsUpdate(false);
   const updateProfile = (data)=>{
@@ -43,7 +43,7 @@ const Profile = () => {
   if(loading){
     return 'Loading'
   }
-  return (
+  else return (
     <>
       <div className="py-5 px-8 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="bg-white border-red border rounded-md p-6 flex flex-col justify-between items-center font-nunito">
@@ -53,14 +53,14 @@ const Profile = () => {
             className="w-40 md:w-80 h-40 md:h-80 mb-4 rounded-full"
           />
           <h5 className="font-semibold text-2xl md:text-4xl">{userData?.username??"John Doe"}</h5>
-          { slugifyString(user?.displayName) === userData?.slug &&
+          { isAuthenticated && slugifyString(user?.displayName) === userData?.slug &&
           <>
             <p className="font-extralight">{moment(userData?.dob).format("Do MMMM YYYY")??"25th January 1992"}</p>
             <p className="font-extralight">{userData?.email??"johndoe@joemail.com"}</p>
             <p className="font-light">******************</p>
           </>
           }
-          { slugifyString(user?.displayName) !== userData?.slug && 
+          { isAuthenticated && slugifyString(user?.displayName) !== userData?.slug && 
           <>
           { !userData?.followers?.includes(slugifyString(user?.displayName))
            ? <Button theme="blue" className="text-sm md:text-base" onClick={follow} expand>FOLLOW</Button>
@@ -86,7 +86,7 @@ const Profile = () => {
           <>
           <div className="flex place-items-center gap-1">
             <RatingIcons rating={userData?.rating??3} />
-            <p className="font-light">({userData?.rating??3})</p>
+            <p className="font-light">({Math.round(userData?.rating*100)/100??3})</p>
           </div>
           <p className="w-60 font-extralight text-sm text-center break-words">
             This is the average rating based on all the chef’s recipe reviews
@@ -95,14 +95,14 @@ const Profile = () => {
           }
         </div>
         <div className="py-5 flex flex-col gap-5">
-          {isUpdate
+          {isAuthenticated && isUpdate
             ? <ProfileForm onCancel={showRecipes} data={userData} onSubmit={updateProfile}/>
             : <> 
               <h5 className="mb-3 text-center text-3xl font-fjalla-one">
                 Recipes by {userData?.username??"John Doe"}
               </h5>
               <Pagination auto items={recipes} perPage={2}/>
-              { slugifyString(user?.displayName) === userData?.slug &&
+              { isAuthenticated && slugifyString(user?.displayName) === userData?.slug &&
                 <div className="flex justify-between">
                   <Button theme='blue' onClick={showUpdateProfile}>Update Profile</Button>
                   <a href={`/recipes-new`}>

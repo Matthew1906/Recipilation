@@ -22,12 +22,12 @@ const Cookbook = () => {
   }
   return (
     <>
-      <h2 className="px-10 pt-5 font-fjalla-one text-3xl mb-3 md:mb-0 flex items-center">
+      <h2 className="px-10 pt-5 font-fjalla-one text-xl md:text-2xl lg:text-3xl mb-3 md:mb-0 flex items-center">
           <BackIcon className="cursor-pointer" />
           <span>"{titleString(slug, "-")}" Cookbook</span>
           <ShareModal title={titleString(slug, "-")} link={window.location.href} cookbook/>
       </h2>
-      <h4 className="px-10 py-2 font-nunito font-extralight text-2xl">
+      <h4 className="px-10 py-2 font-nunito font-extralight text-lg md:text-xl lg:text-2xl">
         Check out all recipes from this cookbook!
       </h4>
       <div className="px-10 mb-10">

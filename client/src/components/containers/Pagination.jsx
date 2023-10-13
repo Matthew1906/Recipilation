@@ -54,7 +54,7 @@ const Pagination = ({auto, items, cols, smCols, perPage, type='recipe', cookbook
     }, [current, items, perPage])
     return (
         <div className='text-center'>
-          <div className={`mt-4 grid ${auto?"auto-cols-auto":`grid-cols-${smCols??1} lg:grid-cols-${cols??2}`} gap-4 md:gap-8`}>
+          <div className={`mt-4 flex flex-wrap ${type==='recipe'?'justify-center':'justify-start'} items-center md:grid ${auto?"md:auto-cols-auto":`md:grid-cols-${smCols??1} lg:grid-cols-${cols??2}`} gap-4 md:gap-8`}>
             {pageItems.slice((current-1)*perPage, current*perPage).map((item, key) => {
               if(type==='recipe'){
                 return <RecipeCard recipe={item} key={key} isDraft={item?.status === 2} cookbook={cookbook}/>

@@ -37,8 +37,8 @@ const Dashboard = () => {
       <RecipeCarousel recipes={topRecipes.slice(0, 5)} />
       {/* Top Categories */}
       <section className="px-10 py-8" id="top-categories">
-        <h5 className="font-nunito font-bold text-2xl mb-3 md:mb-0">Top Categories</h5>
-        <div className="flex justify-center lg:justify-between flex-wrap items-center lg:px-8 mt-4">
+        <h5 className="font-nunito font-bold text-xl md:text-2xl mb-3 md:mb-0">Top Categories</h5>
+        <div className="grid grid-cols-2 md:flex md:justify-center lg:justify-between md:flex-wrap md:items-center lg:px-8 mt-4">
           {topCategories.slice(0,4).map((category, key) => (
             <Link to={"/categories/"+category.slug} key={key}>
               <CombinationIcon
@@ -48,7 +48,7 @@ const Dashboard = () => {
             </Link>
           ))}
           <Link to="/categories">
-            <span className="text-blue text-xl font-nunito underline hover:text-red">
+            <span className="text-blue text-lg md:text-xl font-nunito underline hover:text-red">
               View more
             </span>
           </Link>
@@ -73,7 +73,7 @@ const Dashboard = () => {
       {/* Recently viewed recipes (both) */}
       {(recentlyViewed??[]).length>0 &&
         <section className="px-10 py-8 bg-white-secondary" id="recommended">
-          <h5 className="font-nunito font-bold text-xl md:text-3xl mb-4 md:mb-0">Recently viewed</h5>
+          <h5 className="font-nunito font-bold text-xl md:text-2xl mb-4 md:mb-0">Recently viewed</h5>
           <Pagination items={recentlyViewed.reverse()??[]} perPage={4}/>
         </section>
       }

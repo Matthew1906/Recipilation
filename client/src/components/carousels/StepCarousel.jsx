@@ -6,10 +6,12 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { EffectCoverflow, Navigation, Pagination} from 'swiper';
 import "./styles.css";
+import { useScreenSize } from "../../hooks";
 
 const StepCarousel = ({items})=>{
     const [ current, setCurrent ] = useState(0);
-    const [ elements, setElements ] = useState([]); 
+    const [ elements, setElements ] = useState([]);
+    const screenSize = useScreenSize(); 
     useEffect(()=>{
       const els = items.sort((a,b)=>a.index-b.index);
       setElements(els);    
@@ -20,7 +22,7 @@ const StepCarousel = ({items})=>{
             effect={"coverflow"}
             grabCursor
             centeredSlides
-            slidesPerView={3}
+            slidesPerView={screenSize===0?1:3}
             coverflowEffect={{
               rotate: 40,
               stretch: 0,
@@ -28,17 +30,13 @@ const StepCarousel = ({items})=>{
               modifier: 1,
               slideShadows: true,
             }}
-            loop
-            slidesPerGroupSkip={3}
+            slidesPerGroupSkip={0}
             pagination
             navigation
             modules={[EffectCoverflow, Pagination, Navigation]}
             className="step w-full text-black"
             onSlideChange={(swiper)=>setCurrent(swiper.realIndex)}
-            onAfterInit={(swiper)=>{
-              swiper.slideNext();
-              swiper.slideNext();
-              swiper.slideNext();
+            onAfterInit={()=>{
               setCurrent(0);
             }}
           >
@@ -49,8 +47,8 @@ const StepCarousel = ({items})=>{
             ))}
         </Swiper>
         <div className='my-5 text-center text-nunito'>
-          <strong className='text-xl md:text-3xl font-semibold'>{elements[current]?.index}. {elements[current]?.title}</strong>
-          <p className="mt-3 px-24 text-lg md:text-2xl font-light text-justify">{elements[current]?.details}</p>
+          <strong className='text-md sm:text-lg md:text-xl lg:text-3xl font-semibold'>{elements[current]?.index}. {elements[current]?.title}</strong>
+          <p className="mt-3 px-8 md:px-24 text-xs sm:text-base md:text-lg lg:text-2xl font-light text-justify">{elements[current]?.details}</p>
         </div>
       </div>
     )

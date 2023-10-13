@@ -16,7 +16,7 @@ const ShareModal = ({link, title, cookbook=false})=>{
     const { isOpen, modal, style } = useModal();
     const screenSize = useScreenSize();
     style.content.height = screenSize>0?"180px":"240px";
-    style.content.width = screenSize>0?"400px":"200px";
+    style.content.width = screenSize>0?"400px":"300px";
     return (
         <>
             <FaShareAlt className="cursor-pointer link-expand text-lg" onClick={modal.open}/>

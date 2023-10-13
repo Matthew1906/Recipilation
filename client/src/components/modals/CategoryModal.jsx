@@ -2,7 +2,7 @@ import Modal from "react-modal";
 import { SearchForm } from "../forms";
 import { BackIcon, CombinationIcon } from "../icons";
 import { Button } from "../utils";
-import { useModal } from "../../hooks"
+import { useModal, useScreenSize } from "../../hooks"
 import { useEffect, useState } from "react";
 import { getCategories, searchCategories } from "../../api/category";
 
@@ -24,6 +24,9 @@ const CategoryModal = ({onSubmit, draft})=>{
     useEffect(()=>{
         searchCategories(query).then(res=>setCategories(res.data));
     }, [query])
+    const screenSize = useScreenSize();
+    style.content.height = screenSize>0?"600px":"400px";
+    style.content.width = screenSize>0?"400px":"300px";
     return (
         <>
             <Button theme="neutral" className="border border-red !rounded-full w-12 h-12" 

@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from "react-router";
 import { useState, useEffect } from "react";
-import { BsFillBarChartFill, BsDownload } from "react-icons/bs";
+import { BsFillBarChartFill, /*BsDownload*/ } from "react-icons/bs";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
-import { deleteRecipe, downloadRecipe, editRecipe, getRecipe, getRecipesByCategories, getRecipesByCreator } from "../../api/recipe";
+import { deleteRecipe, /*downloadRecipe,*/ editRecipe, getRecipe, getRecipesByCategories, getRecipesByCreator } from "../../api/recipe";
 import { deleteReview } from "../../api/review";
 import { CommentCard, RecipeCard } from "../../components/cards";
 import { StepCarousel } from "../../components/carousels";
@@ -70,7 +70,7 @@ const Recipe = () => {
         <div className="p-8 bg-white-primary flex flex-col justify-center items-center gap-1">
           <div className="flex justify-center items-center">
             <BackIcon className="text-2xl cursor-pointer" />
-            <span className="font-fjalla-one text-2xl lg:text-4xl">{titleString(recipe?.name??slug)}</span>
+            <span className="font-fjalla-one text-xl sm:text-2xl lg:text-4xl">{titleString(recipe?.name??slug)}</span>
             {user?.displayName === recipe?.user?.username &&
             <>            
             <FaTrashAlt className="ml-2 text-red cursor-pointer link-expand text-lg" onClick={
@@ -95,15 +95,15 @@ const Recipe = () => {
           </div>
           <a 
             href={('/profiles/'+recipe?.user?.slug)??"#"} 
-            className="font-nunito text-extralight text-lg lg:text-xl hover:underline"
+            className="font-nunito text-extralight md:text-lg lg:text-xl hover:underline"
           >
             by {recipe?.user?.username??"Unknown"}
           </a>
-          <div className="flex justify-center items-center gap-1">
+          <div className="text-sm sm:text-base flex justify-center items-center gap-1">
             <RatingIcons rating={recipe?.avg_rating??0} />
             <p className="font-light">({recipe?.reviews?.length??0})</p>
           </div>
-          <p className="mt-2 md:w-96 text-center text-base md:text-xl font-extralight">
+          <p className="mt-2 md:w-96 text-center text-xs sm:text-base md:text-xl font-extralight">
             {recipe?.description ?? "No description"}
           </p>
           <div className="my-5 px-5 md:px-10 grid grid-cols-3 gap-5">
@@ -126,7 +126,7 @@ const Recipe = () => {
           <div className="px-4 mb-3 flex flex-wrap justify-center gap-2">
             {categories.map((category, key) => {
               return (
-                <span key={key} className={`${category.theme} px-4 py-2 rounded-md flex justify-center items-center`}>
+                <span key={key} className={`${category.theme} px-4 py-2 rounded-md flex justify-center items-center text-xs md:text-base`}>
                   {category.name}
                 </span>
               );
@@ -141,14 +141,14 @@ const Recipe = () => {
       </section>
       <section id="ingredients-equipments" className="p-8 md:grid md:grid-cols-2 md:gap-6 lg:h-full bg-light-yellow">
         <div className="mb-4">
-          <h6 className="text-nunito text-2xl md:text-4xl font-semibold">Equipments:</h6>
+          <h6 className="text-nunito text-lg sm:text-xl md:text-2xl lg:text-4xl font-semibold">Equipments:</h6>
           <Pagination items={recipe?.equipments??[]} type="equipment" perPage={6} smCols={2} cols={3}/>
         </div>
         <div>
-          <h6 className="text-nunito text-2xl md:text-4xl font-semibold">Ingredients:</h6>
+          <h6 className="text-nunito text-lg sm:text-xl md:text-2xl lg:text-4xl font-semibold">Ingredients:</h6>
           <ul className="mt-2 px-10">
             {(recipe?.ingredients??[]).filter(ingredient=>ingredient!=='').map((ingredient, key) => (
-              <li key={key} className="my-1 list-disc text-2xl">
+              <li key={key} className="my-1 list-disc text-sm sm:text-lg md:text-xl lg:text-2xl">
                 <span>{ingredient}</span>
               </li>
             ))}
@@ -156,7 +156,7 @@ const Recipe = () => {
         </div>
       </section>
       <section id="tutorial" className="bg-white-primary text-center py-8">
-        <h6 className="text-nunito text-2xl md:text-4xl mb-4">
+        <h6 className="text-nunito text-lg sm:text-xl md:text-2xl lg:text-4xl mb-4">
           How to make{" "}<span className="font-semibold">{titleString(recipe?.name??slug)}</span>
         </h6>
         <StepCarousel items={recipe?.steps??[]} />

@@ -51,12 +51,12 @@ const LoginForm = () => {
       <ErrorMessage errors={errors} name="password" render={({ message }) => <p className="-mt-2 text-sm text-right text-orange">{message}</p>}/>
       <div className="flex justify-between items-center gap-4">
         <Checkbox name="rememberMe" label="Remember Me" control={control}/>
-        <Button theme="orange" className="px-7 rounded-lg text-sm" expand>
+        <Button theme="orange" className="px-7 rounded-lg text-xs md:text-sm" expand>
           Login
         </Button>
       </div>
       <p className="text-sm md:text-base text-red text-light text-center">
-        or, continue with
+        or continue with
       </p>
       <AuthIcons purpose='login'/>
       <span className="text-sm md:text-base text-red text-center">

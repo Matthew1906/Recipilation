@@ -14,7 +14,7 @@ const TextInput = ({ type, control, name, placeholder, className, isSearch=false
       value={field.value}
       onChange={field.onChange} 
       placeholder={placeholder ?? ""}
-      className={`bg-white-primary border-red border rounded-md px-3 py-2 text-sm md:text-base ${className ?? ""}`}
+      className={`bg-white-primary border-red border rounded-md px-3 py-2 text-xs sm:text-sm md:text-base ${className ?? ""}`}
       autoComplete='on'
     />
   );

@@ -15,7 +15,7 @@ const RecipeCarouselCard = ({ name, description, image, to }) => {
     >
       <div className="w-60 max-h-80 md:h-auto md:w-auto md:max-w-md lg:max-w-4xl bg-white py-6 md:py-8 lg:py-10 px-4 md:px-6 lg:px-8 flex flex-col gap-2 lg:gap-5">
         <h3 className="font-fjalla-one font-medium text-xl md:text-3xl lg:text-5xl">{name}</h3>
-        <p className="font-nunito md:text-xl lg:text-2xl">{description}</p>
+        <p className="font-nunito text-sm md:text-xl lg:text-2xl">{description}</p>
         <Link to={'/recipes/'+to}>
           <Button theme="orange" className='text-xs' expand>Learn More</Button>
         </Link>
