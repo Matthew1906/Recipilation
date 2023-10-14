@@ -1,7 +1,7 @@
 import moment from "moment/moment";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import { useAuth } from "../../hooks";
 import { RatingIcons } from "../icons";
+import { useAuth } from "../../hooks";
 import { slugifyString, titleString } from "../../utils/string";
 
 const CommentCard = ({comment, updateAction, deleteAction})=>{

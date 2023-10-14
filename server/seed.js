@@ -1,7 +1,7 @@
 import fs from 'fs';
 import slugify from 'slugify';
-import config from "./config/index.js";
 import db from "./config/db.js";
+import config from "./config/index.js";
 import { categories, getRecipes, getSteps, users, userIds, reviews } from './config/seed.js';
 import { RecipeCategory, RecipeEquipment, Recipe, RecipeStep, User, Review } from "./models/index.js";
 import firebaseAdmin from './services/firebase.js'

@@ -5,7 +5,6 @@ import { searchUsers } from "../../api/user";
 import { CombinationCard, ProfileCard, RecipeCard } from "../../components/cards";
 import { LoadMore } from "../../components/containers";
 import { SearchForm } from "../../components/forms";
-// import { categories, profiles, recipes } from "../../utils/data";
 
 const Search = () => {
   const [ query, setQuery ] = useState("");

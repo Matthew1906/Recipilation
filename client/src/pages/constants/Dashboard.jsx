@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getCategories } from "../../api/category";
 import { getRecentlyViewedRecipes, getRecipes, getRecommendedRecipes } from "../../api/recipe";
@@ -6,7 +7,6 @@ import { RecipeCarousel } from "../../components/carousels";
 import { LoadMore, Pagination } from "../../components/containers";
 import { CombinationIcon } from "../../components/icons";
 import { useAuth } from "../../hooks";
-import { useState, useEffect } from "react";
 
 const Dashboard = () => {
   const { isAuthenticated } = useAuth();

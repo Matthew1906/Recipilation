@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { ErrorMessage } from "@hookform/error-message";
-import { useFormStatus } from "../../hooks";
 import { Checkbox, TextInput } from "./helpers";
-import { Button } from "../utils";
 import { AuthIcons } from "../icons";
+import { Button } from "../utils";
 import { register } from "../../api/auth";
+import { useFormStatus } from "../../hooks";
 
 const RegisterForm = () => {
   const { control, handleSubmit, formState:{errors}, reset } = useForm({

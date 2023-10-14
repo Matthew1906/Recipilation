@@ -7,7 +7,6 @@ import { EquipmentCard } from "../cards";
 import { BackIcon } from "../icons";
 import { EquipmentModal } from "../modals";
 import { Button } from "../utils";
-// import { equipments } from "../../utils/data";
 import { titleString } from "../../utils/string";
 
 const IngredientListItem = ({ingredient, onUpdate, onDelete})=>{

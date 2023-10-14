@@ -1,10 +1,9 @@
-import slugify from "slugify";
 import mongoose from "mongoose";
-// import cache from "../services/cache.js";
+import slugify from "slugify";
 import { RecipeCategory, Recipe, User, RecipeEquipment, RecipeStep, Review } from '../models/index.js';
-import { intersect, mean } from "../utils.js";
 import { uploadImage } from "../services/imagekit.js";
 import { saveToPDF } from "../services/pdf.js";
+import { intersect, mean } from "../utils.js";
 
 export const getRecipe = async(req, res, next)=>{
     try{

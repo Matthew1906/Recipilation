@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { ImageInput, InputLabel, TextInput } from "./helpers";
-import { useImage } from "../../hooks";
 import { Button } from "../utils";
+import { useImage } from "../../hooks";
 import { base64String } from "../../utils/string";
 
 const EquipmentForm = ({onSubmit})=>{

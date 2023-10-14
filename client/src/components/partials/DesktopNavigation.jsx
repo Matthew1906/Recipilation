@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
+import { Button } from "../utils";
 import { logout } from "../../api/auth";
 import useAuth from "../../hooks/useAuth";
-import { Button } from "../utils";
 import { themeConfig } from "../../utils/theme";
 import { slugifyString } from "../../utils/string";
 

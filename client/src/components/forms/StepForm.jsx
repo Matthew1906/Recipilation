@@ -1,9 +1,9 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { ImageInput, InputLabel, TextArea, TextInput } from "./helpers";
-import { useImage } from "../../hooks";
 import { Button } from "../utils";
-import { useEffect } from "react";
+import { useImage } from "../../hooks";
 
 const StepForm = ({index, onSubmit, isUpdate})=>{
     const { control, setValue, handleSubmit, formState:{errors, submitCount}, reset } = useForm({defaultValues:{

@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { followUser, getUser, unfollowUser, updateUser } from "../../api/user";
 import { Pagination } from "../../components/containers";
-import { useAuth } from "../../hooks";
+import { ProfileForm } from "../../components/forms";
 import { RatingIcons } from "../../components/icons";
 import { Button } from "../../components/utils";
+import { useAuth } from "../../hooks";
 import { slugifyString } from "../../utils/string";
-import { ProfileForm } from "../../components/forms";
 
 const Profile = () => {
   const { slug } = useParams();

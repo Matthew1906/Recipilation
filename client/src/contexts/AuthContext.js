@@ -1,6 +1,6 @@
-import { createContext, useEffect, useReducer } from "react";
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { createContext, useEffect, useReducer } from "react";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,

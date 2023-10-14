@@ -1,11 +1,11 @@
 import express from "express";
-import validateUser from "../middlewares/auth.js";
 import { getRecipes, filterByUser, getOnEditRecipes } from "../controllers/recipe.js";
 import { 
   authenticateUser, followUser, getAverageUserRating, 
   getUser, getUsers, getUserDetails, 
   searchUsers, updateUser, unfollowUser, getFollowing
 } from "../controllers/user.js";
+import validateUser from "../middlewares/auth.js";
 
 const router = express.Router();
 

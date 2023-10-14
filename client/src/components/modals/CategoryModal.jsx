@@ -1,10 +1,10 @@
 import Modal from "react-modal";
+import { useEffect, useState } from "react";
 import { SearchForm } from "../forms";
 import { BackIcon, CombinationIcon } from "../icons";
 import { Button } from "../utils";
-import { useModal, useScreenSize } from "../../hooks"
-import { useEffect, useState } from "react";
 import { getCategories, searchCategories } from "../../api/category";
+import { useModal, useScreenSize } from "../../hooks"
 
 Modal.setAppElement("#modal");
 

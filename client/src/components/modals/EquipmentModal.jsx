@@ -1,12 +1,11 @@
 import Modal from "react-modal";
+import { useEffect, useState } from "react";
 import { EquipmentCard } from "../cards";
 import { EquipmentForm, SearchForm } from "../forms";
 import { BackIcon } from "../icons";
 import { Button } from "../utils";
-import { useModal, useScreenSize } from "../../hooks";
-// import { equipments } from "../../utils/data";
-import { useEffect, useState } from "react";
 import { addEquipment, getEquipments, searchEquipments } from "../../api/equipment";
+import { useModal, useScreenSize } from "../../hooks";
 
 Modal.setAppElement("#modal");
 
@@ -16,7 +15,6 @@ const EquipmentModal = ({onSubmit, draft})=>{
     // Add equipment
     const [isChanged, setIsChanged] = useState(false);
     const changeEquipments = ()=>setIsChanged(!isChanged);
-
     // Get equipment data
     useEffect(()=>{
         getEquipments().then(res=>{

@@ -1,5 +1,4 @@
 import express from "express";
-import validateUser from "../middlewares/auth.js";
 import { 
     addRecipeToCookbook,
     deleteCookbook,
@@ -7,6 +6,7 @@ import {
     getCookbook, getCookbookDetails, getCookbooks, 
     saveCookbook, searchCookbooks 
 } from "../controllers/cookbook.js";
+import validateUser from "../middlewares/auth.js";
 
 const router = express.Router();
 

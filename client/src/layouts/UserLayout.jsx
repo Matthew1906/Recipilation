@@ -1,5 +1,5 @@
-import { useAuth } from "../hooks";
 import { Navigate, Outlet } from "react-router";
+import { useAuth } from "../hooks";
 
 const UserLayout = ()=>{
     const {isAuthenticated, loading} = useAuth();

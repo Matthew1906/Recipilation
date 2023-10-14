@@ -1,7 +1,7 @@
 import slugify from "slugify";
+import { Recipe, Review, User } from "../models/index.js";
 import firebaseAdmin from "../services/firebase.js";
 import { uploadImage } from "../services/imagekit.js";
-import { Recipe, Review, User } from "../models/index.js";
 import { mean } from "../utils.js";
 
 export const authenticateUser = async(req, res)=>{

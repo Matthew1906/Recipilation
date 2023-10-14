@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
+import { EffectCoverflow, Navigation, Pagination} from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useScreenSize } from "../../hooks";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { EffectCoverflow, Navigation, Pagination} from 'swiper';
 import "./styles.css";
-import { useScreenSize } from "../../hooks";
 
 const StepCarousel = ({items})=>{
     const [ current, setCurrent ] = useState(0);

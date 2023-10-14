@@ -1,5 +1,4 @@
 import express from "express";
-import validateUser from "../middlewares/auth.js";
 import { 
     getRecipe, getRecipes, 
     getRecentlyViewed, filterRecommendations,
@@ -10,6 +9,7 @@ import {
     deleteRecipe,
     downloadRecipe
 } from "../controllers/recipe.js";
+import validateUser from "../middlewares/auth.js";
 
 const router = express.Router();
 

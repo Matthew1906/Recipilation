@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
+import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Button } from "../utils";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Navigation, Pagination } from "swiper";
-import { Button } from "../utils";
 import "./styles.css";
 
 const RecipeCarouselCard = ({ name, description, image, to }) => {

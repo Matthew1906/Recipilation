@@ -1,14 +1,13 @@
-import express from "express";
 import cors from "cors";
-import config from "./config/index.js";
+import express from "express";
 import db from "./config/db.js";
-// import cache from "./services/cache.js";
+import config from "./config/index.js";
 import categoryRouter from "./routes/category.js";
 import cookbookRouter from './routes/cookbook.js';
 import equipmentRouter from "./routes/equipment.js";
-import userRouter from "./routes/user.js";
 import recipeRouter from "./routes/recipe.js";
 import reviewRouter from "./routes/review.js";
+import userRouter from "./routes/user.js";
 
 const app = express();
 

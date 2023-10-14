@@ -4,8 +4,9 @@ import { deleteCookbook, getRecipesByCookbook } from "../../api/cookbook";
 import { Pagination } from "../../components/containers";
 import { BackIcon } from "../../components/icons";
 import { ShareModal } from "../../components/modals";
-import { titleString } from "../../utils/string";
 import { Button } from "../../components/utils";
+import { titleString } from "../../utils/string";
+
 
 const Cookbook = () => {
   const { slug } = useParams();
