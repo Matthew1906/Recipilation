@@ -1,4 +1,5 @@
 import Modal from "react-modal";
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { EquipmentCard } from "../cards";
 import { EquipmentForm, SearchForm } from "../forms";
@@ -85,6 +86,11 @@ const EquipmentModal = ({onSubmit, draft})=>{
             </Modal>
         </>
     );
+}
+
+EquipmentModal.propTypes = {
+    onSubmit: PropTypes.func, 
+    draft: PropTypes.array
 }
 
 export default EquipmentModal;

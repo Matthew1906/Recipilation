@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Rating from "react-rating";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -87,5 +88,10 @@ const CommentForm = ({recipe, refreshPage}) => {
     </form>
   );
 };
+
+CommentForm.propTypes = {
+  recipe: PropTypes.string, 
+  refreshPage: PropTypes.func
+}
 
 export default CommentForm;

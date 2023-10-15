@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { CombinationImages } from "../utils";
 
 const CombinationIcon = ({images, name, onClick, status})=>{
@@ -14,6 +15,13 @@ const CombinationIcon = ({images, name, onClick, status})=>{
             </h6>
           </div>
       );
+}
+
+CombinationIcon.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string), 
+  name: PropTypes.string, 
+  onClick: PropTypes.func, 
+  status: PropTypes.bool
 }
 
 export default CombinationIcon

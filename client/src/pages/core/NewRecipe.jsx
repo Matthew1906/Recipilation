@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { getRecipe, getRecipeDraft, saveRecipe, updateRecipe } from "../../api/recipe";
@@ -107,6 +108,10 @@ const NewRecipe = ({isEdit=false})=>{
     ];
 
     return forms[index];
+}
+
+NewRecipe.propTypes = {
+    isEdit: PropTypes.bool
 }
 
 export default NewRecipe;

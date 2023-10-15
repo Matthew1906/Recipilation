@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useController } from "react-hook-form";
 
 const SelectInput = ({name, control, options, className})=>{
@@ -11,6 +12,13 @@ const SelectInput = ({name, control, options, className})=>{
             ))}
         </select>
     );
+}
+
+SelectInput.propTypes = {
+    name: PropTypes.string, 
+    control: PropTypes.object, 
+    options: PropTypes.arrayOf(PropTypes.object), 
+    className: PropTypes.string
 }
 
 export default SelectInput;

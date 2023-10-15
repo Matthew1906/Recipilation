@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useController } from "react-hook-form";
 import { titleString } from "../../../utils/string";
 
@@ -17,5 +18,13 @@ const TextArea = ({rows, control, name, placeholder, className})=>{
         />
     )
 };
+
+TextArea.propTypes = {
+    rows: PropTypes.number, 
+    control: PropTypes.object, 
+    name: PropTypes.string, 
+    placeholder: PropTypes.string, 
+    className: PropTypes.string
+}
 
 export default TextArea;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteCookbook, deleteRecipeFromCookbook, getRecipesByCookbook } from "../../api/cookbook";
+import { deleteCookbook, getRecipesByCookbook } from "../../api/cookbook";
 import { useNavigate } from "react-router";
 
 const useSingleCookbook = (slug)=>{
@@ -14,11 +14,7 @@ const useSingleCookbook = (slug)=>{
     deleteCookbook(slug)
     navigate("/cookbooks");
   }
-  const removeFromCookbook = (cookbook, slug)=>{
-    deleteRecipeFromCookbook(cookbook, {recipe:slug})
-    window.location.reload();
-  }
-  return { recipes, removeCookbook, removeFromCookbook }
+  return { recipes, removeCookbook }
 }
 
 export default useSingleCookbook;

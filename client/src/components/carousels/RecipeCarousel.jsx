@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -24,6 +25,13 @@ const RecipeCarouselCard = ({ name, description, image, to }) => {
   );
 };
 
+RecipeCarouselCard.propTypes = {
+  name: PropTypes.string, 
+  description: PropTypes.string, 
+  image: PropTypes.string, 
+  to: PropTypes.string
+}
+
 const RecipeCarousel = ({ recipes }) => {
   return (
     <Swiper 
@@ -43,5 +51,12 @@ const RecipeCarousel = ({ recipes }) => {
     </Swiper>
   );
 };
+
+RecipeCarousel.propTypes = {
+  name: PropTypes.string, 
+  image: PropTypes.string, 
+  description: PropTypes.string, 
+  to: PropTypes.string
+}
 
 export default RecipeCarousel;

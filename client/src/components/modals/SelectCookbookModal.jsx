@@ -1,4 +1,5 @@
 import Modal from "react-modal";
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { SearchForm } from "../forms";
@@ -69,6 +70,10 @@ const SelectCookbookModal = ({recipe})=>{
             </Modal>
         </>
     );
+}
+
+SelectCookbookModal.propTypes = {
+    recipe: PropTypes.string
 }
 
 export default SelectCookbookModal;

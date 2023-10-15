@@ -6,7 +6,7 @@ import { titleString } from "../../utils/string";
 
 const Category = () => {
   const { slug } = useParams();
-  const recipes = useSingleCategory();
+  const recipes = useSingleCategory(slug);
   return (
     <>
       <h2 className="px-10 pt-5 font-fjalla-one text-3xl mb-3 md:mb-0 flex">

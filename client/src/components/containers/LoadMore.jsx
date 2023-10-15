@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { Button } from "../utils";
 
@@ -32,5 +33,14 @@ const LoadMore = ({ id, title, children, className, cols, items=4 }) => {
     }
   </>)
 };
+
+LoadMore.propTypes = {
+  id: PropTypes.string, 
+  title: PropTypes.string, 
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.bool]), 
+  className: PropTypes.string, 
+  cols: PropTypes.number, 
+  items: PropTypes.number
+}
 
 export default LoadMore;

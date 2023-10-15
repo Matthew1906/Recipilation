@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Link, NavLink } from "react-router-dom";
 import { Button } from "../utils";
 import { logout } from "../../api/auth";
@@ -46,5 +47,9 @@ const DesktopNavigation = ({purpose='home'})=>{
         </header>
     );
 };
+
+DesktopNavigation.propTypes = {
+    purpose: PropTypes.string
+}
 
 export default DesktopNavigation;

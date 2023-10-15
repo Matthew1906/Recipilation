@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useController } from "react-hook-form";
 import { titleString } from "../../../utils/string";
 
@@ -19,5 +20,16 @@ const TextInput = ({ type, control, name, placeholder, className, isSearch=false
     />
   );
 };
+
+TextInput.propTypes = {
+  type: PropTypes.string, 
+  control: PropTypes.object, 
+  name: PropTypes.string, 
+  placeholder: PropTypes.string, 
+  className: PropTypes.string, 
+  isSearch: PropTypes.bool, 
+  minLength: PropTypes.number, 
+  maxLength: PropTypes.number
+}
 
 export default TextInput;

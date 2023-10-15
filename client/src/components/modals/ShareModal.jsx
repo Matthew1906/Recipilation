@@ -1,4 +1,5 @@
 import Modal from "react-modal";
+import PropTypes from "prop-types";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import { 
     EmailShareButton, EmailIcon, 
@@ -59,6 +60,12 @@ const ShareModal = ({link, title, cookbook=false})=>{
             </Modal>
         </>
     );
+}
+
+ShareModal.propTypes = {
+    link: PropTypes.string, 
+    title: PropTypes.string, 
+    cookbook: PropTypes.bool
 }
 
 export default ShareModal;

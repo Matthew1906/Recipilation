@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useController, useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message"; 
@@ -31,7 +32,13 @@ const IngredientListItem = ({ingredient, onUpdate, onDelete})=>{
     );
 }
 
-const IngredientListInput = ({type, name, control })=>{
+IngredientListItem.propTypes = {
+    ingredient: PropTypes.object, 
+    onUpdate: PropTypes.func, 
+    onDelete: PropTypes.func
+}
+
+const IngredientListInput = ({ type, name, control })=>{
     const { field } = useController({name, control, rules:{required:`${titleString(name)} must be filled`}}); 
     return (
         <input 
@@ -41,6 +48,12 @@ const IngredientListInput = ({type, name, control })=>{
             className={`mt-1 bg-white-primary border-red border rounded-md p-1 text-xs md:text-sm text-black grow`}
         />
     )
+}
+
+IngredientListInput.propTypes = {
+    type: PropTypes.string, 
+    name: PropTypes.string, 
+    control: PropTypes.object
 }
 
 const IngredientListForm = ({ingredient, onSubmit, onCancel})=>{
@@ -67,7 +80,13 @@ const IngredientListForm = ({ingredient, onSubmit, onCancel})=>{
     );
 };
 
-const RecipeMaterialForm = ({draft, onSave, onCancel, isEdit})=>{
+IngredientListForm.propTypes = {
+    ingredient: PropTypes.object, 
+    onSubmit: PropTypes.func, 
+    onCancel: PropTypes.func
+}
+
+const RecipeMaterialForm = ({draft, onSave, onCancel })=>{
     const [ isChanged, setIsChanged ] = useState(false);
     const changeItems  = ()=>setIsChanged(true);
     const [ ingredients, setIngredients ] = useState((draft?.ingredients??[]).map((ingredient, index)=>({index, name:ingredient, isUpdate:false})));
@@ -148,5 +167,11 @@ const RecipeMaterialForm = ({draft, onSave, onCancel, isEdit})=>{
         </div>
     );
 };
+
+RecipeMaterialForm.propTypes = {
+    draft: PropTypes.object, 
+    onSave: PropTypes.func, 
+    onCancel: PropTypes.func
+}
 
 export default RecipeMaterialForm;

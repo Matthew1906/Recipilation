@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { LoginForm, RegisterForm } from "../../components/forms";
 import { DesktopNavigation, Footer, MobileNavigation } from "../../components/partials";
 import { FormStatusProvider } from "../../contexts";
@@ -24,5 +25,9 @@ const Auth = ({ purpose }) => {
     </div>
   );
 };
+
+Auth.propTypes = {
+  purpose: PropTypes.string
+}
 
 export default Auth;

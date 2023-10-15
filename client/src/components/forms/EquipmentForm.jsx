@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { ImageInput, InputLabel, TextInput } from "./helpers";
@@ -33,6 +34,10 @@ const EquipmentForm = ({onSubmit})=>{
             </div>
         </form>
     );
+}
+
+EquipmentForm.propTypes = {
+    onSubmit: PropTypes.func
 }
 
 export default EquipmentForm;

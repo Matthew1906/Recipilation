@@ -1,4 +1,5 @@
 import Modal from "react-modal";
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { SearchForm } from "../forms";
 import { BackIcon, CombinationIcon } from "../icons";
@@ -62,6 +63,11 @@ const CategoryModal = ({onSubmit, draft})=>{
             </Modal>
         </>
     );
+}
+
+CategoryModal.propTypes = {
+    onSubmit: PropTypes.func, 
+    draft: PropTypes.array
 }
 
 export default CategoryModal;

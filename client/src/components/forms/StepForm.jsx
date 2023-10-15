@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -40,6 +41,12 @@ const StepForm = ({index, onSubmit, isUpdate})=>{
             </div>
         </form>
     );
+}
+
+StepForm.propTypes = {
+    index: PropTypes.number, 
+    onSubmit: PropTypes.func, 
+    isUpdate: PropTypes.bool
 }
 
 export default StepForm;

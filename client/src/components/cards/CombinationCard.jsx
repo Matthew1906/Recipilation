@@ -1,8 +1,9 @@
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { CombinationImages } from "../utils";
 import { slugifyString } from "../../utils/string";
 
-const CombinationCard = ({ cookbook, name, images, recipes }) => {
+const CombinationCard = ({ cookbook=false, name, images, recipes }) => {
     return (
         <div className="flex bg-white-primary drop-shadow-md">
             <div className="w-1/2 h-full">
@@ -27,5 +28,12 @@ const CombinationCard = ({ cookbook, name, images, recipes }) => {
         </div>
     );
 };
+
+CombinationCard.propTypes = {
+    cookbook:PropTypes.bool,
+    name:PropTypes.string,
+    images:PropTypes.arrayOf(PropTypes.string),
+    recipes:PropTypes.number,
+}
 
 export default CombinationCard;

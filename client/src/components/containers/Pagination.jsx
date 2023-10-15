@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { EquipmentCard, RecipeCard } from "../cards";
@@ -29,6 +30,12 @@ const PageIndicator = ({ pages, current, prev, next }) => {
   );
 };
 
+PageIndicator.propTypes = {
+  pages: PropTypes.number, 
+  current: PropTypes.number, 
+  prev: PropTypes.func, 
+  next: PropTypes.func
+}
 
 const Pagination = ({auto, items, cols, smCols, perPage, type='recipe', cookbook=false})=>{
     const [pageItems, setPageItems] = useState([]);
@@ -69,6 +76,16 @@ const Pagination = ({auto, items, cols, smCols, perPage, type='recipe', cookbook
           :""}
         </div>
     );
+}
+
+Pagination.propTypes = {
+  auto: PropTypes.bool, 
+  items: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.object), PropTypes.bool]), 
+  cols: PropTypes.number, 
+  smCols: PropTypes.number, 
+  perPage: PropTypes.number, 
+  type: PropTypes.string, 
+  cookbook: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
 }
 
 export default Pagination;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
 const StepCard = ({index, step, onUpdate, onDelete})=>{
@@ -19,5 +20,12 @@ const StepCard = ({index, step, onUpdate, onDelete})=>{
         </div>
     )
 };
+
+StepCard.propTypes = {
+    index: PropTypes.number,
+    step: PropTypes.object,
+    onUpdate: PropTypes.func,
+    onDelete: PropTypes.func
+}
 
 export default StepCard;

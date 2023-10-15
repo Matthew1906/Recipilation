@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const CombinationImages = ({ images, name, round, className }) => {
   const borderRadius = [
     (key) => ["rounded-full"][key], // for the sake of consistency
@@ -30,5 +32,12 @@ const CombinationImages = ({ images, name, round, className }) => {
     
   );
 };
+
+CombinationImages.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string), 
+  name: PropTypes.string, 
+  round: PropTypes.bool, 
+  className: PropTypes.string
+}
 
 export default CombinationImages;

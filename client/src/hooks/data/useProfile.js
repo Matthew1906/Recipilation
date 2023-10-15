@@ -14,10 +14,10 @@ const useProfile = (slug)=>{
   useEffect(()=>{
     getUser(slug).then(res=>{
       const { user:profile, recipes, onEdit } = res.data;
-      setIsRealProfile(slugifyString(user.displayName) === profile.slug);
+      setIsRealProfile(slugifyString(user?.displayName) === profile.slug);
       setShouldFollow(!profile?.followers?.includes(slugifyString(user?.displayName)));
       setUserData(profile);
-      if(isAuthenticated && profile.username === user.displayName){
+      if(isAuthenticated && profile.username === user?.displayName){
         setRecipes([...onEdit, ...recipes]);
       } else {
         setRecipes(recipes);

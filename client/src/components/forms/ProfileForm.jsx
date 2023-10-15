@@ -1,4 +1,5 @@
 import moment from "moment";
+import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { DateInput, ImageInput, InputLabel, TextInput } from "./helpers";
@@ -47,6 +48,12 @@ const ProfileForm = ({updateProfile, cancelUpdate, data})=>{
             </div>
         </form>
     );
+}
+
+ProfileForm.propTypes = {
+    updateProfile: PropTypes.func, 
+    cancelUpdate: PropTypes.func, 
+    data: PropTypes.object
 }
 
 export default ProfileForm;

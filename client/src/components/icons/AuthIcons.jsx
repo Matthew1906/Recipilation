@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router";
 import { FcGoogle} from "react-icons/fc";
 import { Button } from "../utils";
@@ -32,6 +33,10 @@ const AuthIcons = ({purpose})=>{
             <p className="text-sm font-semibold">{ purpose === 'login' ?'Sign In with Google' : 'Sign Up with Google'}</p> 
         </Button>
     </div>
+}
+
+AuthIcons.propTypes = {
+    purpose: PropTypes.string
 }
 
 export default AuthIcons;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -154,5 +155,10 @@ const RecipeInformationForm = ({draft, onSave})=>{
         </form>
     );
 };
+
+RecipeInformationForm.propTypes = {
+    draft: PropTypes.object,
+    onSave: PropTypes.func
+}
 
 export default RecipeInformationForm;

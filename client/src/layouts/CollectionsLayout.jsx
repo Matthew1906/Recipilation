@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { CombinationCard } from "../components/cards";
 import { LoadMore } from "../components/containers";
 import { NewCookbookModal } from "../components/modals";
@@ -34,5 +35,12 @@ const CollectionsLayout = ({ cookbook, heading, subheading, items }) => {
     </>
   );
 };
+
+CollectionsLayout.propTypes = {
+  cookbook: PropTypes.bool, 
+  heading: PropTypes.string, 
+  subheading: PropTypes.string, 
+  items: PropTypes.arrayOf(PropTypes.object)
+}
 
 export default CollectionsLayout;

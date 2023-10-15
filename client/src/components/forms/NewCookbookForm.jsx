@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { TextInput } from "./helpers";
@@ -22,5 +23,8 @@ const NewCookbookForm = ({saveNewCookbook})=>{
     )
 }
 
+NewCookbookForm.propTypes = {
+    saveNewCookbook: PropTypes.func
+}
 
 export default NewCookbookForm

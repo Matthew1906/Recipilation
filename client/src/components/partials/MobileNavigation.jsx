@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { BiMenu } from "react-icons/bi";
 import { Link, NavLink } from "react-router-dom";
@@ -48,5 +49,9 @@ const MobileNavigation = ({ purpose='home' }) => {
         </header>
     );
 };
+
+MobileNavigation.propTypes = {
+    purpose: PropTypes.string
+}
 
 export default MobileNavigation;

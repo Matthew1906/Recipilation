@@ -1,4 +1,5 @@
 import moment from "moment/moment";
+import PropTypes from "prop-types";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { RatingIcons } from "../icons";
 import { useAuth } from "../../hooks";
@@ -34,6 +35,12 @@ const CommentCard = ({comment, updateAction, deleteAction})=>{
             </p>
         </div>
     )
+}
+
+CommentCard.propTypes = {
+    comment: PropTypes.object,
+    updateAction: PropTypes.func,
+    deleteAction: PropTypes.func
 }
 
 export default CommentCard;

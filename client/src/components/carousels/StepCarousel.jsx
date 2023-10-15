@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { EffectCoverflow, Navigation, Pagination} from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -52,6 +53,10 @@ const StepCarousel = ({items})=>{
         </div>
       </div>
     )
+}
+
+StepCarousel.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object)
 }
 
 export default StepCarousel;

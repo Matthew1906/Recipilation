@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { RatingIcons } from "../icons";
 
@@ -28,6 +29,10 @@ const ProfileCard = ({profile}) => {
       </div>
     </Link>
   );
+};
+
+ProfileCard.propTypes = {
+  profile: PropTypes.object
 };
 
 export default ProfileCard;

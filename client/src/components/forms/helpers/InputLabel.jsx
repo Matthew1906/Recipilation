@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const InputLabel = ({children, required, className})=>{
     return (
         <h6 className={`text-xl font-nunito font-semibold ${className??""}`}>
@@ -5,5 +7,11 @@ const InputLabel = ({children, required, className})=>{
         </h6>
     );
 };
+
+InputLabel.propTypes = {
+    children: PropTypes.element,
+    className: PropTypes.string,
+    required: PropTypes.bool
+}
 
 export default InputLabel;

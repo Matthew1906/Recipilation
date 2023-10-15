@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import StepForm from "./StepForm";
@@ -84,5 +85,12 @@ const RecipeTutorialForm = ({draft, onSave, onCancel, isEdit})=>{
         </div>
     );
 };
+
+RecipeTutorialForm.propTypes = {
+    draft: PropTypes.object, 
+    onSave: PropTypes.func, 
+    onCancel: PropTypes.func, 
+    isEdit: PropTypes.bool
+}
 
 export default RecipeTutorialForm;

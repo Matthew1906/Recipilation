@@ -1,4 +1,5 @@
 import moment from "moment";
+import PropTypes from "prop-types";
 import { useController } from "react-hook-form";
 import { titleString } from "../../../utils/string";
 
@@ -15,5 +16,11 @@ const DateInput = ({ control, name, className}) => {
     />
   );
 };
+
+DateInput.propTypes = {
+  control: PropTypes.object, 
+  name: PropTypes.string, 
+  className: PropTypes.string
+}
 
 export default DateInput;

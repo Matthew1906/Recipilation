@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { TextInput } from "./helpers";
@@ -21,6 +22,11 @@ const SearchForm = ({onSubmit, color})=>{
             <ErrorMessage errors={errors} name="query" render={({ message }) => <p className="mt-2 ml-2 text-sm text-left text-black">{message}</p>}/>
         </form>
     )
+}
+
+SearchForm.propTypes = {
+    onSubmit: PropTypes.func,
+    color: PropTypes.string
 }
 
 export default SearchForm;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { themeConfig } from "../../utils/theme";
 
 const Button = ({ children, theme, className, expand, onClick, type }) => {
@@ -11,5 +12,14 @@ const Button = ({ children, theme, className, expand, onClick, type }) => {
     </button>
   );
 };
+
+Button.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]), 
+  theme: PropTypes.string, 
+  className: PropTypes.string, 
+  expand: PropTypes.bool, 
+  onClick: PropTypes.func, 
+  type: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+}
 
 export default Button;

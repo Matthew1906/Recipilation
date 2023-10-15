@@ -1,6 +1,7 @@
 import { useParams } from "react-router";
 import { BsFillBarChartFill, /*BsDownload*/ } from "react-icons/bs";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import PropTypes from "prop-types";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
 import { CommentCard, RecipeCard } from "../../components/cards";
@@ -20,6 +21,11 @@ const AttributeIcon = ({ theme, children }) => {
     </div>
   );
 };
+
+AttributeIcon.propTypes = {
+  theme: PropTypes.string,
+  children: PropTypes.arrayOf(PropTypes.element)
+}
 
 const Recipe = () => {
   const { slug } = useParams();

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 
 const ImageInput = ({p, image, rootProps, inputProps})=>{
@@ -16,6 +17,13 @@ const ImageInput = ({p, image, rootProps, inputProps})=>{
             </>}
         </div>
     );
+}
+
+ImageInput.propTypes = {
+    p: PropTypes.number, 
+    image: PropTypes.object,
+    rootProps: PropTypes.object,
+    inputProps: PropTypes.object,
 }
 
 export default ImageInput;
