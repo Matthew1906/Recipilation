@@ -12,10 +12,12 @@ const useProfile = (slug)=>{
   const [ isRealProfile, setIsRealProfile ] = useState(false);
   const [ shouldFollow, setShouldFollow ] = useState(false);
   useEffect(()=>{
-    getUser(slug).then(res=>{
+    getUser(slug).then(res=>{ 
       const { user:profile, recipes, onEdit } = res.data;
-      setIsRealProfile(slugifyString(user?.displayName) === profile.slug);
-      setShouldFollow(!profile?.followers?.includes(slugifyString(user?.displayName)));
+      if(isAuthenticated){
+        setIsRealProfile(slugifyString(user?.displayName) === profile.slug);
+        setShouldFollow(!profile?.followers?.includes(slugifyString(user?.displayName)));
+      }
       setUserData(profile);
       if(isAuthenticated && profile.username === user?.displayName){
         setRecipes([...onEdit, ...recipes]);
@@ -33,7 +35,7 @@ const useProfile = (slug)=>{
       .catch(err=>console.log(err))
   };
   const follow = () => followUser(userData?.slug).finally(()=>navigate('/profiles/'+slugifyString(user?.displayName)));
-  const unfollow = () => unfollowUser(userData?.slug).finally(()=>navigate('/profiles/'+slugifyString(user?.displayName)));
+  const unfollow = () => unfollowUser(userData?.slug).finally(()=>navigate('/profiles/'+slugifyString(user?.displayName))); 
   return { 
     userData, recipes, 
     updateProfile, isRealProfile, 

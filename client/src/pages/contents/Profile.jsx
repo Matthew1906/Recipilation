@@ -41,8 +41,8 @@ const Profile = () => {
           { isAuthenticated && !isRealProfile && 
           <>
           { shouldFollow
-           ? <Button theme="blue" className="text-sm md:text-base" onClick={followUser} expand>FOLLOW</Button>
-           : <Button theme="red" className="text-sm md:text-base" onClick={unfollowUser} expand>UNFOLLOW</Button>
+           ? <Button theme="blue" className="text-sm md:text-base mt-5" onClick={followUser} expand>FOLLOW</Button>
+           : <Button theme="red" className="text-sm md:text-base mt-5" onClick={unfollowUser} expand>UNFOLLOW</Button>
           }
           </>
           }
