@@ -1,22 +1,10 @@
-import { useState, useEffect } from "react";
-import { searchCategories } from "../../api/category";
-import { searchRecipes } from "../../api/recipe";
-import { searchUsers } from "../../api/user";
 import { CombinationCard, ProfileCard, RecipeCard } from "../../components/cards";
 import { LoadMore } from "../../components/containers";
 import { SearchForm } from "../../components/forms";
+import { useSearch } from "../../hooks";
 
 const Search = () => {
-  const [ query, setQuery ] = useState("");
-  const [ recipes, setRecipes ] = useState([]);
-  const [ categories, setCategories ] = useState([]);
-  const [ profiles, setProfiles ] = useState([]);
-  const searchQuery = (res) => setQuery(res.query);
-  useEffect(()=>{
-    searchCategories(query).then(res=>setCategories(res.data));
-    searchRecipes(query).then(res=>setRecipes(res.data));
-    searchUsers(query).then(res=>setProfiles(res.data));
-  }, [query])
+  const { query, searchQuery, recipes, categories, profiles } = useSearch();
   return (
     <>
       <SearchForm onSubmit={searchQuery}/>
