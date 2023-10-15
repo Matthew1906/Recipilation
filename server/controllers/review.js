@@ -19,9 +19,8 @@ export const addReview = async(req, res, next)=>{
 
 export const deleteReview = async(req, res, next)=>{
     try{
-        const reviews = res.recipe['reviews'].filter(review=>review.user.slug===req.user.slug)[0]
-        await Recipe.findOneAndUpdate({_id:res.recipe._id}, {$pull:{reviews:review._id}});
-         await Review.findOneAndDelete({_id:review._id});
+        await Recipe.findOneAndUpdate({_id:res.recipe._id}, {$pull:{reviews:res.review._id}});
+        await Review.findOneAndDelete({_id:res.review._id});
         next();
     } catch(err){
         return res.status(500).json({ error: "Server error. Please try again" });

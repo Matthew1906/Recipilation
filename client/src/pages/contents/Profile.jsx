@@ -1,45 +1,23 @@
 import moment from "moment";
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router";
-import { followUser, getUser, unfollowUser, updateUser } from "../../api/user";
+import { useState } from "react";
+import { useParams } from "react-router";
 import { Pagination } from "../../components/containers";
 import { ProfileForm } from "../../components/forms";
 import { RatingIcons } from "../../components/icons";
 import { Button } from "../../components/utils";
-import { useAuth } from "../../hooks";
-import { slugifyString } from "../../utils/string";
+import { useAuth, useProfile } from "../../hooks";
 
 const Profile = () => {
   const { slug } = useParams();
-  const { isAuthenticated, user, loading } = useAuth();
-  const navigate = useNavigate();
-  const [ userData, setUserData ] = useState({});
-  const [ recipes, setRecipes ] = useState([]);
+  const { isAuthenticated, loading } = useAuth();
   const [ isUpdate, setIsUpdate] = useState(false);
-  useEffect(()=>{
-    getUser(slug).then(res=>{
-      const { user:profile, recipes, onEdit } = res.data;
-      setUserData(profile);
-      if(isAuthenticated && profile.username === user.displayName){
-        setRecipes([...onEdit, ...recipes]);
-      }else{
-        setRecipes(recipes);
-      }
-      
-    }).catch(err=>console.log(err));
-  }, [isAuthenticated, slug, user]);
   const showUpdateProfile = () => setIsUpdate(true);
   const showRecipes = ()=> setIsUpdate(false);
-  const updateProfile = (data)=>{
-    updateUser(userData?.slug, data)
-      .then(res=>{
-        navigate("/profiles/"+res.data[0].slug)
-        window.location.reload();
-      })
-      .catch(err=>console.log(err))
-  };
-  const follow = () => followUser(userData?.slug).finally(()=>navigate('/profiles/'+slugifyString(user?.displayName)));
-  const unfollow = () => unfollowUser(userData?.slug).finally(()=>navigate('/profiles/'+slugifyString(user?.displayName)));
+  const { 
+    userData, recipes, 
+    updateProfile, isRealProfile, 
+    followUser, unfollowUser, shouldFollow
+  } = useProfile(slug);
   if(loading){
     return 'Loading'
   }
@@ -53,18 +31,18 @@ const Profile = () => {
             className="w-40 md:w-80 h-40 md:h-80 mb-4 rounded-full"
           />
           <h5 className="font-semibold text-2xl md:text-4xl">{userData?.username??"John Doe"}</h5>
-          { isAuthenticated && slugifyString(user?.displayName) === userData?.slug &&
+          { isAuthenticated && isRealProfile &&
           <>
             <p className="font-extralight">{moment(userData?.dob).format("Do MMMM YYYY")??"25th January 1992"}</p>
             <p className="font-extralight">{userData?.email??"johndoe@joemail.com"}</p>
             <p className="font-light">******************</p>
           </>
           }
-          { isAuthenticated && slugifyString(user?.displayName) !== userData?.slug && 
+          { isAuthenticated && !isRealProfile && 
           <>
-          { !userData?.followers?.includes(slugifyString(user?.displayName))
-           ? <Button theme="blue" className="text-sm md:text-base" onClick={follow} expand>FOLLOW</Button>
-           : <Button theme="red" className="text-sm md:text-base" onClick={unfollow} expand>UNFOLLOW</Button>
+          { shouldFollow
+           ? <Button theme="blue" className="text-sm md:text-base" onClick={followUser} expand>FOLLOW</Button>
+           : <Button theme="red" className="text-sm md:text-base" onClick={unfollowUser} expand>UNFOLLOW</Button>
           }
           </>
           }
@@ -102,7 +80,7 @@ const Profile = () => {
                 Recipes by {userData?.username??"John Doe"}
               </h5>
               <Pagination auto items={recipes} perPage={2}/>
-              { isAuthenticated && slugifyString(user?.displayName) === userData?.slug &&
+              { isAuthenticated && isRealProfile &&
                 <div className="flex justify-between">
                   <Button theme='blue' onClick={showUpdateProfile}>Update Profile</Button>
                   <a href={`/recipes-new`}>

@@ -1,7 +1,16 @@
-import useAuth from "./useAuth";
-import useFormStatus from "./useFormStatus";
-import useImage from "./useImage";
-import useScreenSize from "./useScreenSize";
-import useModal from "./useModal";
+import { useAuth, useImage, useFormStatus, useModal, useScreenSize }from "./utils";
+import { 
+    useCategories, useCookbooks, 
+    useHistory, useProfile, useRecommendedRecipes,
+    useSingleCategory, useSingleCookbook, useSingleRecipe
+} from "./data";
 
+// Utilities
 export { useAuth, useImage, useFormStatus, useScreenSize, useModal };
+
+// Data fetching
+export { 
+    useCategories, useCookbooks, 
+    useHistory, useProfile, useRecommendedRecipes,
+    useSingleCategory, useSingleCookbook, useSingleRecipe
+};

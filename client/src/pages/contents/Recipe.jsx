@@ -1,22 +1,17 @@
-import { useNavigate, useParams } from "react-router";
-import { useState, useEffect } from "react";
+import { useParams } from "react-router";
 import { BsFillBarChartFill, /*BsDownload*/ } from "react-icons/bs";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
-import { deleteRecipe, /*downloadRecipe,*/ editRecipe, getRecipe, getRecipesByCategories, getRecipesByCreator } from "../../api/recipe";
-import { deleteReview } from "../../api/review";
 import { CommentCard, RecipeCard } from "../../components/cards";
 import { StepCarousel } from "../../components/carousels";
 import { LoadMore, Pagination } from "../../components/containers";
 import { CommentForm } from "../../components/forms";
 import { BackIcon, RatingIcons } from "../../components/icons";
 import { SelectCookbookModal, ShareModal } from "../../components/modals";
-import { useAuth } from "../../hooks";
+import { useAuth, useHistory, useSingleRecipe } from "../../hooks";
 import { titleString } from "../../utils/string";
-import { categoryConfig, themeConfig } from "../../utils/theme";
-
-const randomizeTheme = () => categoryConfig[Object.keys(categoryConfig)[Math.floor(Math.random() * Object.keys(categoryConfig).length)]];
+import { themeConfig } from "../../utils/theme";
 
 const AttributeIcon = ({ theme, children }) => {
   return (
@@ -28,41 +23,15 @@ const AttributeIcon = ({ theme, children }) => {
 
 const Recipe = () => {
   const { slug } = useParams();
-  const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
-  const [ changes, setChanges ] = useState(false);
-  const updatePage = ()=>setChanges(!changes);
-  const [ recipe, setRecipe ] = useState({});
-  const [ categories, setCategories ] = useState([]);
-  const [ similarRecipes, setSimilarRecipes ] = useState([]);
-  const [ recipesByChef, setRecipesByChef ] = useState([]);
-  const [ validReviewer, setValidReviewer ] = useState(false);
-  useEffect(()=>{
-    const recentlyViewed = sessionStorage.getItem("history");
-    if(recentlyViewed===null){
-      sessionStorage.setItem("history", slug);
-    }
-    else if(!recentlyViewed.includes(slug)){
-      sessionStorage.setItem("history", recentlyViewed+ "_" + slug);
-    }
-  }, [slug])
-  useEffect(()=>{
-    getRecipe(slug).then(res=>{
-      setRecipe(res.data);
-      setCategories(res?.data?.categories.map(category=>({
-        name: category.name,
-        theme: randomizeTheme(),
-      })));
-      if(isAuthenticated && res?.data?.user?.email !== user?.email && !res?.data?.reviews.map(review=>review.user.email).includes(user?.email)){
-        setValidReviewer(true);
-      }
-      else{
-        setValidReviewer(false);
-      }
-      getRecipesByCategories(res?.data?.categories.map(category=>category.slug)).then(res=>setSimilarRecipes(res.data));
-      getRecipesByCreator(res?.data?.user?.slug).then(res=>setRecipesByChef(res.data));
-    }).catch(err=>console.log(err));
-  }, [slug, isAuthenticated, user, changes]);
+  const { saveHistory } = useHistory();
+  saveHistory(slug);
+  const {
+    categories, recipe, 
+    updateRecipe, deleteRecipe, refreshRecipe,
+    similarRecipes, recipesByChef,
+    validReviewer, updateReview, deleteReview
+  } = useSingleRecipe(slug);
   return (
     <>
       <section id='basic-info' className="lg:grid lg:grid-cols-2 lg:h-full">
@@ -73,12 +42,8 @@ const Recipe = () => {
             <span className="font-fjalla-one text-xl sm:text-2xl lg:text-4xl">{titleString(recipe?.name??slug)}</span>
             {user?.displayName === recipe?.user?.username &&
             <>            
-            <FaTrashAlt className="ml-2 text-red cursor-pointer link-expand text-lg" onClick={
-              ()=>deleteRecipe(recipe?.slug).then(navigate('/'))
-            }/>
-            <FaEdit className="ml-1 cursor-pointer link-expand text-lg" onClick={
-              ()=>editRecipe(recipe?.slug).then(navigate(`/recipes/${recipe?.slug}/edit`))
-            }/>
+            <FaTrashAlt className="ml-2 text-red cursor-pointer link-expand text-lg" onClick={deleteRecipe}/>
+            <FaEdit className="ml-1 cursor-pointer link-expand text-lg" onClick={updateRecipe}/>
             </>}
             <ShareModal link={`${process.env.REACT_APP_URL}/recipes/${recipe?.slug}`} title={recipe?.title}/>
             {/* <BsDownload className="ml-1 cursor-pointer link-expand text-lg" onClick={
@@ -166,11 +131,11 @@ const Recipe = () => {
           <CommentCard 
             key={key} 
             comment = {review} 
-            deleteAction={()=>deleteReview(recipe?.slug).catch(err=>console.log(err)).finally(updatePage)}
-            updateAction={()=>setValidReviewer(true)}/>
+            deleteAction={deleteReview}
+            updateAction={updateReview}/>
         ))}
       </LoadMore>
-      {isAuthenticated && validReviewer && <CommentForm recipe={recipe?.slug} updatePage={updatePage}/>}
+      {isAuthenticated && validReviewer && <CommentForm recipe={recipe?.slug} updatePage={refreshRecipe}/>}
       <LoadMore title="More Like This" id="more-like-this" className="px-10 py-8 bg-light-yellow">
         {similarRecipes.filter(recipe=>recipe.slug!==slug).map((recipe, key) => (
           <RecipeCard recipe={recipe} key={key} />

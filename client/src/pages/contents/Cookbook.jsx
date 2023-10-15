@@ -1,26 +1,14 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
-import { deleteCookbook, getRecipesByCookbook } from "../../api/cookbook";
+import { useParams } from "react-router";
 import { Pagination } from "../../components/containers";
 import { BackIcon } from "../../components/icons";
 import { ShareModal } from "../../components/modals";
 import { Button } from "../../components/utils";
+import { useSingleCookbook } from "../../hooks";
 import { titleString } from "../../utils/string";
-
 
 const Cookbook = () => {
   const { slug } = useParams();
-  const [ recipes, setRecipes ] = useState([]);
-  useEffect(()=>{
-    getRecipesByCookbook(slug).then(res=>{
-      setRecipes(res.data);
-    })
-  }, [slug]);
-  const navigate = useNavigate();
-  const removeCookbook = ()=>{
-    deleteCookbook(slug)
-    navigate("/cookbooks");
-  }
+  const { recipes, removeCookbook } = useSingleCookbook(slug);
   return (
     <>
       <h2 className="px-10 pt-5 font-fjalla-one text-xl md:text-2xl lg:text-3xl mb-3 md:mb-0 flex items-center">

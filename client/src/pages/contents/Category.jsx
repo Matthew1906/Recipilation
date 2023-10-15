@@ -1,18 +1,12 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { getRecipesByCategories } from "../../api/recipe";
 import { Pagination } from "../../components/containers";
 import { BackIcon } from "../../components/icons";
+import { useSingleCategory } from "../../hooks";
 import { titleString } from "../../utils/string";
 
 const Category = () => {
   const { slug } = useParams();
-  const [ recipes, setRecipes ] = useState([]);
-  useEffect(()=>{
-    getRecipesByCategories(slug).then(res=>{
-      setRecipes(res.data);
-    })
-  }, [slug]);
+  const recipes = useSingleCategory();
   return (
     <>
       <h2 className="px-10 pt-5 font-fjalla-one text-3xl mb-3 md:mb-0 flex">

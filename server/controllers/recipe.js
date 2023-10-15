@@ -124,19 +124,21 @@ export const filterRecommendations = async(req, res, next)=>{
         4. Only get the top 10 recipes
         */
        const reviewed = res.recipes.filter(recipe=>recipe.reviews.map(review=>review.user.toString()).includes(req.user._id.toString()))
-       const categoriesLists = reviewed.map((recipe)=>(recipe.categories));
-       const categories = Array.from(new Set(categoriesLists.reduce(
-        (acc, curr)=> acc + ";" + curr.map(cat=>cat.slug).join(";"), "")
-        .split(";").filter(x=>x.trim()!==''))
-       )
-       const creators = Array.from(new Set(reviewed.map((recipe)=>(recipe.user._id.toString()))));
-       res.recipes = res.recipes.filter(recipe=>{
+       if(reviewed.length>0){
+        const categoriesLists = reviewed.map((recipe)=>(recipe.categories));
+        const categories = Array.from(new Set(categoriesLists.reduce(
+         (acc, curr)=> acc + ";" + curr.map(cat=>cat.slug).join(";"), "")
+         .split(";").filter(x=>x.trim()!==''))
+        )
+        const creators = Array.from(new Set(reviewed.map((recipe)=>(recipe.user._id.toString()))));
+        res.recipes = res.recipes.filter(recipe=>{
             return !reviewed.map(r=>r.name).includes(recipe.name) && 
                 recipe.user.slug !== req.user.slug && ( 
                 creators.includes(recipe.user._id.toString()) || 
                 intersect(categories, recipe.categories.map(cat=>cat.slug))
             )
-       })
+        })
+       }
        next()
     } catch(err){
         console.log(err);

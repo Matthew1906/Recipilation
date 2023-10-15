@@ -1,12 +1,8 @@
-import { useState, useEffect } from "react";
-import { getCategories } from "../../api/category";
 import { CollectionsLayout } from "../../layouts";
+import { useCategories } from "../../hooks";
 
 const Categories = () => {
-    const [ categories, setCategories ] = useState([]);
-    useEffect(()=>{
-        getCategories().then(res=>setCategories(res.data));
-    }, [])
+    const categories = useCategories();
     return(
     <CollectionsLayout 
         heading="Categories" 

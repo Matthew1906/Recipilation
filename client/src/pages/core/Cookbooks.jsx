@@ -1,12 +1,8 @@
-import { useState, useEffect } from "react";
-import { getCookbooks } from "../../api/cookbook";
 import { CollectionsLayout } from "../../layouts";
+import { useCookbooks } from "../../hooks";
 
 const Cookbooks = () => {
-    const [ cookbooks, setCookbooks ] = useState([]);
-    useEffect(()=>{
-        getCookbooks().then(res=>setCookbooks(res.data));
-    }, [])
+    const cookbooks = useCookbooks();
     return(
         <CollectionsLayout 
             heading="My Cookbooks" 

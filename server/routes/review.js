@@ -6,7 +6,7 @@ import validateUser from "../middlewares/auth.js";
 const router = express.Router();
 
 router.get("/:id", validateUser, getRecipe, getReview, async(req, res)=>(res.json(res.review)))
-router.delete("/:id", validateUser, getRecipe, deleteReview);
+router.delete("/:id", validateUser, getRecipe, getReview, deleteReview);
 router.post("/:id", validateUser, getRecipe, addReview);
 router.put("/:id", validateUser, getRecipe, updateReview);
 
