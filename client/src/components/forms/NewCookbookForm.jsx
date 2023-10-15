@@ -3,10 +3,10 @@ import { ErrorMessage } from "@hookform/error-message";
 import { TextInput } from "./helpers";
 import { Button } from "../utils";
 
-const NewCookbookForm = ({onSubmit})=>{
+const NewCookbookForm = ({saveNewCookbook})=>{
     const { control, handleSubmit, formState:{errors} } = useForm({defaultValues:{name:''}});
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="p-5">
+        <form onSubmit={handleSubmit(saveNewCookbook)} className="p-5">
             <div className="flex">
                 <TextInput name="name" control={control}
                     placeholder="Insert the name of your collection" 

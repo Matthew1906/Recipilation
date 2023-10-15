@@ -1,10 +1,11 @@
 import { FaTrashAlt } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
+import { useSingleCookbook } from "../../hooks";
 import { limitString } from "../../utils/string";
-import { deleteRecipeFromCookbook } from "../../api/cookbook";
 
 const RecipeCard = ({ recipe, isDraft=false, cookbook=false }) => {
+  const { removeFromCookbook } = useSingleCookbook();
   return (
     <div className="flex flex-col sm:grid sm:grid-rows-none sm:grid-cols-2 bg-white-primary h-full rounded-2xl drop-shadow-md">
       <a href={`/recipes/${recipe?.slug}${isDraft?"/edit":""}`}>
@@ -21,10 +22,7 @@ const RecipeCard = ({ recipe, isDraft=false, cookbook=false }) => {
           </a>
           {cookbook && <FaTrashAlt 
             className='text-red cursor-pointer' 
-            onClick={()=>{
-              deleteRecipeFromCookbook(cookbook, {recipe:recipe?.slug})
-              window.location.reload();
-            }}
+            onClick={()=>removeFromCookbook(recipe?.slug)}
           />}
         </div>
         <p className="text-sm md:text-base my-2 font-nunito font-light text-left">

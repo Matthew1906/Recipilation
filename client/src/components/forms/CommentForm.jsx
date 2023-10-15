@@ -8,7 +8,7 @@ import { getReview, submitReview, updateReview } from "../../api/review";
 import { useScreenSize } from "../../hooks";
 import { categoryConfig } from "../../utils/theme";
 
-const CommentForm = ({recipe, updatePage}) => {
+const CommentForm = ({recipe, refreshPage}) => {
   const screenSize = useScreenSize();
   const { control, handleSubmit, setValue, watch, reset } = useForm({
     defaultValues:{
@@ -28,15 +28,15 @@ const CommentForm = ({recipe, updatePage}) => {
       }
     }).catch(err=>reset());
   }, [recipe, setValue, reset]);
-  const onSubmit = (data)=>{
+  const saveComment = (data)=>{
     let submit = isUpdate? updateReview:submitReview;
     submit(data, recipe).catch(err=>console.log(err)).finally(()=>{
       reset();
-      updatePage();
+      refreshPage();
     })
   };
   return (
-    <form className="px-10 py-8 bg-white-primary" onSubmit={handleSubmit(onSubmit)}>
+    <form className="px-10 py-8 bg-white-primary" onSubmit={handleSubmit(saveComment)}>
       <h2 className="pt-5 font-fjalla-one text-3xl mb-3 md:mb-0">
         Leave a Comment
       </h2>

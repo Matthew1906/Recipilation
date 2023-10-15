@@ -74,7 +74,7 @@ const Profile = () => {
         </div>
         <div className="py-5 flex flex-col gap-5">
           {isAuthenticated && isUpdate
-            ? <ProfileForm onCancel={showRecipes} data={userData} onSubmit={updateProfile}/>
+            ? <ProfileForm cancelUpdate={showRecipes} data={userData} updateProfile={updateProfile}/>
             : <> 
               <h5 className="mb-3 text-center text-3xl font-fjalla-one">
                 Recipes by {userData?.username??"John Doe"}

@@ -6,7 +6,7 @@ import { Button } from "../utils";
 import { useImage } from "../../hooks";
 import { base64String } from "../../utils/string";
 
-const ProfileForm = ({onSubmit, onCancel, data})=>{
+const ProfileForm = ({updateProfile, cancelUpdate, data})=>{
     const { username, dob } = data;
     const { control, handleSubmit, formState:{errors, submitCount} } = useForm({
         defaultValues:{
@@ -19,13 +19,13 @@ const ProfileForm = ({onSubmit, onCancel, data})=>{
         if(image!==null){
             fetch(image.preview).then(r => {
                 r.blob().then(res=>base64String(res).then(res=>{
-                    onSubmit({...data, image:res});
+                    updateProfile({...data, image:res});
                     setImage(null);
                 }))
             });
         }
         else{
-            onSubmit({...data, image});
+            updateProfile({...data, image});
             setImage(null);
         }
     }
@@ -42,8 +42,8 @@ const ProfileForm = ({onSubmit, onCancel, data})=>{
             <ImageInput image={image} rootProps={getRootProps} inputProps={getInputProps} p={10}/>
             {submitCount>0 && imageError && <p className="mt-2 text-xs text-left text-red">Must insert image</p>}
             <div className="mt-4 flex justify-between">
-                <Button theme="red" className="text-xl px-12" onClick={onCancel}>CANCEL</Button>
-                <Button theme="green" className="text-xl px-12">ADD</Button>
+                <Button theme="red" className="text-sm sm:text-md lg:text-xl px-3 md:px-6 lg:px-12" onClick={cancelUpdate}>CANCEL</Button>
+                <Button theme="green" className="text-sm sm:text-md lg:text-xl px-3 md:px-6 lg:px-12">ADD</Button>
             </div>
         </form>
     );

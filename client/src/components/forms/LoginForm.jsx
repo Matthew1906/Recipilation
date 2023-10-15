@@ -17,7 +17,7 @@ const LoginForm = () => {
   });
   const navigate = useNavigate();
   const { status, displayFormError, resetFormError }= useFormStatus();
-  const onSubmit = (input)=>{
+  const loginUser = (input)=>{
     resetFormError();
     login(input).then(()=>navigate("/")).catch((err)=>{
       reset();
@@ -26,7 +26,7 @@ const LoginForm = () => {
   };
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(loginUser)}
       className="w-64 md:w-96 px-6 py-4 lg:py-8 lg:px-12 bg-white-primary flex flex-col gap-4 rounded-xl shadow-lg"
     >
       <h3 className="font-fjalla-one text-center text-3xl lg:text-5xl text-red font-medium md:mb-5">

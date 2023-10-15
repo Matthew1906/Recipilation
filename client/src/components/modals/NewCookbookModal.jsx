@@ -25,7 +25,7 @@ const NewCookbookModal = ()=>{
                     <BackIcon className="text-2xl cursor-pointer" modal={modal.close}/>
                     <span className="font-fjalla-one text-lg md:text-xl lg:text-2xl">New Cookbook</span>
                 </div>
-                <NewCookbookForm onSubmit={saveNewCookbook}/>
+                <NewCookbookForm saveNewCookbook={saveNewCookbook}/>
             </Modal>
         </>
     );

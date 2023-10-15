@@ -135,7 +135,7 @@ const Recipe = () => {
             updateAction={updateReview}/>
         ))}
       </LoadMore>
-      {isAuthenticated && validReviewer && <CommentForm recipe={recipe?.slug} updatePage={refreshRecipe}/>}
+      {isAuthenticated && validReviewer && <CommentForm recipe={recipe?.slug} refreshPage={refreshRecipe}/>}
       <LoadMore title="More Like This" id="more-like-this" className="px-10 py-8 bg-light-yellow">
         {similarRecipes.filter(recipe=>recipe.slug!==slug).map((recipe, key) => (
           <RecipeCard recipe={recipe} key={key} />
