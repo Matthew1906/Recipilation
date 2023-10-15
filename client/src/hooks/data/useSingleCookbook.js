@@ -14,7 +14,7 @@ const useSingleCookbook = (slug)=>{
     deleteCookbook(slug)
     navigate("/cookbooks");
   }
-  const removeFromCookbook = (slug)=>{
+  const removeFromCookbook = (cookbook, slug)=>{
     deleteRecipeFromCookbook(cookbook, {recipe:slug})
     window.location.reload();
   }

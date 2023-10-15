@@ -22,7 +22,7 @@ const RecipeCard = ({ recipe, isDraft=false, cookbook=false }) => {
           </a>
           {cookbook && <FaTrashAlt 
             className='text-red cursor-pointer' 
-            onClick={()=>removeFromCookbook(recipe?.slug)}
+            onClick={()=>removeFromCookbook(cookbook, recipe?.slug)}
           />}
         </div>
         <p className="text-sm md:text-base my-2 font-nunito font-light text-left">
