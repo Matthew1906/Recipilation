@@ -8,7 +8,6 @@ import { slugifyString } from "../../utils/string";
 
 const DesktopNavigation = ({purpose='home'})=>{
     const { user, isAuthenticated } = useAuth();
-    console.log(user);
     return (
         <header className={`px-8 w-full flex justify-center py-4 ${themeConfig["red"]}`}>
             <div className="max-w-[1440px] w-full flex justify-between items-center">
