@@ -14,7 +14,7 @@ const Button = ({ children, theme, className, expand, onClick, type }) => {
 };
 
 Button.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]), 
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.arrayOf(PropTypes.element)]), 
   theme: PropTypes.string, 
   className: PropTypes.string, 
   expand: PropTypes.bool, 

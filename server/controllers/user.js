@@ -20,7 +20,7 @@ export const authenticateUser = async(req, res)=>{
             if (!email || !username || !password) {
                 return res.status(400).json({ error:"Invalid request body. Must contain email, password, and username." });
             }
-            const newFirebaseUser = await firebaseAdmin.auth.createUser({ email, password });
+            const newFirebaseUser = await firebaseAdmin.auth.createUser({ displayName:username, email, password });
             if (newFirebaseUser) {
                 const newUser = new User({username, email, firebaseId:newFirebaseUser.uid, slug:slugify(username.toLowerCase())});
                 newUser.save();
