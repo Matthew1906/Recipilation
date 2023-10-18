@@ -22,7 +22,7 @@ export const authenticateUser = async(req, res)=>{
         }
         const newFirebaseUser = await firebaseAdmin.auth.createUser({ email, password });
         if (newFirebaseUser) {
-            const newUser = new User({username, email, firebaseId:newFirebaseUser.uid});
+            const newUser = new User({username, email, firebaseId:newFirebaseUser.uid, slug:slugify(username)});
             newUser.save();
         }
             return res.status(200).json({ success: "Account created successfully. Please sign in." });
