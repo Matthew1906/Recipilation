@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { EquipmentCard, RecipeCard } from "../cards";
 
@@ -38,9 +38,14 @@ PageIndicator.propTypes = {
 }
 
 const Pagination = ({auto, items, cols, smCols, perPage, type='recipe', cookbook=false})=>{
-    const [pageItems, setPageItems] = useState([]);
-    const [pages, setPages] = useState(1);
     const [current, setCurrent] = useState(1);
+    const pages = useMemo(()=>{
+      if(items.length%perPage===0){
+        return items.length/perPage;
+      } else{
+        return (items.length + (perPage - (items.length % perPage))) / perPage;
+      }
+    }, [items, perPage])
     const prevPage = () => {
       if (current > 1) {
         setCurrent(current - 1);
@@ -51,18 +56,10 @@ const Pagination = ({auto, items, cols, smCols, perPage, type='recipe', cookbook
         setCurrent(current + 1);
       }
     };
-    useEffect(()=>{
-      setPageItems(items);
-      if(items.length%perPage===0){
-        setPages(items.length/perPage);
-      } else{
-        setPages((items.length + (perPage - (items.length % perPage))) / perPage);
-      }
-    }, [current, items, perPage])
     return (
         <div className='text-center'>
           <div className={`mt-4 flex flex-wrap ${type==='recipe'?'justify-center':'justify-start'} items-center md:grid ${auto?"md:auto-cols-auto":`md:grid-cols-${smCols??1} lg:grid-cols-${cols??2}`} gap-4 md:gap-8`}>
-            {pageItems.slice((current-1)*perPage, current*perPage).map((item, key) => {
+            {items.slice((current-1)*perPage, current*perPage).map((item, key) => {
               if(type==='recipe'){
                 return <RecipeCard recipe={item} key={key} isDraft={item?.status === 2} cookbook={cookbook}/>
               }
