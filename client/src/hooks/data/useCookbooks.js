@@ -1,11 +1,8 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { getCookbooks } from "../../api/cookbook";
 
 const useCookbooks = ()=>{
-    const [ cookbooks, setCookbooks ] = useState([]);
-    useEffect(()=>{
-        getCookbooks().then(res=>setCookbooks(res.data));
-    }, [])
+    const { data: cookbooks = [] } = useQuery('cookbooks', ()=>getCookbooks().then(res=>res.data));
     return cookbooks;
 }
 

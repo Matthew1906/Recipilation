@@ -26,8 +26,8 @@ const CategoryModal = ({onSubmit, draft})=>{
         searchCategories(query).then(res=>setCategories(res.data));
     }, [query])
     const screenSize = useScreenSize();
-    style.content.height = screenSize>0?"600px":"400px";
-    style.content.width = screenSize>0?"400px":"300px";
+    style.content.height = screenSize>0?"500px":"400px";
+    style.content.width = screenSize>2?"800px":screenSize>1?"600px":"400px";
     return (
         <>
             <Button theme="neutral" className="border border-red !rounded-full w-12 h-12" 

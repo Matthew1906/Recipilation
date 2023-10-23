@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { getRecipesByCategories } from "../../api/recipe";
 
 const useSingleCategory = (slug)=>{
-  const [ recipes, setRecipes ] = useState([]);
-  useEffect(()=>{
-    getRecipesByCategories(slug).then(res=>{
-      setRecipes(res.data);
-    })
-  }, [slug]);
+  const { data: recipes = [] } = useQuery(
+    ['category', slug], ()=>getRecipesByCategories(slug).then(res=>res.data)
+  );
   return recipes;
 }
 

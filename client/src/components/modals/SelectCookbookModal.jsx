@@ -34,7 +34,7 @@ const SelectCookbookModal = ({recipe})=>{
         navigate(`/cookbooks/${data[0]}`);
     }
     const screenSize = useScreenSize();
-    style.content.height = screenSize>0?"600px":"400px";
+    style.content.height = screenSize>0?"500px":"400px";
     style.content.width = screenSize>0?"400px":"300px";
     return (
         <>

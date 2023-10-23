@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useQuery } from "react-query";
+import { useNavigate } from "react-router";
 import { useAuth } from "../utils";
 import { followUser, getUser, unfollowUser, updateUser } from "../../api/user";
-import { useNavigate } from "react-router";
 import { slugifyString } from "../../utils/string";
 
 const useProfile = (slug)=>{
@@ -11,21 +12,24 @@ const useProfile = (slug)=>{
   const [ recipes, setRecipes ] = useState([]);
   const [ isRealProfile, setIsRealProfile ] = useState(false);
   const [ shouldFollow, setShouldFollow ] = useState(false);
-  useEffect(()=>{
-    getUser(slug).then(res=>{ 
-      const { user:profile, recipes, onEdit } = res.data;
-      if(isAuthenticated){
-        setIsRealProfile(slugifyString(user?.displayName) === profile.slug);
-        setShouldFollow(!profile?.followers?.includes(slugifyString(user?.displayName)));
+  useQuery(
+    ['profile', slug], ()=>getUser(slug).then(res=>res.data),
+    { enabled:isAuthenticated,
+      onSuccess: (data)=>{
+        const { user:profile, recipes, onEdit } = data;
+        if(isAuthenticated){
+          setIsRealProfile(slugifyString(user?.displayName) === profile.slug);
+          setShouldFollow(!profile?.followers?.includes(slugifyString(user?.displayName)));
+        }
+        setUserData(profile);
+        if(isAuthenticated && profile.username === user?.displayName){
+          setRecipes([...onEdit, ...recipes]);
+        } else {
+          setRecipes(recipes);
+        }
       }
-      setUserData(profile);
-      if(isAuthenticated && profile.username === user?.displayName){
-        setRecipes([...onEdit, ...recipes]);
-      } else {
-        setRecipes(recipes);
-      }
-    }).catch(err=>console.log(err));
-  }, [isAuthenticated, slug, user]);
+    }
+  )
   const updateProfile = (data)=>{
     updateUser(userData?.slug, data)
       .then(res=>{

@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { getRecentlyViewedRecipes } from "../../api/recipe";
 
 const useHistory = ()=>{
-    const [ recentlyViewed, setRecentlyViewed ] = useState([]);
-    useEffect(()=>{
-        const history = sessionStorage.getItem("history");
-        getRecentlyViewedRecipes(history!==null?history:"").then(res=>setRecentlyViewed(res.data));
-    }, []);
+    const history = sessionStorage.getItem("history");
+    const { data: recentlyViewed = [] } = useQuery(
+        ['history', history], 
+        ()=>getRecentlyViewedRecipes(history!==null?history:"").then(res=>res.data)
+    )
     const saveHistory = (slug)=>{
         const recentlyViewed = sessionStorage.getItem("history");
         if(recentlyViewed===null){
