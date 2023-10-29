@@ -8,8 +8,9 @@ import { Button } from "../utils";
 import { getReview, submitReview, updateReview } from "../../api/review";
 import { useScreenSize } from "../../hooks";
 import { categoryConfig } from "../../utils/theme";
+import { useMutation, useQueryClient } from "react-query";
 
-const CommentForm = ({recipe, refreshPage}) => {
+const CommentForm = ({recipe}) => {
   const screenSize = useScreenSize();
   const { control, handleSubmit, setValue, watch, reset } = useForm({
     defaultValues:{
@@ -29,15 +30,17 @@ const CommentForm = ({recipe, refreshPage}) => {
       }
     }).catch(err=>reset());
   }, [recipe, setValue, reset]);
-  const saveComment = (data)=>{
+  const queryClient = useQueryClient();
+  const {mutate:addReview} = useMutation((data)=>{
     let submit = isUpdate? updateReview:submitReview;
-    submit(data, recipe).catch(err=>console.log(err)).finally(()=>{
-      reset();
-      refreshPage();
-    })
-  };
+    submit(data, recipe)
+  }, {
+    onSuccess:()=>{
+      queryClient.invalidateQueries(['recipe', recipe]);
+    }
+  });
   return (
-    <form className="px-10 py-8 bg-white-primary" onSubmit={handleSubmit(saveComment)}>
+    <form className="px-10 py-8 bg-white-primary" onSubmit={handleSubmit(addReview)}>
       <h2 className="pt-5 font-fjalla-one text-3xl mb-3 md:mb-0">
         Leave a Comment
       </h2>
@@ -91,7 +94,7 @@ const CommentForm = ({recipe, refreshPage}) => {
 
 CommentForm.propTypes = {
   recipe: PropTypes.string, 
-  refreshPage: PropTypes.func
+  submitReview: PropTypes.func
 }
 
 export default CommentForm;

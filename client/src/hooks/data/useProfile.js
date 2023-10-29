@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
-import { useNavigate } from "react-router";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useAuth } from "../utils";
 import { followUser, getUser, unfollowUser, updateUser } from "../../api/user";
 import { slugifyString } from "../../utils/string";
 
 const useProfile = (slug)=>{
+  const queryClient = useQueryClient();
   const { isAuthenticated, user } = useAuth();
-  const navigate = useNavigate();
   const [ userData, setUserData ] = useState({});
   const [ recipes, setRecipes ] = useState([]);
   const [ isRealProfile, setIsRealProfile ] = useState(false);
@@ -30,16 +29,16 @@ const useProfile = (slug)=>{
       }
     }
   )
-  const updateProfile = (data)=>{
-    updateUser(userData?.slug, data)
-      .then(res=>{
-        navigate("/profiles/"+res.data[0].slug)
-        window.location.reload();
-      })
-      .catch(err=>console.log(err))
-  };
-  const follow = () => followUser(userData?.slug).finally(()=>navigate('/profiles/'+slugifyString(user?.displayName)));
-  const unfollow = () => unfollowUser(userData?.slug).finally(()=>navigate('/profiles/'+slugifyString(user?.displayName))); 
+  const { mutate:updateProfile } = useMutation((data)=>updateUser(slug, data), {
+    onSuccess:()=>queryClient.invalidateQueries({queryKey:['profile', slug]}),
+    onError:(error)=>console.log(error)
+  });
+  const { mutate:follow } = useMutation((slug)=>followUser(slug), {
+    onSuccess:()=>queryClient.invalidateQueries({queryKey:['profile', slug]})
+  });
+  const { mutate:unfollow } = useMutation((slug) => unfollowUser(slug), {
+    onSuccess:()=>queryClient.invalidateQueries({queryKey:['profile', slug]})
+  }); 
   return { 
     userData, recipes, 
     updateProfile, isRealProfile, 

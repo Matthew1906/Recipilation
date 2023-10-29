@@ -22,8 +22,8 @@ const ImageInput = ({p, image, rootProps, inputProps})=>{
 ImageInput.propTypes = {
     p: PropTypes.number, 
     image: PropTypes.object,
-    rootProps: PropTypes.object,
-    inputProps: PropTypes.object,
+    rootProps: PropTypes.func,
+    inputProps: PropTypes.func,
 }
 
 export default ImageInput;

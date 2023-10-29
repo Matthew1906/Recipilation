@@ -9,13 +9,13 @@ import { base64String } from "../../utils/string";
 
 const ProfileForm = ({updateProfile, cancelUpdate, data})=>{
     const { username, dob } = data;
-    const { control, handleSubmit, formState:{errors, submitCount} } = useForm({
+    const { control, handleSubmit, formState:{ errors } } = useForm({
         defaultValues:{
             username:username,
             dob: moment(dob).format('YYYY-MM-DD')
         }
     });
-    const { image, setImage, getRootProps, getInputProps, imageError } = useImage();
+    const { image, setImage, getRootProps, getInputProps } = useImage();
     const submit = (data)=>{
         if(image!==null){
             fetch(image.preview).then(r => {
@@ -24,7 +24,7 @@ const ProfileForm = ({updateProfile, cancelUpdate, data})=>{
                     setImage(null);
                 }))
             });
-        }
+        }        
         else{
             updateProfile({...data, image});
             setImage(null);
@@ -41,10 +41,9 @@ const ProfileForm = ({updateProfile, cancelUpdate, data})=>{
             <ErrorMessage errors={errors} name="dob" render={({ message }) => <p className="mt-2 text-xs text-left text-red">{message}</p>}/>
             <InputLabel className="my-3">Profile Picture</InputLabel>
             <ImageInput image={image} rootProps={getRootProps} inputProps={getInputProps} p={10}/>
-            {submitCount>0 && imageError && <p className="mt-2 text-xs text-left text-red">Must insert image</p>}
             <div className="mt-4 flex justify-between">
                 <Button theme="red" className="text-sm sm:text-md lg:text-xl px-3 md:px-6 lg:px-12" onClick={cancelUpdate}>CANCEL</Button>
-                <Button theme="green" className="text-sm sm:text-md lg:text-xl px-3 md:px-6 lg:px-12">ADD</Button>
+                <Button theme="green" className="text-sm sm:text-md lg:text-xl px-3 md:px-6 lg:px-12">SAVE</Button>
             </div>
         </form>
     );

@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { BsFillBarChartFill, /*BsDownload*/ } from "react-icons/bs";
+import { BsFillBarChartFill } from "react-icons/bs";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { GiMeal } from "react-icons/gi";
@@ -34,7 +34,7 @@ const Recipe = () => {
   saveHistory(slug);
   const {
     categories, recipe, 
-    updateRecipe, deleteRecipe, refreshRecipe,
+    updateRecipe, deleteRecipe,
     similarRecipes, recipesByChef,
     validReviewer, updateReview, deleteReview
   } = useSingleRecipe(slug);
@@ -52,17 +52,6 @@ const Recipe = () => {
             <FaEdit className="ml-1 cursor-pointer link-expand text-lg" onClick={updateRecipe}/>
             </>}
             <ShareModal link={`${process.env.REACT_APP_URL}/recipes/${recipe?.slug}`} title={recipe?.title}/>
-            {/* <BsDownload className="ml-1 cursor-pointer link-expand text-lg" onClick={
-              ()=>downloadRecipe(recipe?.slug).then(res=>{
-                const file = new Blob([res.data], { type: "application/pdf" });
-                const fileURL = URL.createObjectURL(file);
-                const a = document.createElement("a");
-                a.href=fileURL;
-                a.title= `${recipe?.slug}.pdf`;
-                a.target="_blank";
-                a.click();
-              })
-            }/> */}
           </div>
           <a 
             href={('/profiles/'+recipe?.user?.slug)??"#"} 
@@ -141,7 +130,7 @@ const Recipe = () => {
             updateAction={updateReview}/>
         ))}
       </LoadMore>
-      {isAuthenticated && validReviewer && <CommentForm recipe={recipe?.slug} refreshPage={refreshRecipe}/>}
+      {isAuthenticated && validReviewer && <CommentForm recipe={recipe?.slug}/>}
       <LoadMore title="More Like This" id="more-like-this" className="px-10 py-8 bg-light-yellow">
         {similarRecipes.filter(recipe=>recipe.slug!==slug).map((recipe, key) => (
           <RecipeCard recipe={recipe} key={key} />

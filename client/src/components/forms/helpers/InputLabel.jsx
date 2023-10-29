@@ -9,7 +9,7 @@ const InputLabel = ({children, required, className})=>{
 };
 
 InputLabel.propTypes = {
-    children: PropTypes.element,
+    children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     className: PropTypes.string,
     required: PropTypes.bool
 }

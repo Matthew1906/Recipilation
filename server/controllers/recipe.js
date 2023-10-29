@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 import slugify from "slugify";
 import { RecipeCategory, Recipe, User, RecipeEquipment, RecipeStep, Review } from '../models/index.js';
 import { uploadImage } from "../services/imagekit.js";
-import { saveToPDF } from "../services/pdf.js";
 import { intersect, mean } from "../utils.js";
 
 export const getRecipe = async(req, res, next)=>{
     try{
         const slug = req.params.id;
+        
         const recipe = await Recipe.findOne({slug}).
             populate({path:'categories', model:RecipeCategory, select:'name slug -_id'}).
             populate({path:'equipments', model:RecipeEquipment, select:'name image -_id'}).
@@ -253,10 +253,10 @@ export const saveRecipe = async(req, res, next)=>{
     }
 }
 
-export const editRecipe = async(req, res, next)=>{
+export const editRecipe = async(req, res)=>{
     try{
         await Recipe.findOneAndUpdate({_id:res.recipe._id}, {status:2});
-        next();
+        return res.status(200).json({ message: "Success editing recipe!"})
     } catch(err){
         console.log(err);
         return res.status(500).json({ error: "Server error. Please try again" });
@@ -286,17 +286,6 @@ export const deleteRecipe = async(req, res, next)=>{
         });
         await Recipe.deleteOne({_id:res.recipe._id});
         next()
-    } catch(err){
-        console.log(err);
-        return res.status(500).json({ error: "Server error. Please try again" });
-    }
-}
-
-export const downloadRecipe = async(req, res)=>{
-    try{
-        const pdf = await saveToPDF(res.recipe);
-        res.set("Content-Type", "application/pdf");
-        res.send(pdf);
     } catch(err){
         console.log(err);
         return res.status(500).json({ error: "Server error. Please try again" });

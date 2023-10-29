@@ -6,8 +6,7 @@ import {
     searchRecipes, addRatings, getRecipeDraft,
     saveRecipe,
     editRecipe,
-    deleteRecipe,
-    downloadRecipe
+    deleteRecipe
 } from "../controllers/recipe.js";
 import validateUser from "../middlewares/auth.js";
 
@@ -37,7 +36,6 @@ router.get('/:id',
     async(req, res)=>(res.json(res.recipe))
 );
 
-router.get('/:id/download', getRecipe, downloadRecipe);
 
 // Edit recipes
 router.get('/:id/edit', validateUser, getRecipe, editRecipe);

@@ -34,8 +34,6 @@ app.use((_req, res, next) => {
   next();
 });
 
-// await cache.expireAt("history", parseInt((+new Date)/1000) + 86400)
-
 app.get("/", async(req, res)=>{
     res.json({message:"Hello, It's me! I've been wondering if after all these years you would like to meet"})
 })

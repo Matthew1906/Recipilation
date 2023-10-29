@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router";
 import { useAuth } from "../utils";
 import { deleteRecipe, editRecipe, getRecipe, getRecipesByCategories, getRecipesByCreator } from "../../api/recipe";
@@ -12,8 +12,6 @@ const useSingleRecipe = (slug)=>{
   // Utilities
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
-  const [ changes, setChanges ] = useState(false);
-  const updatePage = ()=>setChanges(!changes);
   // Initialize state
   const [ categories, setCategories ] = useState([]);
   const [ similarRecipes, setSimilarRecipes ] = useState([]);
@@ -39,15 +37,25 @@ const useSingleRecipe = (slug)=>{
       }
     }
   )
+  // Mutations
+  const queryClient = useQueryClient();
+  const { mutate: showEditRecipe } = useMutation(()=>editRecipe(slug), {
+    onSuccess:()=>navigate(`/recipes/${slug}/edit`)
+  });
+  const { mutate: removeRecipe } = useMutation(()=>deleteRecipe(slug), {
+    onSuccess:()=>navigate(`/`)
+  });
+  const { mutate: removeReview } = useMutation(()=>deleteReview(slug), {
+    onSuccess:()=>queryClient.invalidateQueries(['recipe', slug])
+  });
   return {
     categories, recipe, 
-    updateRecipe:()=>editRecipe(recipe?.slug).then(navigate(`/recipes/${recipe?.slug}/edit`)), 
-    deleteRecipe:()=>deleteRecipe(recipe?.slug).then(navigate('/')),
-    refreshRecipe: updatePage,
+    updateRecipe: showEditRecipe, 
+    deleteRecipe: removeRecipe,
     similarRecipes, recipesByChef,
     validReviewer,
     updateReview:()=>setValidReviewer(true), 
-    deleteReview:()=>deleteReview(recipe?.slug).then(navigate(`/recipes/${recipe?.slug}`)),
+    deleteReview:removeReview
   }
 }
 

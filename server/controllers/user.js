@@ -125,20 +125,20 @@ export const updateUser = async(req, res, next)=>{
     }
 }
 
-export const followUser = async(req, res, next)=>{
+export const followUser = async(req, res)=>{
     try{
         await User.findOneAndUpdate({slug:req.params.toFollow}, {$push:{followers:req.user.slug}});
-        next();
+        return res.status(200).json({ message: "Successfully follow user!"});
     } catch(err){
         console.log(err);
         return res.status(500).json({ error: "Server error. Please try again" });
     }
 }
 
-export const unfollowUser = async(req, res, next)=>{
+export const unfollowUser = async(req, res)=>{
     try{
         await User.findOneAndUpdate({slug:req.params.toUnfollow}, {$pull:{followers:req.user.slug}});
-        next();
+        return res.status(200).json({ message: "Successfully unfollow user!"})
     } catch(err){
         console.log(err);
         return res.status(500).json({ error: "Server error. Please try again" });
