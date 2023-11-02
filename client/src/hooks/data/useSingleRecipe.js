@@ -20,8 +20,7 @@ const useSingleRecipe = (slug)=>{
   // Fetch recipe data
   const { data: recipe = {} } = useQuery(
     ['recipe', slug], ()=>getRecipe(slug).then(res=>res.data), 
-    { enabled: isAuthenticated,
-      onSuccess: (data)=>{
+    { onSuccess: (data)=>{
         const { categories, user:creator, reviews } = data;
         setCategories(categories.map(category=>({
           name: category.name,
